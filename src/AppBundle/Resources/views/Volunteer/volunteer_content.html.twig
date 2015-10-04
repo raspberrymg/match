@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('volunteer_registration') }}" method="POST" class="form-inline">
+    {{ bootstrap_set_style('form-inline') }}
+    {% include "AppBundle:Person:person_manage.html.twig" %}
+    <fieldset>
+        {{ form_row(form.focuses) }}
+    </fieldset>
+    <fieldset>
+        {{ form_row(form.skills) }}
+    </fieldset>
+    {{ bootstrap_set_style('') }}
+    <div>
+        {{ form_widget(form.save) }}
+    </div>
+</form>

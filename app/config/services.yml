@@ -1,0 +1,17 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    form.type.focus:
+        class: AppBundle\Form\Field\FocusFieldType
+        tags:
+            - { name: form.type, alias: focuses }
+    form.type.skill:
+        class: AppBundle\Form\Field\SkillFieldType
+        tags:
+            - { name: form.type, alias: skills }
