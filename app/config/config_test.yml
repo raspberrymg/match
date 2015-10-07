@@ -4,13 +4,33 @@ imports:
 framework:
     test: ~
     session:
-        storage_id: session.storage.mock_file
+        storage_id: session.storage.filesystem
     profiler:
-        collect: false
+        enabled: true
+        collect: true
 
 web_profiler:
     toolbar: false
     intercept_redirects: false
 
 swiftmailer:
+    logging: true
     disable_delivery: true
+
+doctrine:
+    dbal:
+        default_connection: test
+        connections:
+            test:
+                driver:   pdo_sqlite
+                path:     %kernel.cache_dir%/test.sqlite
+    orm:
+        dql:
+            string_functions:
+                Soundex: AppBundle\DQL\Soundex
+            datetime_functions:
+                month: DoctrineExtensions\Query\Sqlite\Month
+                year: DoctrineExtensions\Query\Sqlite\Year
+                
+liip_functional_test:
+    cache_sqlite_db: true

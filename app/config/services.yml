@@ -11,7 +11,12 @@ services:
         class: AppBundle\Form\Field\FocusFieldType
         tags:
             - { name: form.type, alias: focuses }
+        arguments: 
+            - "@doctrine.orm.entity_manager"
+            
     form.type.skill:
         class: AppBundle\Form\Field\SkillFieldType
         tags:
             - { name: form.type, alias: skills }
+        arguments: 
+            - "@doctrine.orm.entity_manager"

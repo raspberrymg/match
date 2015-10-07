@@ -5,6 +5,7 @@ namespace AppBundle\Form\Field;
 use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of FocusFieldType
@@ -12,6 +13,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @author George
  */
 class FocusFieldType extends AbstractType {
+
+     private $em;
+
+    public function __construct(EntityManager $em)
+{
+    $this->em = $em;
+}
 
     public function getName() {
         return 'focuses';
@@ -22,7 +30,9 @@ class FocusFieldType extends AbstractType {
     }
 
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+//            $this->fociExist()
+            array(
                     'class' => 'AppBundle:Focus',
                     'choice_label' => 'focus',
                     'expanded' => true,
@@ -33,7 +43,21 @@ class FocusFieldType extends AbstractType {
                                 ->orderBy('f.focus', 'ASC')
                                 ->where("f.enabled = '1'")
                                 ->andWhere("f.focus <> 'All'");
-                        }
-                ));
+                        },
+                    'label' => $this->fociExist()
+                )
+                            )
+        ;
+    }
+
+    private function fociExist()
+    {
+        $qb = $this->em->createQuery(
+            "SELECT f FROM AppBundle:Focus f "
+            . "WHERE f.enabled = '1' AND f.focus <> 'All'"
+            )->getResult()
+            ;
+
+        return (empty($qb)) ? 'Sign in as Admin; add focus critieria' : 'Focus criteria';
     }
 }

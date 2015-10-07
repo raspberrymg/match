@@ -1,0 +1,14 @@
+class_name: PopulatedTester
+modules:
+    enabled:
+        - PhpBrowser:
+            url: http://match/app_test.php
+        - \Helper\Populated
+        - Db:
+            dsn: 'sqlite:./app/cache/test/test.sqlite'
+            user: ''
+            password: ''
+            dump: tests/_data/dump.sql
+            populate: true
+            cleanup: false
+            reconnect: true

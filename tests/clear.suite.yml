@@ -1,0 +1,15 @@
+class_name: ClearTester
+modules:
+    enabled:
+        - PhpBrowser:
+            url: http://match/app_test.php
+        - Symfony2
+        - \Helper\Clear
+        - Db:
+            dsn: 'sqlite:./app/cache/test/test.sqlite'
+            user: ''
+            password: ''
+            dump: tests/_data/create.sql
+            populate: true
+            cleanup: true
+            reconnect: true
