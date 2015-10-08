@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    admin_username:     admin
+    admin_password:     aRealPasswordPlease
+    admin_email:        admin@yoursite.com
+    admin_first_name:   ~
+    admin_last_name:    ~

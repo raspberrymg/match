@@ -80,7 +80,7 @@ resetting:
 # Global strings
 layout:
     logout: Logout
-    login: Login
+    login: Sign in
     register: Register
     logged_in_as: Signed in as %username%
 

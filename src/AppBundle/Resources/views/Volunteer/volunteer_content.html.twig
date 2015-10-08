@@ -1,16 +1,25 @@
-{% trans_default_domain 'FOSUserBundle' %}
-
 <form action="{{ path('volunteer_registration') }}" method="POST" class="form-inline">
     {{ bootstrap_set_style('form-inline') }}
+    {% set submit = 1 %}
     {% include "AppBundle:Person:person_manage.html.twig" %}
     <fieldset>
+        {% if form.focuses is empty %}
+            {# do not submit form if focus criteria empty #}
+            {% set submit = 0 %}
+        {% endif %}
         {{ form_row(form.focuses) }}
     </fieldset>
     <fieldset>
+        {% if form.skills is empty %}
+            {# do not submit form if skill criteria empty #}
+            {% set submit = 0 %}
+        {% endif %}
         {{ form_row(form.skills) }}
     </fieldset>
     {{ bootstrap_set_style('') }}
     <div>
-        {{ form_widget(form.save) }}
+        {% if submit == 1 %}
+            {{ form_widget(form.save) }}
+        {% endif %}
     </div>
 </form>

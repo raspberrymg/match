@@ -5,7 +5,7 @@ namespace AppBundle\Form\Field;
 use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\FocusRepository;
 
 /**
  * Description of FocusFieldType
@@ -14,12 +14,12 @@ use Doctrine\ORM\EntityManager;
  */
 class FocusFieldType extends AbstractType {
 
-     private $em;
+    private $repo;
 
-    public function __construct(EntityManager $em)
-{
-    $this->em = $em;
-}
+    public function __construct(FocusRepository $repo)
+    {
+        $this->repo = $repo;
+    }
 
     public function getName() {
         return 'focuses';
@@ -44,20 +44,16 @@ class FocusFieldType extends AbstractType {
                                 ->where("f.enabled = '1'")
                                 ->andWhere("f.focus <> 'All'");
                         },
-                    'label' => $this->fociExist()
+                    'label' => $this->isPopulated()
                 )
                             )
         ;
     }
 
-    private function fociExist()
+    private function isPopulated()
     {
-        $qb = $this->em->createQuery(
-            "SELECT f FROM AppBundle:Focus f "
-            . "WHERE f.enabled = '1' AND f.focus <> 'All'"
-            )->getResult()
-            ;
+        $populated = $this->repo->isFocusPopulated();
 
-        return (empty($qb)) ? 'Sign in as Admin; add focus critieria' : 'Focus criteria';
+        return ("0" === $populated) ? 'Sign in as Admin; add focus critieria' : 'Focus criteria';
     }
 }

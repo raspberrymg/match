@@ -30,4 +30,12 @@ class FocusRepository extends EntityRepository
                 . "WHERE f.focus <> 'All' "
                 . "order by f.focus asc")->getResult();
     }
+
+    public function isFocusPopulated()
+    {
+        $em  = $this->getEntityManager();
+        return $em->createQuery("select count(f) from AppBundle:Focus f "
+            . "WHERE f.enabled = '1'")
+            ->getSingleScalarResult();
+    }
 }

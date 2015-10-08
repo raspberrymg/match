@@ -38,7 +38,8 @@
         "braincrafted/bootstrap-bundle": "2.1.*",
         "oyejorge/less.php": "~1.5",
         "twbs/bootstrap": "3.0.*",
-        "jquery/jquery": "~1.1"
+        "jquery/jquery": "~1.1",
+        "doctrine/doctrine-migrations-bundle": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -56,7 +57,10 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install",
+            "AppBundle\\Composer\\ScriptHandler::createDb",
+            "AppBundle\\Composer\\ScriptHandler::populateDb",
+            "AppBundle\\Composer\\ScriptHandler::createAdmin"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

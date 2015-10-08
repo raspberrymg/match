@@ -8,17 +8,16 @@
  * file that was distributed with this source code.
  */
 
-//srcsrc\AppBundle\Form\PersonType
+//src\AppBundle\Form\PersonType
 
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\RegistrationType as BaseType;
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
 /**
  * Description of PersonType
- * for adding staff by admin user
  *
  * @author George
  */
@@ -52,13 +51,6 @@ class PersonType extends BaseType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-                )
-            ))
-            ->add('save', 'submit',
-                array(
-                'label' => 'Save',
-                'attr' => array(
-                    'class' => 'btn-xs',
                 )
             ))
             ->add('email', 'email',
@@ -111,23 +103,16 @@ class PersonType extends BaseType
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Person',
+            'data_class' => $this->class,
             'intention' => 'registration',
-            'required' => false,
         ));
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
-        return 'person_registration';
+        return 'registration';
     }
 }

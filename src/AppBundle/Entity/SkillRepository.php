@@ -30,4 +30,12 @@ class SkillRepository extends EntityRepository
                 . "WHERE s.skill <> 'All' "
                 . "order by s.skill asc")->getResult();
     }
+
+    public function isSkillPopulated()
+    {
+        $em  = $this->getEntityManager();
+        return $em->createQuery("select count(s) from AppBundle:Skill s "
+            . "WHERE s.enabled = '1'")
+            ->getSingleScalarResult();
+    }
 }

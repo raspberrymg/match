@@ -1,5 +1,3 @@
-{% trans_default_domain 'FOSUserBundle' %}
-
 <form action="{{ path('staff_registration') }}" method="POST" class="form-inline">
     {%if form._token is defined %}{{ form_widget(form._token) }}{% endif %}
     {{ bootstrap_set_style('form-inline') }}
@@ -9,11 +7,18 @@
     {% set staff = form %}
     {% set form = form.organization %}
     <div id="orgForm">
+        {% set submit = 1 %}
         {% include "AppBundle:Organization:orgForm.html.twig" %}
+        {% if form.focuses is empty %}
+            {# do not submit form if focus criteria empty #}
+        {% set submit = 0 %}
+        {% endif %}
         <div>
             {{ bootstrap_set_style('') }}
             {% set form = staff %}
-            {{ form_widget(form.save) }}
+            {% if submit == 1 %}
+                {{ form_widget(form.save) }}
+            {% endif %}
         </div>
     </div>
 </form>

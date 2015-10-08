@@ -5,7 +5,7 @@ namespace AppBundle\Form\Field;
 use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\SkillRepository;
 
 /**
  * Description of SkillType
@@ -15,12 +15,13 @@ use Doctrine\ORM\EntityManager;
 class SkillFieldType extends AbstractType
 {
 
-     private $em;
 
-    public function __construct(EntityManager $em)
-{
-    $this->em = $em;
-}
+    private $repo;
+
+    public function __construct(SkillRepository $repo)
+    {
+        $this->repo = $repo;
+    }
 
     public function getName()
     {
@@ -47,18 +48,14 @@ class SkillFieldType extends AbstractType
                     ->andWhere("s.skill <> 'All'");
         }
             ,
-            'label' => $this->skillsExist()
+            'label' => $this->isPopulated()
         ));
     }
 
-    private function skillsExist()
+    private function isPopulated()
     {
-        $qb = $this->em->createQuery(
-                "SELECT s FROM AppBundle:Skill s "
-                ."WHERE s.enabled = '1' AND s.skill <> 'All'"
-            )->getResult()
-        ;
+        $populated = $this->repo->isSkillPopulated();
 
-        return (empty($qb)) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
+        return ("0" === $populated) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
     }
 }

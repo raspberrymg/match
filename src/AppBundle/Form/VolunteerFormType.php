@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -25,11 +24,12 @@ class VolunteerFormType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-                ->add('skills', 'skills')
-                ->add('focuses', 'focuses')
-                ->add('receiveEmail', 'checkbox', [
-                    'label' => 'Check to receive e-mail, uncheck to stop',
-                ])
+            ->add('skills', 'skills')
+            ->add('focuses', 'focuses')
+            ->add('receiveEmail', 'checkbox',
+                [
+                'label' => 'Check to receive e-mail, uncheck to stop',
+            ])
         ;
     }
 
