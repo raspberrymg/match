@@ -131,8 +131,3 @@ pugx_multi_user:
           form: 
             type: AppBundle\Form\ProfileFormType
 
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: app\Migrations
-    table_name: migration_versions
-    name: Application Migrations

@@ -31,7 +31,6 @@ class FocusFieldType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
-//            $this->fociExist()
             array(
                     'class' => 'AppBundle:Focus',
                     'choice_label' => 'focus',

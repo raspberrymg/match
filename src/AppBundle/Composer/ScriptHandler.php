@@ -55,7 +55,7 @@ class ScriptHandler
         }
 
         static::executeCommand($event, $consoleDir,
-            'doctrine:migrations:execute --up 20151008111109 -n');
+            'doctrine:schema:create');
     }
 
     public static function createAdmin(CommandEvent $event)

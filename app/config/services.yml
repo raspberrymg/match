@@ -23,7 +23,7 @@ services:
         class: Doctrine\ORM\EntityRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
-        arguments:
+        arguments: 
             - AppBundle\Entity\Focus
             
     app.skill_repository:

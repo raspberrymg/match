@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -22,20 +21,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class FocusRepository extends EntityRepository
 {
-    
+
     public function getFocusesNoAll()
     {
-        $em  = $this->getEntityManager();
+        $em = $this->getEntityManager();
         return $em->createQuery("select f from AppBundle:Focus f "
-                . "WHERE f.focus <> 'All' "
-                . "order by f.focus asc")->getResult();
+                ."WHERE f.focus <> 'All' "
+                ."order by f.focus asc")->getResult();
     }
 
     public function isFocusPopulated()
     {
-        $em  = $this->getEntityManager();
+        $em = $this->getEntityManager();
         return $em->createQuery("select count(f) from AppBundle:Focus f "
-            . "WHERE f.enabled = '1'")
-            ->getSingleScalarResult();
+                    ."WHERE f.enabled = '1'")
+                ->getSingleScalarResult();
     }
 }

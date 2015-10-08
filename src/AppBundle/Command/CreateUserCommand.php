@@ -83,7 +83,7 @@ EOT
         $manipulator->setType($type);
         $manipulator->setFirstname($firstname);
         $manipulator->setLastname($lastname);
-        $manipulator->create($username, $password, $email, !$inactive, $superadmin);
+        $manipulator->create($username, $password, $email, true, true);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }

@@ -19,7 +19,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     admin_username:     admin
-    admin_password:     aRealPasswordPlease
-    admin_email:        admin@yoursite.com
+    admin_password:     ARealPassword
+    admin_email:        admin@example.com
     admin_first_name:   ~
     admin_last_name:    ~
+

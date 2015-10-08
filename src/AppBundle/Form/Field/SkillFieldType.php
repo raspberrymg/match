@@ -15,7 +15,6 @@ use AppBundle\Entity\SkillRepository;
 class SkillFieldType extends AbstractType
 {
 
-
     private $repo;
 
     public function __construct(SkillRepository $repo)
