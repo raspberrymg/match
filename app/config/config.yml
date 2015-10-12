@@ -88,7 +88,11 @@ fos_user:
     firewall_name: main
     service:
         user_manager: pugx_user_manager
-        
+        mailer: @fos_user.mailer.twig_swift
+    registration:
+        confirmation:
+            enabled: true
+            
 braincrafted_bootstrap:
     less_filter: lessphp
 
