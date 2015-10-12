@@ -1,0 +1,11 @@
+{% block subject %}Registration confirmation{% endblock %}
+
+{% block body_html %}
+Hello <b>{{ user.firstName }} {{ user.lastName }}</b>!
+
+Please confirm by visiting <a href="{{ confirmationUrl }}">this link</a>.
+
+Thank you.
+
+The Team
+{% endblock %}

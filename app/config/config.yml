@@ -88,10 +88,14 @@ fos_user:
     firewall_name: main
     service:
         user_manager: pugx_user_manager
-        mailer: @fos_user.mailer.twig_swift
+        mailer: fos_user.mailer.twig_swift
     registration:
         confirmation:
             enabled: true
+            template: Email\registration.email.html.twig
+    from_email:
+        address:        admin@bogus.info
+        sender_name:    Match Maker
             
 braincrafted_bootstrap:
     less_filter: lessphp
