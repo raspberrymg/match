@@ -49,7 +49,6 @@ services:
         class: AppBundle\Tools\AdminMailer
         arguments:
             - '@mailer'
-#            - '@router'
             - '@twig'
             - %admin_email%
             - '@doctrine.orm.entity_manager'

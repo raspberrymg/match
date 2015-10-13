@@ -23,17 +23,14 @@ use Doctrine\ORM\EntityManager;
 class AdminMailer
 {
     protected $mailer;
-//    protected $router;
     protected $twig;
     protected $address;
+    protected $em;
 
-//    protected $em;
-//
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig,
                                 $address, EntityManager $em)
     {
         $this->mailer  = $mailer;
-//        $this->router = $router;
         $this->twig    = $twig;
         $this->address = $address;
         $this->em      = $em;
@@ -77,7 +74,8 @@ class AdminMailer
     {
         $recipientCount = 0;
         foreach ($expiring as $opp) {
-            $addressee = $this->getAddressee($opp['user']);
+            $user = $opp['user'];
+            $addressee = $user->getEmail();
             $message   = \Swift_Message::newInstance()
                 ->setSubject('Expiring opportunities')
                 ->setFrom($this->address)
@@ -132,7 +130,7 @@ class AdminMailer
     {
         $recipient = [];
         foreach ($to as $user) {
-            $recipient[] = $this->getAddressee($user);
+            $recipient[] = $user->getEmail();
         }
         $cc = $this->adminRecipients();
         if (!empty($recipient)) {
@@ -165,7 +163,7 @@ class AdminMailer
     {
         $recipient = [];
         foreach ($to as $user) {
-            $recipient[] = $this->getAddressee($user);
+            $recipient[] = $user->getEmail();
         }
         if (!empty($recipient)) {
             $message        = \Swift_Message::newInstance()
@@ -192,16 +190,6 @@ class AdminMailer
             return $recipientCount;
         } else {
             return 0;
-        }
-    }
-
-    public function getAddressee($user)
-    {
-        $sandbox = $this->parameters['sandbox'];
-        if ($sandbox) {
-            return $this->parameters;
-        } else {
-            return $user->getEmail();
         }
     }
 
@@ -266,7 +254,7 @@ class AdminMailer
             $body         = $message->getBody();
             $adminMessage = \Swift_Message::newInstance()
                 ->setSubject('E-blast results')
-                ->setFrom($this->parameters)
+                ->setFrom($this->address)
                 ->setTo($this->adminRecipients())
                 ->setContentType('text/html')
                 ->setBody(
