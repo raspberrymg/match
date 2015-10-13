@@ -57,18 +57,26 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em       = $this->getContainer()->get('doctrine')->getManager();
-        $username = $this->getContainer()->getParameter('admin_username');
+        $em        = $this->getContainer()->get('doctrine')->getManager();
+        $username  = $this->getContainer()->getParameter('admin_username');
+        $firstname = $this->getContainer()->getParameter('admin_first_name');
+        $lastname  = $this->getContainer()->getParameter('admin_last_name');
+        $email     = $this->getContainer()->getParameter('admin_email');
+        $password  = $this->getContainer()->getParameter('admin_password');
+
+        if (null === $username ||
+            null === $firstname ||
+            null === $lastname ||
+            null === $email ||
+            null === $password) {
+                $output->writeln(sprintf('Insufficient data in parameters.yml for creating admin user'));
+            return;
+        }
 
         $admin = $em->getRepository('AppBundle:Person')->findOneBy(['username' => $username]);
 
         if (empty($admin)) {
-            $firstname = $this->getContainer()->getParameter('admin_first_name');
-            $lastname  = $this->getContainer()->getParameter('admin_last_name');
-            $email     = $this->getContainer()->getParameter('admin_email');
-            $password  = $this->getContainer()->getParameter('admin_password');
-            $type      = 'admin';
-
+            $type = 'admin';
             $manipulator = $this->getContainer()->get('app.tools.user_manipulator');
             $manipulator->setType($type);
             $manipulator->setFirstname($firstname);

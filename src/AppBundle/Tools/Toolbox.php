@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//src/Truckee/VolunteerBundle/Tools/Toolbox.php
+//src/AppBundle/Tools/Toolbox.php
 
 namespace AppBundle\Tools;
 
@@ -57,7 +57,7 @@ class Toolbox
 
         if (array_key_exists('organization', $data) && '' <> $data['organization']['organization']) {
             $orgId = $data['organization']['organization'];
-            $organization = $this->em->getRepository("TruckeeVolunteerBundle:Organization")->find($orgId);
+            $organization = $this->em->getRepository("AppBundle:Organization")->find($orgId);
             $search->setOrganization($organization);
         }
         if (array_key_exists('opportunity', $data)) {
@@ -67,14 +67,14 @@ class Toolbox
         if (array_key_exists('focuses', $data)) {
             foreach ($data['focuses'] as $focusId) {
                 $searchClone = clone $search;
-                $focus = $this->em->getRepository("TruckeeVolunteerBundle:Focus")->find($focusId);
+                $focus = $this->em->getRepository("AppBundle:Focus")->find($focusId);
                 $searchClone->setFocus($focus);
                 $this->em->persist($searchClone);
             }
         }
         if (array_key_exists('skills', $data)) {
             foreach ($data['skills'] as $skillId) {
-                $skill = $this->em->getRepository("TruckeeVolunteerBundle:Skill")->find($skillId);
+                $skill = $this->em->getRepository("AppBundle:Skill")->find($skillId);
                 $searchClone = clone $search;
                 $searchClone->setSkill($skill);
                 $searchClone->setType($searched);
@@ -93,21 +93,21 @@ class Toolbox
         $fociUsage['opportunity'] = $skillsUsage['opportunity'] = array();
         $fociUsage['volunteer'] = $skillsUsage['volunteer'] = array();
 
-        $focuses = $this->em->getRepository("TruckeeVolunteerBundle:Focus")->findAll();
+        $focuses = $this->em->getRepository("AppBundle:Focus")->findAll();
         foreach ($focuses as $focus) {
             $id = $focus->getId();
-            $searchOpps = $this->em->getRepository("TruckeeVolunteerBundle:Search")->findBy(['focus' => $focus, 'type' => 'opportunity']);
+            $searchOpps = $this->em->getRepository("AppBundle:Search")->findBy(['focus' => $focus, 'type' => 'opportunity']);
             $fociUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols = $this->em->getRepository("TruckeeVolunteerBundle:Search")->findBy(['focus' => $focus, 'type' => 'volunteer']);
+            $searchVols = $this->em->getRepository("AppBundle:Search")->findBy(['focus' => $focus, 'type' => 'volunteer']);
             $fociUsage['volunteer'][$id] = count($searchVols);
         }
 
-        $skills = $this->em->getRepository("TruckeeVolunteerBundle:Skill")->findAll();
+        $skills = $this->em->getRepository("AppBundle:Skill")->findAll();
         foreach ($skills as $skill) {
             $id = $skill->getId();
-            $searchOpps = $this->em->getRepository("TruckeeVolunteerBundle:Search")->findBy(['skill' => $skill, 'type' => 'opportunity']);
+            $searchOpps = $this->em->getRepository("AppBundle:Search")->findBy(['skill' => $skill, 'type' => 'opportunity']);
             $skillsUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols = $this->em->getRepository("TruckeeVolunteerBundle:Search")->findBy(['skill' => $skill, 'type' => 'volunteer']);
+            $searchVols = $this->em->getRepository("AppBundle:Search")->findBy(['skill' => $skill, 'type' => 'volunteer']);
             $skillsUsage['volunteer'][$id] = count($searchVols);
         }
         return array('fociUsage' => $fociUsage,
@@ -118,7 +118,7 @@ class Toolbox
     public function getOrgNames($name)
     {
         $query = $this->em->createQuery("
-            SELECT o.id, o.orgName FROM TruckeeVolunteerBundle:Organization o 
+            SELECT o.id, o.orgName FROM AppBundle:Organization o
             WHERE soundex(o.orgName) LIKE soundex('$name')  AND 
                 o.temp = '0'
             ");
@@ -135,7 +135,7 @@ class Toolbox
     {
         //first, get orgs where temp is true
         $newOrgs = $this->em->createQuery(
-                        "SELECT o FROM TruckeeVolunteerBundle:Organization o "
+                        "SELECT o FROM AppBundle:Organization o "
                         . " WHERE o.temp = '1'")->getResult();
         $incoming = [];
         foreach ($newOrgs as $key => $org) {
