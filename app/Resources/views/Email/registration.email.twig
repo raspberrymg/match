@@ -1,0 +1,16 @@
+{% block subject %}Registration confirmation{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.firstName }} {{ user.lastName }} !
+
+Please confirm your registration by visiting {{ confirmationUrl }}
+
+Thank you,
+The Team
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% include 'Email/registration.html.twig' %}
+{% endblock %}

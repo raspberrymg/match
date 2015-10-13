@@ -65,3 +65,9 @@ services:
             tools: @app.toolbox
         tags:
             - { name: kernel.event_subscriber }
+
+    app.twig_extension.user_type:
+        class:      AppBundle\Tools\UserTypeExtension
+        arguments:  [@security.context, @app.toolbox]
+        tags:
+            - { name: twig.extension}

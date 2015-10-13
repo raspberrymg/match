@@ -6,8 +6,11 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    <body>{% set type = app.user|userType %}
+        {% block body %}
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        {% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
 </html>
