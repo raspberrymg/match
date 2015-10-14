@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}        
+    <p>Admin home page</p>
+    {{ expire }}
+    <div class="row">
+        <div class="col-md-6">
+            {#{% include "AppBundle:Admin:expiringOpps.html.twig" %}#}
+            {#{% include "AppBundle:Admin:sentOpps.html.twig" %}#}
+            {#{% include "AppBundle:Admin:noemails.html.twig" %}#}
+        </div>
+        <div class="col-md-6">
+            {#{% include "AppBundle:Admin:newOrgs.html.twig" %}#}
+        </div>
+    </div>
+{% endblock %}

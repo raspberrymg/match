@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form action=""  method="POST"  class="form-inline">
+        {{ form_widget(form._token) }}
+        {% if edit is defined %}
+            {{ form_row(form.receiveEmail) }}
+        {% endif %}
+        {#        #}
+        {% include "TruckeeMatchBundleVolunteer:volunteer_content.html.twig" %}
+    </form>
+{% endblock %}

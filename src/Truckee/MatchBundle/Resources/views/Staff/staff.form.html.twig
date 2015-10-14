@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h4 onclick="orghelp();" title="Click for help">{{label_info('Staff Registration Form <span class="glyphicon glyphicon-question-sign"></span>') }}</h4>
+    <div id="dialog"><style>.ui-dialog-titlebar-close {
+                display: none;
+            }</style></div>    
+            {% block fos_user_content %}
+                {% include 'TruckeeMatchBundle:Staff:staff_content.html.twig' %}
+            {% endblock fos_user_content %}
+        {% endblock %}

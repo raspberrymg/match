@@ -8,4 +8,4 @@ Once you are able to see the page with __Welcome to Symfony...__ at _http://{you
 
     $ php app/console doctrine:database:create
     $ php app/console doctrine:schema:create
-    $ php app/console app:admin:create
+    $ php app/console match:admin:create

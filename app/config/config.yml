@@ -40,7 +40,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AppBundle ]
+    bundles:        [ TruckeeMatchBundle ]
     #java: /usr/bin/java
     filters:
         lessphp:
@@ -84,7 +84,7 @@ swiftmailer:
     
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    user_class: AppBundle\Entity\Person
+    user_class: Truckee\MatchBundle\Entity\Person
     firewall_name: main
     service:
         user_manager: pugx_user_manager
@@ -107,37 +107,39 @@ pugx_multi_user:
   users:
     staff:
         entity: 
-          class: AppBundle\Entity\Staff
+          class: Truckee\MatchBundle\Entity\Staff
         registration:
           form: 
-            type: AppBundle\Form\StaffFormType
+            type: Truckee\MatchBundle\Form\StaffFormType
             name: staff_registration
             validation_groups:  [Registration, Default]
-          template: AppBundle:Staff:staff.form.html.twig
+          template: Truckee\MatchBundle:Staff:staff.form.html.twig
         profile:
           form:
-            type: AppBundle\Form\ProfileFormType
+            type: Truckee\MatchBundle\Form\ProfileFormType
             name: staff_profile_form
             validation_groups:  [Profile, Default]
     volunteer:
         entity: 
-          class: AppBundle\Entity\Volunteer
+          class: Truckee\MatchBundle\Entity\Volunteer
         registration:
           form: 
-            type: AppBundle\Form\VolunteerFormType
-          template: AppBundle:Volunteer:volunteer.form.html.twig
+            type: Truckee\MatchBundle\Form\VolunteerFormType
+          template: Truckee\MatchBundle:Volunteer:volunteer.form.html.twig
         profile:
           form: 
-            type: AppBundle\Form\ProfileFormType
+            type: Truckee\MatchBundle\Form\ProfileFormType
     admin:
         entity: 
-          class: AppBundle\Entity\Admin
+          class: Truckee\MatchBundle\Entity\Admin
         registration:
           form: 
-            type: AppBundle\Form\PersonType
+            type: Truckee\MatchBundle\Form\PersonType
             validation_groups:  [Registration, Default]
-          template: AppBundle:Admin:add.html.twig
+          template: Truckee\MatchBundle:Admin:add.html.twig
         profile:
           form: 
-            type: AppBundle\Form\ProfileFormType
+            type: Truckee\MatchBundle\Form\ProfileFormType
 
+truckee_match:
+    expiring_alerts: true

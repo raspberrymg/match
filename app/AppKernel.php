@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-            new AppBundle\AppBundle(),
+            new Truckee\MatchBundle\TruckeeMatchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

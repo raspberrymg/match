@@ -1,0 +1,24 @@
+<form action="{{ path('staff_registration') }}" method="POST" class="form-inline">
+    {%if form._token is defined %}{{ form_widget(form._token) }}{% endif %}
+    {{ bootstrap_set_style('form-inline') }}
+    {% include "TruckeeMatchBundlePerson:person_manage.html.twig" %}
+    <p><strong>Organization</strong></p>
+    <div id="orgNotice"></div>
+    {% set staff = form %}
+    {% set form = form.organization %}
+    <div id="orgForm">
+        {% set submit = 1 %}
+        {% include "TruckeeMatchBundleOrganization:orgForm.html.twig" %}
+        {% if form.focuses is empty %}
+            {# do not submit form if focus criteria empty #}
+        {% set submit = 0 %}
+        {% endif %}
+        <div>
+            {{ bootstrap_set_style('') }}
+            {% set form = staff %}
+            {% if submit == 1 %}
+                {{ form_widget(form.save) }}
+            {% endif %}
+        </div>
+    </div>
+</form>

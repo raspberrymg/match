@@ -21,6 +21,7 @@ security:
                 failure_path:    /login
                 failure_forward: true
                 default_target_path: /
+                always_use_default_target_path: true
             logout:       true
             anonymous:    ~
             
@@ -31,3 +32,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }  
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }  
