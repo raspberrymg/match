@@ -57,7 +57,7 @@ class Toolbox
 
         if (array_key_exists('organization', $data) && '' <> $data['organization']['organization']) {
             $orgId = $data['organization']['organization'];
-            $organization = $this->em->getRepository("TruckeeMatchBundleOrganization")->find($orgId);
+            $organization = $this->em->getRepository("TruckeeMatchBundle:Organization")->find($orgId);
             $search->setOrganization($organization);
         }
         if (array_key_exists('opportunity', $data)) {
@@ -67,14 +67,14 @@ class Toolbox
         if (array_key_exists('focuses', $data)) {
             foreach ($data['focuses'] as $focusId) {
                 $searchClone = clone $search;
-                $focus = $this->em->getRepository("TruckeeMatchBundleFocus")->find($focusId);
+                $focus = $this->em->getRepository("TruckeeMatchBundle:Focus")->find($focusId);
                 $searchClone->setFocus($focus);
                 $this->em->persist($searchClone);
             }
         }
         if (array_key_exists('skills', $data)) {
             foreach ($data['skills'] as $skillId) {
-                $skill = $this->em->getRepository("TruckeeMatchBundleSkill")->find($skillId);
+                $skill = $this->em->getRepository("TruckeeMatchBundle:Skill")->find($skillId);
                 $searchClone = clone $search;
                 $searchClone->setSkill($skill);
                 $searchClone->setType($searched);
@@ -93,21 +93,21 @@ class Toolbox
         $fociUsage['opportunity'] = $skillsUsage['opportunity'] = array();
         $fociUsage['volunteer'] = $skillsUsage['volunteer'] = array();
 
-        $focuses = $this->em->getRepository("TruckeeMatchBundleFocus")->findAll();
+        $focuses = $this->em->getRepository("TruckeeMatchBundle:Focus")->findAll();
         foreach ($focuses as $focus) {
             $id = $focus->getId();
-            $searchOpps = $this->em->getRepository("TruckeeMatchBundleSearch")->findBy(['focus' => $focus, 'type' => 'opportunity']);
+            $searchOpps = $this->em->getRepository("TruckeeMatchBundle:Search")->findBy(['focus' => $focus, 'type' => 'opportunity']);
             $fociUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols = $this->em->getRepository("TruckeeMatchBundleSearch")->findBy(['focus' => $focus, 'type' => 'volunteer']);
+            $searchVols = $this->em->getRepository("TruckeeMatchBundle:Search")->findBy(['focus' => $focus, 'type' => 'volunteer']);
             $fociUsage['volunteer'][$id] = count($searchVols);
         }
 
-        $skills = $this->em->getRepository("TruckeeMatchBundleSkill")->findAll();
+        $skills = $this->em->getRepository("TruckeeMatchBundle:Skill")->findAll();
         foreach ($skills as $skill) {
             $id = $skill->getId();
-            $searchOpps = $this->em->getRepository("TruckeeMatchBundleSearch")->findBy(['skill' => $skill, 'type' => 'opportunity']);
+            $searchOpps = $this->em->getRepository("TruckeeMatchBundle:Search")->findBy(['skill' => $skill, 'type' => 'opportunity']);
             $skillsUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols = $this->em->getRepository("TruckeeMatchBundleSearch")->findBy(['skill' => $skill, 'type' => 'volunteer']);
+            $searchVols = $this->em->getRepository("TruckeeMatchBundle:Search")->findBy(['skill' => $skill, 'type' => 'volunteer']);
             $skillsUsage['volunteer'][$id] = count($searchVols);
         }
         return array('fociUsage' => $fociUsage,

@@ -1,0 +1,8 @@
+{% for opp in opps %}
+    <ul class="list-unstyled">
+        <li><b>Organization:</b> {{ opp.organization.orgName }}</li>
+        <li><b>Opportunity:</b> {{ opp.oppName }}</li>
+        <li><b>Expires:</b> {{ opp.expireDate|date('m/d/Y') }}</li>
+        <li><b>Description:</b> {{ opp.description }}</li>
+    </ul>
+{% endfor %}

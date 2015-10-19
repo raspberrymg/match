@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}        
-    <p>Admin home page</p>
-    {{ expire }}
+    <p>{{ title }}</p>
     <div class="row">
+    {% for template in templates %}
         <div class="col-md-6">
-            {#{% include "AppBundle:Admin:expiringOpps.html.twig" %}#}
+        {% include template %}
             {#{% include "AppBundle:Admin:sentOpps.html.twig" %}#}
             {#{% include "AppBundle:Admin:noemails.html.twig" %}#}
         </div>
+        {% endfor %}<br>
         <div class="col-md-6">
             {#{% include "AppBundle:Admin:newOrgs.html.twig" %}#}
         </div>

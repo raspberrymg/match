@@ -71,7 +71,7 @@ class LoadStaffUserMelanzane extends AbstractFixture implements  ContainerAwareI
         $org->setWebsite('www.melanzanemarmots.org');
         $org->setEmail('jmelanzane@bogus.info');
         $org->setTemp(true);
-        $foc1 = $manager->getRepository("TruckeeMatchBundleFocus")->findOneByFocus('Seniors');
+        $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Seniors');
         $org->addFocus($foc1);
         $manager->persist($org);
         $staff->setOrganization($org);

@@ -68,6 +68,6 @@ services:
 
     truckee_match.twig_extension.user_type:
         class:      Truckee\MatchBundle\Tools\UserTypeExtension
-        arguments:  [@security.context, @truckee_match.toolbox]
+        arguments:  [@security.token_storage, @truckee_match.toolbox]
         tags:
             - { name: twig.extension}

@@ -1,0 +1,5 @@
+{% if options.sent|length > 0 %}
+    {% set opps = options.sent %}
+    {{ label_success("Expiration alerts sent to:") }}
+    {% include "Admin/expiringOpps_content.html.twig" %}
+{% endif %}

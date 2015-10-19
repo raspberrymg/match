@@ -47,8 +47,8 @@ class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $manager->clear();
-        $org = $manager->getRepository("TruckeeMatchBundleOrganization")->findOneBy(array('orgName' => "Glenshire Marmot Fund"));
-        $skill = $manager->getRepository("TruckeeMatchBundleSkill")->findOneBy(array('skill' => "Administrative Support"));
+        $org = $manager->getRepository("TruckeeMatchBundle:Organization")->findOneBy(array('orgName' => "Glenshire Marmot Fund"));
+        $skill = $manager->getRepository("TruckeeMatchBundle:Skill")->findOneBy(array('skill' => "Administrative Support"));
         $opp = new Opportunity();
         $opp->setOppName('Feeder');
         $opp->setDescription("Make sure the critters don't go hungry");

@@ -31,20 +31,6 @@ class TruckeeMatchExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $this->updateContainerParameters($container, $config);
-
-        $finder = new \Symfony\Component\Finder\Finder();
-        $finder
-            ->directories()
-            ->in($container->getParameter('kernel.root_dir') . '/../src/*/*Bundle/Resources')
-            ->path('config');
-
-        $possibleLocations = array();
-        foreach ($finder as $c_dir) {
-            $possibleLocations[] = $c_dir->getPathName();
-        }
-
-//        $loader = new YamlFileLoader($container, new FileLocator($possibleLocations));
-//        $loader->load('truckee.yml');        // ... you'll load the files here later
     }
 
     protected function updateContainerParameters(ContainerBuilder $container, array $config)

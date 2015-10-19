@@ -13,7 +13,8 @@
 
 namespace Truckee\MatchBundle\Tools;
 
-use Symfony\Component\Security\Core\SecurityContext;
+//use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Creates Twig "filter" to allow use of user type (as defined in Person entity)
@@ -23,17 +24,17 @@ use Symfony\Component\Security\Core\SecurityContext;
 class UserTypeExtension extends \Twig_Extension
 {
 
-    private $context;
+    private $token;
 
-    public function __construct(SecurityContext $context, $tools)
+    public function __construct(TokenStorage $token, $tools)
     {
-        $this->context = $context;
+        $this->token = $token;
         $this->tools = $tools;
     }
 
     private function getUser()
     {
-        $user = (is_object($this->context->getToken())) ? $this->context->getToken()->getUser() : 'anon.';
+        $user = (is_object($this->token->getToken())) ? $this->token->getToken()->getUser() : 'anon.';
         return $user;
     }
 

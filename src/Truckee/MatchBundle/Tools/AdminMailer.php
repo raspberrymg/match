@@ -70,11 +70,13 @@ class AdminMailer
      * Send organization alert on expiring opportunities
      * called by AdminController::expiringAlertsAction()
      */
-    public function sendExpiringAlerts($expiring)
+    public function sendExpiringAlerts($opportunities)
     {
+        $expiringOppData = $this->getExpiringOpportunityData($opportunities);
+
         $recipientCount = 0;
-        foreach ($expiring as $opp) {
-            $user = $opp['user'];
+        foreach ($expiringOppData['expiring'] as $opp) {
+            $user      = $opp['user'];
             $addressee = $user->getEmail();
             $message   = \Swift_Message::newInstance()
                 ->setSubject('Expiring opportunities')
@@ -84,7 +86,7 @@ class AdminMailer
                 ->setContentType('text/html')
                 ->setBody(
                 $this->twig->render(
-                    'expiring_opp',
+                    'Admin/expiringOppEmail.html.twig',
                     array(
                     'expiring' => $opp,
                     ), 'text/html'
@@ -95,7 +97,27 @@ class AdminMailer
             $recipientCount ++;
         }
 
-        return $recipientCount;
+        //populate admin_outbox
+        $recipientArray = [];
+        foreach ($expiringOppData['expiring'] as $key => $value) {
+            $recipientId = $key;
+            foreach ($value['oppData'] as $opp) {
+                $recipientArray['function']    = 'expiringAlertsAction';
+                $recipientArray['messageType'] = 'to';
+                $recipientArray['oppId']       = $opp['oppId'];
+                $recipientArray['orgId']       = $opp['orgId'];
+                $recipientArray['id']          = $recipientId;
+                $recipientArray['userType']    = 'staff';
+            }
+            $this->populateAdminOutbox($recipientArray);
+        }
+
+
+        return [
+            'nOrgs'         => $expiringOppData['stats']['nOrgs'],
+            'nOpps'         => $expiringOppData['stats']['nOpps'],
+            'nRecipients' => $recipientCount,
+        ];
     }
 
     /**
@@ -174,7 +196,7 @@ class AdminMailer
                 ->setContentType('text/html')
                 ->setBody(
                 $this->twig->render(
-                    "TruckeeMatchBundleDefault:onlineOppEmailContent.html.twig",
+                    "TruckeeMatchBundle:Default:onlineOppEmailContent.html.twig",
                     array(
                     'content' => $content,
                     'recipient' => $recipient,
@@ -196,7 +218,7 @@ class AdminMailer
     private function adminRecipients()
     {
         $em         = $this->em;
-        $admins     = $em->getRepository("TruckeeMatchBundleAdmin")->findBy(['locked' => false]);
+        $admins     = $em->getRepository("TruckeeMatchBundle:Admin")->findBy(['locked' => false]);
         $adminEmail = [];
         foreach ($admins as $admin) {
             $email        = $admin->getEmail();
@@ -267,5 +289,41 @@ class AdminMailer
 
             return;
         }
+    }
+
+    private function getExpiringOpportunityData($opportunities)
+    {
+        $nOpps    = count($opportunities);
+        $expiring = [];
+        $nOrgs    = 0;
+        $org      = '';
+        foreach ($opportunities as $opp) {
+            if ($org <> $opp->getOrganization()) {
+                $org = $opp->getOrganization();
+                $nOrgs++;
+            }
+            foreach ($org->getStaff() as $user) {
+                $id = $user->getId();
+                if (!array_key_exists($id, $expiring)) {
+                    $expiring[$id]['user']    = $user;
+                    $expiring[$id]['orgName'] = $org->getOrgName();
+                    $expiring[$id]['oppData'] = [];
+                }
+                $expiring[$id]['oppData'][] = [
+                    'oppId' => $opp->getId(),
+                    'orgId' => $org->getId(),
+                    'oppName' => $opp->getOppName(),
+                    'expireDate' => $opp->getExpireDate(),
+                ];
+            }
+        }
+
+        return [
+            'expiring'   => $expiring,
+            'stats'     =>  [
+                'nOpps'     => $nOpps,
+                'nOrgs'     => $nOrgs,
+            ]
+        ];
     }
 }

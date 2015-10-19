@@ -60,9 +60,9 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
         $volunteer->setLastName('Volunteer');
         $volunteer->setReceiveEmail(true);
         $volunteer->addRole('ROLE_USER');
-        $foc1 = $manager->getRepository("TruckeeMatchBundleFocus")->findOneByFocus('Animal Welfare');
+        $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Animal Welfare');
         $volunteer->addFocus($foc1);
-        $skill = $manager->getRepository("TruckeeMatchBundleSkill")->findOneBy(array('skill' => "Administrative Support"));
+        $skill = $manager->getRepository("TruckeeMatchBundle:Skill")->findOneBy(array('skill' => "Administrative Support"));
         $volunteer->addSkill($skill);
 
         $userManager->updateUser($volunteer, true);

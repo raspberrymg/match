@@ -72,7 +72,7 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
         $org->setEmail('jglenshire@bogus.info');
         $org->setTemp(false);
         $org->setAddDate(new \DateTime());
-        $foc1 = $manager->getRepository("TruckeeMatchBundleFocus")->findOneByFocus('Animal Welfare');
+        $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Animal Welfare');
         $org->addFocus($foc1);
         $manager->persist($org);
         $staff->setOrganization($org);

@@ -1,6 +1,6 @@
 {
-    "name": "george/match",
-    "license": "proprietary",
+    "name": "truckee/match",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {

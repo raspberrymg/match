@@ -2,15 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>{% set type = app.user|userType %}
-        {% block body %}
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        {% endblock %}
-    {% block javascripts %}{% endblock %}
+        <title>{% block title %}Welcome! {{ title }}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>{% set type = app.user|userType %}
+    {% block body %}
+        <div class="col-md-6">
+            <h4>{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}</h4>
+        </div>    
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    {% endblock %}
+{% block javascripts %}{% endblock %}
 </body>
 </html>

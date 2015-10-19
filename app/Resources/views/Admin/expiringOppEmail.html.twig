@@ -1,0 +1,6 @@
+<p>{{ expiring.orgName }} has the listings shown below at this website that are set to expire next month. Expired listings cease to appear on the website. If you would like these opportunities to remain active, please contact us at your earliest convenience.</p>
+<p>{% for opp in expiring.oppData %}</p>
+<p>Opportunity: {{ opp.oppName }}; Expiration: {{ opp.expireDate|date("m/d/Y") }}</p>
+<p>{% endfor %} </p>
+<p>Thank you for listing your volunteer opportunities with us. We hope we have been effective in helping you meet your volunteer needs. If there is anything we can do in the future to assist your organization please let us know.</p>
+<p>Thank you.<br /> The Team</p>

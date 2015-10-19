@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -40,23 +39,38 @@ class AdminController extends Controller
      */
     public function adminHomeAction()
     {
-        $em = $this->getDoctrine()->getManager();
-//        $sent = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsSent();
+        $em        = $this->getDoctrine()->getManager();
+        $expire    = $this->getParameter('truckee_match.expiring_alerts');
+        $options   = [];
+        $sent      = [];
+        $templates = [];
+        if (true === $expire) {
+            $notSent            = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
+            $sent               = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsSent();
+            $templates[]        = 'Admin/expiringOpps.html.twig';
+            $options['notSent'] = $notSent;
+        }
+
+        if (0 < count($sent)) {
+            $options['sent'] = $sent;
+            $templates[]     = 'Admin/sentOpps.html.twig';
+        }
+
 //        $notSent = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
 //        $newopps = $em->getRepository("TruckeeMatchBundleOpportunity")->noEmails();
 //        $newOrgs = $tools->getIncomingOrgs();
 //        $tools = $this->container->get('truckee_match.toolbox');
-        $expire = $this->getParameter('truckee_match.expiring_alerts');
-        return $this->render("Admin/adminHome.html.twig", array(
-            'expire' =>$expire
+        return $this->render("Admin/adminHome.html.twig",
+                array(
+                'templates' => $templates,
+                'options' => $options,
 //                    'sent' => $sent,
 //                    'notSent' => $notSent,
 //                    'newopps' => $newopps,
 //                    'newOrgs' => $newOrgs,
-//                    'title' => 'Admin home',
+                    'title' => 'Admin home',
         ));
     }
-
 //    /**
 //     * @Route("/dashboard", name="dashboard")
 //     * @Template()
@@ -149,64 +163,26 @@ class AdminController extends Controller
 //
 //        return $this->redirect($this->generateUrl("admin_home"));
 //    }
-//
-//    /**
-//     * @Route("/expiring", name="expiring_alerts")
-//     * @Template()
-//     */
-//    public function expiringAlertsAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
-//
-//        $nOpps = count($opportunities);
-//        $expiring = [];
-//        $nOrgs = 0;
-//        $org = '';
-//        foreach ($opportunities as $opp) {
-//            if ($org <> $opp->getOrganization()) {
-//                $org = $opp->getOrganization();
-//                $nOrgs++;
-//            }
-//            foreach ($org->getStaff() as $user) {
-//                $id = $user->getId();
-//                if (!array_key_exists($id, $expiring)) {
-//                    $expiring[$id]['user'] = $user;
-//                    $expiring[$id]['orgName'] = $org->getOrgName();
-//                    $expiring[$id]['oppData'] = [];
-//                }
-//                $expiring[$id]['oppData'][] = [
-//                    'oppId' => $opp->getId(),
-//                    'orgId' => $org->getId(),
-//                    'oppName' => $opp->getOppName(),
-//                    'expireDate' => $opp->getExpireDate(),
-//                ];
-//            }
-//        }
-//        $mailer = $this->container->get('admin.mailer');
-//        $recipientCount = $mailer->sendExpiringAlerts($expiring);
-//
-//        //populate admin_outbox
-//        $recipientArray = [];
-//        foreach ($expiring as $key => $value) {
-//            $recipientId = $key;
-//            foreach ($value['oppData'] as $opp) {
-//                $recipientArray['function'] = 'expiringAlertsAction';
-//                $recipientArray['messageType'] = 'to';
-//                $recipientArray['oppId'] = $opp['oppId'];
-//                $recipientArray['orgId'] = $opp['orgId'];
-//                $recipientArray['id'] = $recipientId;
-//                $recipientArray['userType'] = 'staff';
-//            }
-//            $mailer->populateAdminOutbox($recipientArray);
-//        }
-//        $flash = $this->get('braincrafted_bootstrap.flash');
-//        $flash->success("$nOrgs organizations have been alerted about $nOpps opportunities in $recipientCount e-mails");
-//
-//        return $this->redirect($this->generateUrl('home', array(
-//                            'opportunities' => $opportunities,
-//        )));
-//    }
+
+    /**
+     * @Route("/expiring", name="expiring_alerts")
+     * @Template()
+     */
+    public function expiringAlertsAction()
+    {
+        $em            = $this->getDoctrine()->getManager();
+        $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
+        $mailer         = $this->container->get('admin.mailer');
+        $expiredArray = $mailer->sendExpiringAlerts($opportunities);
+
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success("{$expiredArray['nOrgs']} organizations have been alerted about {$expiredArray['nOpps']} opportunities in {$expiredArray['nRecipients']} e-mails");
+
+        return $this->redirect($this->generateUrl('home',
+                    array(
+                    'opportunities' => $opportunities,
+        )));
+    }
 //
 //    /**
 //     * @Route("/matched/{id}", name="vol_matched")

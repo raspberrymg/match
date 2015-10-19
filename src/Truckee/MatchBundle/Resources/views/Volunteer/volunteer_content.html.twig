@@ -1,7 +1,7 @@
 <form action="{{ path('volunteer_registration') }}" method="POST" class="form-inline">
     {{ bootstrap_set_style('form-inline') }}
     {% set submit = 1 %}
-    {% include "TruckeeMatchBundlePerson:person_manage.html.twig" %}
+    {% include "TruckeeMatchBundle:Person:person_manage.html.twig" %}
     <fieldset>
         {% if form.focuses is empty %}
             {# do not submit form if focus criteria empty #}

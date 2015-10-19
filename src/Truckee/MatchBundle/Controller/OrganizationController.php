@@ -42,7 +42,7 @@ class OrganizationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $organization = ('staff' === $type) ? $user->getOrganization() :
-                $em->getRepository("TruckeeMatchBundleOrganization")->find($id);
+                $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
         $name = $organization->getOrgName();
 
         $similarNames = array();

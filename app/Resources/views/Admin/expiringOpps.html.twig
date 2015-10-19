@@ -1,0 +1,8 @@
+<h4>{{label_info('Expiring opportunities') }}</h4>
+{% if options.notSent|length > 0 %}
+    {% set opps = options.notSent %}
+    {% include "Admin/expiringOpps_content.html.twig" %}
+    <a class="btn btn-primary btn-xs active" href="{{ path("expiring_alerts") }}">Send alerts to organizations</a>
+{% else %}
+    <p>There are no expiring opportunities</p>
+{% endif %}

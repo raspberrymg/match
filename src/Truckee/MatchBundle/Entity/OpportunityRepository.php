@@ -110,7 +110,7 @@ class OpportunityRepository extends EntityRepository
             $i = '0';
             foreach ($opportunities as $key => $opp) {
                 if ($focusesExist) {
-                    $org = $em->getRepository("TruckeeMatchBundleOrganization")->find($opp['orgId']);
+                    $org = $em->getRepository("TruckeeMatchBundle:Organization")->find($opp['orgId']);
                     $focuses = $org->getFocuses();
                     foreach ($focuses as $focus) {
                         if (in_array($focus->getId(), $data['focuses'])) {
@@ -120,7 +120,7 @@ class OpportunityRepository extends EntityRepository
                 }
 
                 if ($skillsExist) {
-                    $opportunity = $em->getRepository("TruckeeMatchBundleOpportunity")->find($opp['id']);
+                    $opportunity = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($opp['id']);
                     $skills = $opportunity->getSkills();
                     foreach ($skills as $skill) {
                         if (in_array($skill->getId(), $data['skills'])) {

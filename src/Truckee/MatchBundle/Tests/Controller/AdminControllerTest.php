@@ -95,8 +95,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink("Send alerts to organizations")->link();
         $crawler = $this->client->click($link);
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("organizations have been alerted")')->count());
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("E-mail volunteers")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Expiration alerts sent to")')->count());
     }
     
     public function testOutboxUser()
