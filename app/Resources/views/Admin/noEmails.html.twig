@@ -1,0 +1,15 @@
+<h4>{{label_info('Incoming opportunities') }}</h4>
+{% if options.newopps|length > 0 %}
+    {% for opp in options.newopps %}
+        <ul class="list-unstyled">
+            <li><b>Organization:</b> {{ opp.organization.orgName }}</li>
+            <li><b>Opportunity:</b> {{ opp.oppName }}</li>
+            <li><b>Description:</b> {{ opp.description }}</li>
+        </ul>
+        <a class="btn btn-primary btn-xs active" href="{{ path("vol_matched", {"id": opp.id }) }}">E-mail volunteers</a>
+        <a class="btn btn-primary btn-xs active" href="{{ path("opp_edit", {"id": opp.id }) }}">Edit opportunity</a>
+        <hr/>
+    {% endfor %}
+{% else %}
+    <p>There are no opportunities for which e-mails have not been sent</p>
+{% endif %}

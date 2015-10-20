@@ -41,14 +41,17 @@ class AdminController extends Controller
     {
         $em        = $this->getDoctrine()->getManager();
         $expire    = $this->getParameter('truckee_match.expiring_alerts');
+        $oppMail   = $this->getParameter('truckee_match.opportunity_email');
         $options   = [];
         $sent      = [];
         $templates = [];
+
         if (true === $expire) {
             $notSent            = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
             $sent               = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsSent();
             $templates[]        = 'Admin/expiringOpps.html.twig';
             $options['notSent'] = $notSent;
+            $options['sent']    = [];
         }
 
         if (0 < count($sent)) {
@@ -56,20 +59,42 @@ class AdminController extends Controller
             $templates[]     = 'Admin/sentOpps.html.twig';
         }
 
-//        $notSent = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
-//        $newopps = $em->getRepository("TruckeeMatchBundleOpportunity")->noEmails();
+        if (true === $oppMail) {
+            $newopps            = $em->getRepository("TruckeeMatchBundle:Opportunity")->noEmails();
+            $templates[]        = 'Admin/noEmails.html.twig';
+            $options['newopps'] = $newopps;
+        }
+//        
 //        $newOrgs = $tools->getIncomingOrgs();
 //        $tools = $this->container->get('truckee_match.toolbox');
         return $this->render("Admin/adminHome.html.twig",
                 array(
                 'templates' => $templates,
                 'options' => $options,
-//                    'sent' => $sent,
-//                    'notSent' => $notSent,
 //                    'newopps' => $newopps,
 //                    'newOrgs' => $newOrgs,
-                    'title' => 'Admin home',
+                'title' => 'Admin home',
         ));
+    }
+
+    /**
+     * @Route("/expiring", name="expiring_alerts")
+     * @Template()
+     */
+    public function expiringAlertsAction()
+    {
+        $em            = $this->getDoctrine()->getManager();
+        $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
+        $mailer        = $this->container->get('admin.mailer');
+        $expiredArray  = $mailer->sendExpiringAlerts($opportunities);
+
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success("{$expiredArray['nOrgs']} organizations have been alerted about {$expiredArray['nOpps']} opportunities in {$expiredArray['nRecipients']} e-mails");
+
+        return $this->redirect($this->generateUrl('home',
+                    array(
+                    'opportunities' => $opportunities,
+        )));
     }
 //    /**
 //     * @Route("/dashboard", name="dashboard")
@@ -129,7 +154,7 @@ class AdminController extends Controller
 //    public function activateOrgAction($id)
 //    {
 //        $em = $this->getDoctrine()->getManager();
-//        $organization = $em->getRepository("TruckeeMatchBundleOrganization")->find($id);
+//        $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
 //        $temp = $organization->getTemp();
 //        if (true === $temp) {
 //            $organization->setTemp(false);
@@ -138,7 +163,7 @@ class AdminController extends Controller
 //            $orgName = $organization->getOrgName();
 //            $em->persist($organization);
 //            $em->flush();
-//            $to = $em->getRepository("TruckeeMatchBundleStaff")->getActivePersons($id);
+//            $to = $em->getRepository("TruckeeMatchBundle:Staff")->getActivePersons($id);
 //            $mailer = $this->container->get('admin.mailer');
 //            $mailer->activateOrgMail($organization, $to);
 //            $flash = $this->get('braincrafted_bootstrap.flash');
@@ -154,7 +179,7 @@ class AdminController extends Controller
 //    public function dropOrgAction($id)
 //    {
 //        $em = $this->getDoctrine()->getManager();
-//        $organization = $em->getRepository("TruckeeMatchBundleOrganization")->find($id);
+//        $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
 //        $orgName = $organization->getOrgName();
 //        $em->remove($organization);
 //        $em->flush();
@@ -165,117 +190,57 @@ class AdminController extends Controller
 //    }
 
     /**
-     * @Route("/expiring", name="expiring_alerts")
-     * @Template()
+     * @Route("/matched/{id}", name="vol_matched")
+     * @Template("Admin/showMatchedVolunteers.html.twig")
      */
-    public function expiringAlertsAction()
+    public function showMatchedVolunteersAction(Request $request, $id)
     {
-        $em            = $this->getDoctrine()->getManager();
-        $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->expiringOppsNotSent();
-        $mailer         = $this->container->get('admin.mailer');
-        $expiredArray = $mailer->sendExpiringAlerts($opportunities);
+        $em      = $this->getDoctrine()->getManager();
+        $opportunity = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
+        $tool    = $this->container->get('truckee_match.toolbox');
+        $matched = $tool->getMatchedVolunteers($id);
+        $matchedVolunteers = $matched['volunteers'];
+        $criteria = $matched['criteria'];
+        if (empty($matchedVolunteers)) {
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->alert("No volunteers match opportunity criteria");
 
-        $flash = $this->get('braincrafted_bootstrap.flash');
-        $flash->success("{$expiredArray['nOrgs']} organizations have been alerted about {$expiredArray['nOpps']} opportunities in {$expiredArray['nRecipients']} e-mails");
+            return $this->redirect($this->generateUrl("admin_home"));
+        }
+        foreach ($matchedVolunteers as $volunteer) {
+            $idArray[$volunteer['id']] = $volunteer['id'];
+        }
+        $volunteers = $em->getRepository("TruckeeMatchBundle:Volunteer")->findById($idArray);
+        $form = $this->createForm(new VolunteerEmailType($idArray), $volunteers);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
 
-        return $this->redirect($this->generateUrl('home',
-                    array(
-                    'opportunities' => $opportunities,
-        )));
+            $data   = $form->getData();
+            $sendTo   = $data['send'];
+            $bcc    = $em->getRepository("TruckeeMatchBundle:Volunteer")->findBy(['id' => $sendTo]);
+            $mailer = $this->container->get('admin.mailer');
+            $sent   = ($sendTo) ? $mailer->sendNewOppMail($bcc, $opportunity, $criteria) : 0;
+            $flash  = $this->get('braincrafted_bootstrap.flash');
+
+            if (0 !== $sent) {
+                $message = '';
+                //send flash message re n = $sent e-mails sent
+                $message .= (1 === $sent) ? ' e-mail was sent' : ' e-mails were sent';
+                $flash->success("$sent $message");
+            } else {
+                $flash->alert("No e-mails were sent");
+            }
+
+            return $this->redirect($this->generateUrl("admin_home"));
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'opportunity' => $opportunity,
+            'volunteers' => $volunteers,
+            'title' => 'Matched volunteers',
+        );
     }
-//
-//    /**
-//     * @Route("/matched/{id}", name="vol_matched")
-//     * @Template()
-//     */
-//    public function showMatchedVolunteersAction(Request $request, $id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $opportunity = $em->getRepository("TruckeeMatchBundleOpportunity")->find($id);
-//        $skills = $opportunity->getSkills()->toArray();
-//        $organization = $opportunity->getOrganization();
-//        $focuses = $organization->getFocuses()->toArray();
-//
-//        $criteria['skills'] = [];
-//        foreach ($skills as $skill) {
-//            $criteria['skills'][] = $skill->getId();
-//        }
-//        $criteria['focuses'] = [];
-//        foreach ($focuses as $focus) {
-//            $criteria['focuses'][] = $focus->getId();
-//        }
-//        $criteria['opportunity'] = $opportunity;
-//
-//        $matched = $em->getRepository("TruckeeMatchBundleVolunteer")->getVolunteerVolunteers($criteria['focuses'], $criteria['skills']);
-//        if (empty($matched)) {
-//            $flash = $this->get('braincrafted_bootstrap.flash');
-//            $flash->alert("No volunteers match opportunity criteria");
-//
-//            return $this->redirect($this->generateUrl("admin_home"));
-//        }
-//        foreach ($matched as $match) {
-//            $idArray[$match['id']] = $match['id'];
-//        }
-//        $volunteers = $em->getRepository("TruckeeMatchBundleVolunteer")->findById($idArray);
-//        $form = $this->createForm(new VolunteerEmailType($idArray), $volunteers);
-//        $form->handleRequest($request);
-//        if ($form->isValid()) {
-//
-//            $data = $form->getData();
-//            $send = $data['send'];
-//            $bcc = $em->getRepository("TruckeeMatchBundleVolunteer")->findBy(['id' => $send]);
-//            $mailer = $this->container->get('admin.mailer');
-//            $sent = ($send) ? $mailer->sendNewOppMail($bcc, $opportunity) : 0;
-//            $flash = $this->get('braincrafted_bootstrap.flash');
-//
-//            if (0 !== $sent) {
-//                //record search criteria
-//                $tool = $this->container->get('truckee_match.toolbox');
-//                $tool->setSearchRecord($criteria, 'volunteer');
-//                $oppId = $opportunity->getId();
-//                $orgId = $organization->getId();
-//                $recipientArray = [];
-//                foreach ($bcc as $recipient) {
-//                    $recipientArray['function'] = 'showMatchedVolunteersAction';
-//                    $recipientArray['messageType'] = 'bcc';
-//                    $recipientArray['oppId'] = $oppId;
-//                    $recipientArray['orgId'] = $orgId;
-//                    $recipientArray['id'] = $recipient->getId();
-//                    $recipientArray['userType'] = 'volunteer';
-//                }
-//                //save entry to admin outbox
-////                $recipients = [
-////                    'recipients' => $bcc,
-////                    'userType' => 'volunteer',
-////                    'messageType' => 'bcc',
-////                    'function' => 'showMatchedVolunteersAction',
-////                    'oppId' => $opportunity->getId(),
-////                    'orgId' => $organization->getId(),
-////                ];
-//                $mailer->populateAdminOutbox($recipientArray);
-//
-//                $message = '';
-//                //send flash message re n = $sent e-mails sent
-//                $message .= (1 === $sent) ? ' e-mail was sent' : ' e-mails were sent';
-//                $flash->success("$sent $message");
-//            }
-//            else {
-//                $flash->alert("No e-mails were sent");
-//            }
-//
-//            return $this->redirect($this->generateUrl("admin_home"));
-//        }
-//        $errors = $form->getErrorsAsString();
-//
-//        return array(
-//            'form' => $form->createView(),
-//            'errors' => $errors,
-//            'opportunity' => $opportunity,
-//            'volunteers' => $volunteers,
-//            'title' => 'Matched volunteers',
-//        );
-//    }
 //
 //    /**
 //     *
@@ -355,7 +320,7 @@ class AdminController extends Controller
 //    public function lockAction(Request $request, $id, $class)
 //    {
 //        $em = $this->getDoctrine()->getManager();
-//        $person = $em->getRepository("TruckeeMatchBundlePerson")->find($id);
+//        $person = $em->getRepository("TruckeeMatchBundle:Person")->find($id);
 //        if ('staff' === $class) {
 //            $org = $person->getOrganization();
 //            $orgId = $person->getOrganization()->getId();

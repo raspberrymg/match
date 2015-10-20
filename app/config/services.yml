@@ -52,6 +52,7 @@ services:
             - '@twig'
             - %admin_email%
             - '@doctrine.orm.entity_manager'
+            - '@truckee_match.toolbox'
 
     truckee_match.toolbox:
         class: Truckee\MatchBundle\Tools\Toolbox

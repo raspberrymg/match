@@ -13,6 +13,7 @@
 namespace Truckee\MatchBundle\Tools;
 
 use Truckee\MatchBundle\Entity\AdminOutbox;
+use Truckee\MatchBundle\Tools\Toolbox;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -26,28 +27,31 @@ class AdminMailer
     protected $twig;
     protected $address;
     protected $em;
+    protected $tool;
 
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig,
-                                $address, EntityManager $em)
+                                $address, EntityManager $em, Toolbox $tool)
     {
         $this->mailer  = $mailer;
         $this->twig    = $twig;
         $this->address = $address;
         $this->em      = $em;
+        $this->tool    = $tool;
     }
 
     /**
      * Send eblast to selected volunteers re: new opportunity
      * called by AdminController::showMatchedVolunteersAction()
      */
-    public function sendNewOppMail($bcc, $opportunity)
+    public function sendNewOppMail($bcc, $opportunity, $criteria)
     {
         $bccAddresses = [];
         foreach ($bcc as $volunteer) {
             $bccAddresses[] = $volunteer->getEmail();
         }
         $body    = $this->twig->render(
-            'new_opp', array('opportunity' => $opportunity,), 'text/html');
+            'Admin/newOppEmail.html.twig',
+            array('opportunity' => $opportunity,), 'text/html');
         $message = \Swift_Message::newInstance()
             ->setSubject('New opportunity')
             ->setFrom($this->address)
@@ -62,6 +66,24 @@ class AdminMailer
         $recipientCount = $this->recipientCount($message);
 
         $this->adminUpdateMessage($message);
+
+        if (0 !== $recipientCount) {
+            //record search criteria
+//                $tool = $this->container->get('truckee_match.toolbox');
+            $this->tool->setSearchRecord($criteria, 'volunteer');
+            $oppId          = $opportunity->getId();
+            $orgId          = $opportunity->getOrganization()->getId();
+            $recipientArray = [];
+            foreach ($bcc as $recipient) {
+                $recipientArray['function']    = 'showMatchedVolunteersAction';
+                $recipientArray['messageType'] = 'bcc';
+                $recipientArray['oppId']       = $oppId;
+                $recipientArray['orgId']       = $orgId;
+                $recipientArray['id']          = $recipient->getId();
+                $recipientArray['userType']    = 'volunteer';
+            }
+            $this->populateAdminOutbox($recipientArray);
+        }
 
         return $recipientCount;
     }
@@ -114,8 +136,8 @@ class AdminMailer
 
 
         return [
-            'nOrgs'         => $expiringOppData['stats']['nOrgs'],
-            'nOpps'         => $expiringOppData['stats']['nOpps'],
+            'nOrgs' => $expiringOppData['stats']['nOrgs'],
+            'nOpps' => $expiringOppData['stats']['nOpps'],
             'nRecipients' => $recipientCount,
         ];
     }
@@ -319,10 +341,10 @@ class AdminMailer
         }
 
         return [
-            'expiring'   => $expiring,
-            'stats'     =>  [
-                'nOpps'     => $nOpps,
-                'nOrgs'     => $nOrgs,
+            'expiring' => $expiring,
+            'stats' => [
+                'nOpps' => $nOpps,
+                'nOrgs' => $nOrgs,
             ]
         ];
     }

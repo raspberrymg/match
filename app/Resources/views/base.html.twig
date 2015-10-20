@@ -3,7 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome! {{ title }}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+        {% block stylesheets %}
+            {% stylesheets 
+                '@TruckeeMatchBundle/Resources/public/css/*'
+                'css/bootstrap.css'
+                filter='cssrewrite' output='css/compiled/app.css' 
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>{% set type = app.user|userType %}

@@ -149,3 +149,4 @@ pugx_multi_user:
 
 truckee_match:
     expiring_alerts: true
+    opportunity_email: ~

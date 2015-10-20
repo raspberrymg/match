@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="row">
+        <h4>{{ label_info(opportunity.organization.orgName) }}</h4>
+    </div>
+    <div class="row">Opportunity: {{ opportunity.oppName }}
+    </div>
+    <div class="row">Description: {{ opportunity.description }}
+    </div>
+    {% if volunteers is not empty %}
+        <form  name="vol_email" method="post" action="" role="form">
+        {{ form_widget(form._token) }}
+        <div class="row">{{ form_row(form.selectAll) }}</div>
+        {% for volunteer in volunteers %}
+            <div class="row"><input type="checkbox" name="vol_email[send][]" value="{{ volunteer.id }}"> 
+                {{ volunteer.lastName }}, {{ volunteer.firstName }}; {{ volunteer.email }}</div>
+            {% endfor %}
+        <input type="submit" value="Send" class="btn  btn-xs btn-primary">
+    </form>
+    {% endif %}
+{% endblock %}

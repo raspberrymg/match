@@ -27,7 +27,7 @@ class VolunteerRepository extends EntityRepository
      * @param type $skills
      * @return array
      */
-    public function getVolunteerVolunteers($focuses, $skills)
+    public function getMatchedVolunteers($focuses, $skills)
     {
         $conn = $this->getEntityManager()->getConnection();
         $volByFocus = array();

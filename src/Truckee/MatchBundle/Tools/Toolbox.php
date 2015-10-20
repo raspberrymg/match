@@ -49,6 +49,26 @@ class Toolbox
         return $type;
     }
 
+    public function getTypeFromId($id)
+    {
+        $sql = "select A.type from 
+            (select 'staff' as type from Staff  s where s.id = :id
+            union all
+            select 'volunteer' as type from Volunteer v where v.id = :id
+            union all
+            select 'sandbox' as type from Sandbox b where b.id = :id
+            union all
+            select 'admin' as type from Admin a where a.id = :id) A";
+        
+        $conn = $this->em->getConnection();
+        $sth = $conn->prepare($sql);
+        $sth->bindParam(':id', $id);
+        $sth->execute();
+        $type = $sth->fetchColumn();
+
+        return  $type;        
+    }
+
     public function setSearchRecord($data, $searched)
     {
         $search = new Search();
@@ -148,23 +168,27 @@ class Toolbox
         return $incoming;
     }
 
-    public function getTypeFromId($id)
+    public function getMatchedVolunteers($id)
     {
-        $sql = "select A.type from 
-            (select 'staff' as type from Staff  s where s.id = :id
-            union all
-            select 'volunteer' as type from Volunteer v where v.id = :id
-            union all
-            select 'sandbox' as type from Sandbox b where b.id = :id
-            union all
-            select 'admin' as type from Admin a where a.id = :id) A";
-        
-        $conn = $this->em->getConnection();
-        $sth = $conn->prepare($sql);
-        $sth->bindParam(':id', $id);
-        $sth->execute();
-        $type = $sth->fetchColumn();
+        $opportunity = $this->em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
+        $skills = $opportunity->getSkills()->toArray();
+        $organization = $opportunity->getOrganization();
+        $focuses = $organization->getFocuses()->toArray();
 
-        return  $type;        
+        $criteria['skills'] = [];
+        foreach ($skills as $skill) {
+            $criteria['skills'][] = $skill->getId();
+        }
+        $criteria['focuses'] = [];
+        foreach ($focuses as $focus) {
+            $criteria['focuses'][] = $focus->getId();
+        }
+        $criteria['opportunity'] = $opportunity;
+        $matched = $this->em->getRepository("TruckeeMatchBundle:Volunteer")->getMatchedVolunteers($criteria['focuses'], $criteria['skills']);
+
+        return [
+            'volunteers'    => $matched,
+            'criteria'      => $criteria,
+        ];
     }
 }
