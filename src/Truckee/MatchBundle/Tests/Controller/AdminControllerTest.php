@@ -45,6 +45,8 @@ class AdminControllerTest extends WebTestCase
             'Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserMelanzane',
             'Truckee\MatchBundle\DataFixtures\ORM\LoadOpportunity',
             'Truckee\MatchBundle\DataFixtures\ORM\LoadVolunteer',
+            'Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserBorko',
+            'Truckee\MatchBundle\DataFixtures\ORM\LoadTurkeyOpportunity',
         );
         $this->loadFixtures($classes);
         $this->client = $this->createClient();
@@ -61,7 +63,6 @@ class AdminControllerTest extends WebTestCase
         $form['_username'] = $user;
         $form['_password'] = '123Abcd';
         $crawler = $this->client->submit($form);
-//        $this->client->followRedirect();
         return $crawler;
     }
 
@@ -115,61 +116,53 @@ class AdminControllerTest extends WebTestCase
         $this->client->followRedirects();
     }
 
-//    public function testActivateOrganization()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink('Accept organization')->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been activated")')->count());
-//    }
-//
-//    public function testDuplicateReport()
-//    {
-//        $crawler = $this->login('admin');
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Possibly same as")')->count());
-//    }
-//
-//    public function testDropOrganization()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink('Drop organization')->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been dropped")')->count());
-//    }
-//    
-//    public function testOutboxUser()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Send alerts to organizations")->link();
-//        $crawler = $this->client->click($link);
-//        $outboxObj = $this->em->getRepository('TruckeeMatchBundle:AdminOutbox')->findAll();
-//        $outbox = $outboxObj[0];
-//        $recipient = $outbox->getRecipientId();
-//        $type = $this->tool->getTypeFromId($recipient);
-//
-//        $this->assertEquals('staff', $type);
-//    }
-//
-//    public function testTemplateSelect()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Home page content")->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("community foundations")')->count());
-//    }
-//
-//    public function testTemplateEdit()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Home page content")->link();
-//        $crawler = $this->client->click($link);
-//        $form = $crawler->selectButton('Submit')->form();
-//        $form['template[source]'] = "A new home page";
-//        $form['template[description]'] = "A new home page";
-//        $crawler = $this->client->submit($form);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Template home_page updated")')->count());
-//    }
-//
+    public function testActivateOrganization()
+    {
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('Accept organization')->link();
+        $crawler = $this->client->click($link);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been activated")')->count());
+    }
+
+    public function testActivateOrganizationEmail()
+    {
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('Accept organization')->link();
+        $this->client->followRedirects(false);
+        $crawler = $this->client->click($link);
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $this->client->followRedirects();
+    }
+
+    public function testDuplicateReport()
+    {
+        $crawler = $this->login('admin');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Possibly same as")')->count());
+    }
+
+    public function testDropOrganization()
+    {
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('Drop organization')->link();
+        $crawler = $this->client->click($link);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been dropped")')->count());
+    }
+    
+    public function testOutboxUser()
+    {
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink("Send alerts to organizations")->link();
+        $crawler = $this->client->click($link);
+        $outboxObj = $this->em->getRepository('TruckeeMatchBundle:AdminOutbox')->findAll();
+        $outbox = $outboxObj[0];
+        $recipient = $outbox->getRecipientId();
+        $type = $this->tool->getTypeFromId($recipient);
+
+        $this->assertEquals('staff', $type);
+    }
+
 //    public function organizationSelect()
 //    {
 //        $crawler = $this->login('admin');

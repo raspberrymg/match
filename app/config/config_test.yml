@@ -10,7 +10,7 @@ framework:
         collect: true
 
 web_profiler:
-    toolbar: false
+    toolbar: true
     intercept_redirects: false
 
 swiftmailer:
@@ -27,7 +27,7 @@ doctrine:
     orm:
         dql:
             string_functions:
-                Soundex: AppBundle\DQL\Soundex
+                Soundex: Truckee\MatchBundle\DQL\Soundex
             datetime_functions:
                 month: DoctrineExtensions\Query\Sqlite\Month
                 year: DoctrineExtensions\Query\Sqlite\Year

@@ -12,17 +12,19 @@
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
-            {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body>{% set type = app.user|userType %}
-    {% block body %}
-        <div class="col-md-6">
-            <h4>{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}</h4>
-        </div>    
-        {% block fos_user_content %}
-        {% endblock fos_user_content %}
-    {% endblock %}
-{% block javascripts %}{% endblock %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>{% set type = app.user|userType %}
+        <div class="row">
+            <div class="col-md-6">
+                <h4>{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}</h4>
+            </div>    
+        </div>       
+        {% block body %}
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        {% endblock %}
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

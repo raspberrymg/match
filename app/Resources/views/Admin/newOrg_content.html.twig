@@ -1,0 +1,16 @@
+<ul class="list-unstyled">
+    <li><b>Organization:</b> {{ org.orgName }}</li>
+    <li><b>Address:</b> {% include "Organization/orgAddress.html.twig" %}</li>
+    <li><b>Submitted by: </b> {% include "Organization/orgStaff.html.twig" %}</li>
+</ul>
+{% if element.dupes|length > 0 %}
+    {{ label_warning("Possibly same as") }}
+    <ul class="list-unstyled">
+        {% for dupeOrg in element.dupes %}
+            <li>{{ dupeOrg }}</li>
+            {% endfor %}
+        {% endif %}
+</ul>
+<p><a class="btn btn-primary btn-xs {% if element.dupes|length > 0 %}btn-danger{% endif %} active" href="{{ path("org_edit", {"id": org.id }) }}">Edit organization</a> 
+    <a class="btn btn-primary btn-xs active" href="{{ path("activate_org", {"id": org.id }) }}">Accept organization</a> 
+    <a class="btn btn-primary btn-xs active" href="{{ path("org_drop", {"id": org.id }) }}">Drop organization</a></p>

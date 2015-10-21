@@ -2,13 +2,13 @@
 {% block body %}        
     <p>{{ title }}</p>
     <div class="row">
-    {% for template in templates %}
+    {% for template in optionalTemplates %}
         <div class="col-md-6">
         {% include template %}
         </div>
         {% endfor %}<br>
         <div class="col-md-6">
-            {#{% include "AppBundle:Admin:newOrgs.html.twig" %}#}
+            {% include "Admin/newOrgs.html.twig" %}
         </div>
     </div>
 {% endblock %}

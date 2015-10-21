@@ -186,7 +186,7 @@ class AdminMailer
                 ->setContentType('text/html')
                 ->setBody(
                 $this->twig->render(
-                    'activated_org',
+                    'Admin/activatedOrgEmail.html.twig',
                     array(
                     'organization' => $organization,
                     ), 'text/html'
