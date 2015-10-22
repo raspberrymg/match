@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h4>{{label_info('Opportunity search criteria') }}</h4>
+    <p>Add criteria to refine your search</p>
+    <form name="search" method="post" action="" class="form-inline">
+        {{ form_widget(form._token) }}
+        {{ bootstrap_set_style('form-inline') }}
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_widget(form.organization) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_row(form.focuses) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_row(form.skills) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_widget(form.Search) }}
+            </div>
+        </div>
+    </form>
+{% endblock %}

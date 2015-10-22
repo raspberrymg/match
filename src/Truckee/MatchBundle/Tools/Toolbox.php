@@ -70,38 +70,46 @@ class Toolbox
         $search = new Search();
         $search->setDate(new \DateTime());
         $search->setType($searched);
+        $em     = $this->em;
 
-        if (array_key_exists('organization', $data) && '' <> $data['organization']['organization']) {
-            $orgId        = $data['organization']['organization'];
-            $organization = $this->em->getRepository("TruckeeMatchBundle:Organization")->find($orgId);
-            $search->setOrganization($organization);
-        }
-        if (array_key_exists('opportunity', $data)) {
-            $search->setOpportunity($data['opportunity']);
-        }
+        if ('opportunity' === $searched && !array_key_exists('focuses', $data) && !array_key_exists('skills',
+                $data)) {
+            $focus       = $em->getRepository("TruckeeMatchBundle:Focus")->findOneBy(['focus' => 'All']);
+            $search->setFocus($focus);
+            $skill       = $em->getRepository("TruckeeMatchBundle:Skill")->findOneBy(['skill' => 'All']);
+            $search->setSkill($skill);
+            $search->setType($searched);
+            $em->persist($search);
+        } else {
+            if (array_key_exists('organization', $data) && '' <> $data['organization']['organization']) {
+                $orgId        = $data['organization']['organization'];
+                $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($orgId);
+                $search->setOrganization($organization);
+            }
+            if (array_key_exists('opportunity', $data)) {
+                $search->setOpportunity($data['opportunity']);
+            }
 
-        if (array_key_exists('focuses', $data)) {
-            foreach ($data['focuses'] as $focusId) {
-                $searchClone = clone $search;
-                $focus       = $this->em->getRepository("TruckeeMatchBundle:Focus")->find($focusId);
-                $searchClone->setFocus($focus);
-                $this->em->persist($searchClone);
+            if (array_key_exists('focuses', $data)) {
+                foreach ($data['focuses'] as $focusId) {
+                    $searchClone = clone $search;
+                    $focus       = $em->getRepository("TruckeeMatchBundle:Focus")->find($focusId);
+                    $searchClone->setFocus($focus);
+                    $em->persist($searchClone);
+                }
+            }
+            if (array_key_exists('skills', $data)) {
+                foreach ($data['skills'] as $skillId) {
+                    $skill       = $em->getRepository("TruckeeMatchBundle:Skill")->find($skillId);
+                    $searchClone = clone $search;
+                    $searchClone->setSkill($skill);
+                    $searchClone->setType($searched);
+                    $em->persist($searchClone);
+                }
             }
         }
-        if (array_key_exists('skills', $data)) {
-            foreach ($data['skills'] as $skillId) {
-                $skill       = $this->em->getRepository("TruckeeMatchBundle:Skill")->find($skillId);
-                $searchClone = clone $search;
-                $searchClone->setSkill($skill);
-                $searchClone->setType($searched);
-                $this->em->persist($searchClone);
-            }
-        }
 
-        if (!isset($searchClone)) {
-            $this->em->persist($search);
-        }
-        $this->em->flush();
+        $em->flush();
     }
 
     public function usageFocusSkill()
@@ -195,7 +203,7 @@ class Toolbox
 
     public function activateOrganization($id)
     {
-        $em = $this->em;
+        $em           = $this->em;
         $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
         $organization->setTemp(false);
         $organization->setActive(true);

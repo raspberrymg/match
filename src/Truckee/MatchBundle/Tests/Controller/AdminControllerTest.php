@@ -39,14 +39,14 @@ class AdminControllerTest extends WebTestCase
         ;
         
         $classes = array(
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadFocusSkillData',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadMinimumData',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserGlenshire',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserMelanzane',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadOpportunity',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadVolunteer',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserBorko',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadTurkeyOpportunity',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserGlenshire',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserMelanzane',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadOpportunity',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadVolunteer',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserBorko',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadTurkeyOpportunity',
         );
         $this->loadFixtures($classes);
         $this->client = $this->createClient();

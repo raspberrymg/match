@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div id="dialog"></div>
+        {% for opp in opportunities %}
+            <div class="row">
+                <div class="col-md-9">
+                    <ul class="list-unstyled">
+                        <li><strong>{{ opp.orgName }}:</strong> {{ opp.oppName }}</li>
+                        <li><strong>Description: </strong>{{ opp.description }}</li>
+                        <li><strong>Background check: </strong>{% if opp.background %}Yes{% else %}No{% endif %}</li>
+                        <li><strong>Minimum age: </strong>{{ opp.minAge }}</li>
+                        <li><strong>Expires: </strong>{{ opp.expireDate|date('m/d/Y') }}</li>
+                            {% if opp.website is not empty %}
+                            <li><strong>Website: </strong><a href="http://{{ opp.website }}">{{ opp.website }}</a></li>
+                            {% endif %}
+                        <li><a href="#" value="{{ opp.id }}" id="emailOrganization" class="btn btn-xs btn-info" >E-mail {{ opp.orgName }}</a>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

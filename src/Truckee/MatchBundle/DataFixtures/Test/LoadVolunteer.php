@@ -5,13 +5,13 @@
  * 
  * (c) George W. Brooks
  * 
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license infTestation, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\Tests\Repository\DataFixtures\ORM\LoadVolunteer
+//src\Truckee\MatchBundle\Tests\Repository\DataFixtures\Test\LoadVolunteer
 
-namespace Truckee\MatchBundle\DataFixtures\ORM;
+namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;

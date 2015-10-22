@@ -5,13 +5,13 @@
  * 
  * (c) George W. Brooks
  * 
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license infTestation, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\DataFixtures\ORM\LoadStaffUserGlenshire
+//src\Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserBorko
 
-namespace Truckee\MatchBundle\DataFixtures\ORM;
+namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -23,7 +23,7 @@ use Truckee\MatchBundle\Entity\Organization;
 /**
  * Loads user data
  */
-class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
+class LoadStaffUserBorko extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
 {
 
     /**
@@ -55,21 +55,21 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
 
         $staff = $userManager->createUser();
 
-        $staff->setUsername('jglenshire');
-        $staff->setEmail('jglenshire@bogus.info');
+        $staff->setUsername('bborko');
+        $staff->setEmail('bborko@bogus.info');
         $staff->setPlainPassword('123Abcd');
         $staff->setEnabled(true);
-        $staff->setFirstName('Joe');
-        $staff->setLastName('Glenshire');
+        $staff->setFirstName('Benny');
+        $staff->setLastName('Borko');
         $staff->addRole('ROLE_STAFF');
         $org = new Organization();
-        $org->setOrgName('Glenshire Marmot Fund');
-        $org->setAddress('PO Box 999');
+        $org->setOrgName('Turkeys R Us');
+        $org->setAddress('PO Box 234');
         $org->setCity('Truckee');
         $org->setState('CA');
         $org->setZip('96160');
-        $org->setWebsite('www.glenshiremarmots.org');
-        $org->setEmail('jglenshire@bogus.info');
+        $org->setWebsite('www.turkeys.org');
+        $org->setEmail('turkeys@bogus.info');
         $org->setTemp(false);
         $org->setAddDate(new \DateTime());
         $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Animal Welfare');
@@ -84,6 +84,6 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
 
     public function getOrder()
     {
-        return 4; // the order in which fixtures will be loaded
+        return 8; // the order in which fixtures will be loaded
     }
 }

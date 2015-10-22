@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('expiring_alerts')->defaultTrue()->end()
                 ->booleanNode('opportunity_email')->defaultTrue()->end()
+                ->booleanNode('search_email')->defaultTrue()->end()
 //                    ->children()
 //                        ->integerNode('client_id')->end()
 //                        ->scalarNode('client_secret')->end()

@@ -29,8 +29,8 @@ class RegistrationFunctionalTest extends WebTestCase
     public function setup()
     {
         $classes = array(
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadFocusSkillData',
-            'Truckee\MatchBundle\DataFixtures\ORM\LoadMinimumData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
         );
         $this->loadFixtures($classes);
         $this->client = static::createClient();

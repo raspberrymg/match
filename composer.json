@@ -38,11 +38,11 @@
         "braincrafted/bootstrap-bundle": "2.1.*",
         "oyejorge/less.php": "~1.5",
         "twbs/bootstrap": "3.0.*",
-        "jquery/jquery": "~1.1"
+        "jquery/jquery": "~1.1",
+        "doctrine/doctrine-fixtures-bundle": "^2.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "liip/functional-test-bundle": "~1.0",
         "codeception/codeception": "~2.1",
         "beberlei/DoctrineExtensions": "~1.0@dev"
