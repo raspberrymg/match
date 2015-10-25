@@ -18,6 +18,23 @@
                     "type": "file"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "pugx/multi-user-bundle",
+                "version": "dev-dev",
+                "dist": {
+                    "url": "../PUGXMultiUserBundle",
+                    "type": "path"
+                },
+                "target-dir": "PUGX/MultiUserBundle",
+                "autoload": {
+                    "psr-0": {
+                        "PUGX\\MultiUserBundle": ""
+                    }
+                }
+            }
         }
     ],
     "require": {
@@ -32,7 +49,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "pugx/multi-user-bundle": "3.0.*@dev",
+        "pugx/multi-user-bundle": "@dev",
         "knplabs/knp-menu": "~2.0",
         "knplabs/knp-menu-bundle": "~2.0",
         "braincrafted/bootstrap-bundle": "2.1.*",

@@ -119,7 +119,7 @@ pugx_multi_user:
             type: Truckee\MatchBundle\Form\StaffFormType
             name: staff_registration
             validation_groups:  [Registration, Default]
-          template: Truckee\MatchBundle:Staff:staff.form.html.twig
+          template: Staff/staff.form.html.twig
         profile:
           form:
             type: Truckee\MatchBundle\Form\ProfileFormType
@@ -131,7 +131,7 @@ pugx_multi_user:
         registration:
           form: 
             type: Truckee\MatchBundle\Form\VolunteerFormType
-          template: Truckee\MatchBundle:Volunteer:volunteer.form.html.twig
+          template: Volunteer/volunteer.form.html.twig
         profile:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType
@@ -142,7 +142,7 @@ pugx_multi_user:
           form: 
             type: Truckee\MatchBundle\Form\PersonType
             validation_groups:  [Registration, Default]
-          template: Truckee\MatchBundle:Admin:add.html.twig
+          template: Admin/add.html.twig
         profile:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType

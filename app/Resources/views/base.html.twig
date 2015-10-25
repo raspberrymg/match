@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome! {{ title }}{% endblock %}</title>
+        <title>{% block title %}Welcome! {% if title is defined %}{{ title }}{% endif %}{% endblock %}</title>
         {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
         {% block stylesheets %}
             {% stylesheets 
