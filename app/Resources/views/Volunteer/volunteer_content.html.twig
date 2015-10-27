@@ -3,18 +3,22 @@
     {% set submit = 1 %}
     {% include "Person/person_manage.html.twig" %}
     <fieldset>
-        {% if form.focuses is empty %}
-            {# do not submit form if focus criteria empty #}
-            {% set submit = 0 %}
+        {% if form.focuses is defined %}
+            {% if form.focuses is empty %}
+                {# do not submit form if focus criteria empty #}
+                {% set submit = 0 %}
+            {% endif %}
+            {{ form_row(form.focuses) }}
         {% endif %}
-        {{ form_row(form.focuses) }}
     </fieldset>
     <fieldset>
-        {% if form.skills is empty %}
-            {# do not submit form if skill criteria empty #}
-            {% set submit = 0 %}
+        {% if form.skills is defined %}
+            {% if form.skills is empty %}
+                {# do not submit form if skill criteria empty #}
+                {% set submit = 0 %}
+            {% endif %}
+            {{ form_row(form.skills) }}
         {% endif %}
-        {{ form_row(form.skills) }}
     </fieldset>
     {{ bootstrap_set_style('') }}
     <div>

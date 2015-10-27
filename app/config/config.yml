@@ -125,16 +125,22 @@ pugx_multi_user:
             type: Truckee\MatchBundle\Form\ProfileFormType
             name: staff_profile_form
             validation_groups:  [Profile, Default]
+        options: 
+            focus_required: false
     volunteer:
         entity: 
           class: Truckee\MatchBundle\Entity\Volunteer
         registration:
           form: 
             type: Truckee\MatchBundle\Form\VolunteerFormType
+            name: volunteer_registration
           template: Volunteer/volunteer.form.html.twig
         profile:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType
+        options: 
+            skill_required: true
+            focus_required: false
     admin:
         entity: 
           class: Truckee\MatchBundle\Entity\Admin
