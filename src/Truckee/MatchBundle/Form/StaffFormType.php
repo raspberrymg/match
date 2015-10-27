@@ -26,7 +26,7 @@ class StaffFormType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-                ->add('organization', new OrganizationType($this->options))
+                ->add('organization', new OrganizationType())
         ;
     }
 

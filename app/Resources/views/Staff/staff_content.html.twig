@@ -9,7 +9,7 @@
     <div id="orgForm">
         {% set submit = 1 %}
         {% include "Organization/orgForm.html.twig" %}
-        {% if form.focuses is defined and form.focuses is empty %}
+        {% if form.focuses is empty %}
             {# do not submit form if focus criteria empty #}
         {% set submit = 0 %}
         {% endif %}

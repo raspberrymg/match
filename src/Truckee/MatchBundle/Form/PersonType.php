@@ -14,7 +14,7 @@ namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
 /**
  * Description of PersonType

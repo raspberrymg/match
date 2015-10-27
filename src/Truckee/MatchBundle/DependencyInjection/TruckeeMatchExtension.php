@@ -38,7 +38,7 @@ class TruckeeMatchExtension extends Extension
         // Set a parameter for each configuration value
         $container->setParameter('truckee_match.expiring_alerts', $config['expiring_alerts']);
         $container->setParameter('truckee_match.opportunity_email', $config['opportunity_email']);
-        $container->setParameter('truckee_match.search_email', $config['search_email']);
+        $container->setParameter('truckee_match.opportunity_email', $config['search_email']);
 //        $container->setParameter('acme_app.my_boolean_node', $config['my_boolean_node']);
 //        $container->setParameter('acme_app.my_enum_node', $config['my_enum_node']);
 //        $container->setParameter('acme_app.my_array_node.child_setting_one', $config['my_array_node']['child_setting_one']);
