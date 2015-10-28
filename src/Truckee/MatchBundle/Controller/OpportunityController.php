@@ -34,12 +34,12 @@ class OpportunityController extends Controller
      * if user is admin, then any org
      * 
      * @Route("/new/{id}", name="opp_new")
-     * @Template("TruckeeMatchBundle:Opportunity:manage.html.twig")
+     * @Template("Opportunity/manage.html.twig")
      */
     public function newAction(Request $request, $id = null)
     {
         $user = $this->getUser();
-        $tool = $this->container->get('truckee.toolbox');
+        $tool = $this->container->get('truckee_match.toolbox');
         $type = $tool->getUserType($user);
         if (false === $this->get('security.context')->isGranted('ROLE_STAFF')) {
             throw $this->AccessDeniedException('You do not have permission to create an opportunity');
@@ -87,12 +87,12 @@ class OpportunityController extends Controller
 
     /**
      * @Route("/edit/{id}", name="opp_edit")
-     * @Template("TruckeeMatchBundle:Opportunity:manage.html.twig")
+     * @Template("Opportunity/manage.html.twig")
      */
     public function editAction(Request $request, $id)
     {
         $user = $this->getUser();
-        $tool = $this->container->get('truckee.toolbox');
+        $tool = $this->container->get('truckee_match.toolbox');
         $type = $tool->getUserType($user);
         if ($type <> 'admin' && $type <> 'staff') {
             throw $this->createNotFoundException('You do not have permission to edit an opportunity');
@@ -100,7 +100,8 @@ class OpportunityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $opportunity = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
         $organization = $opportunity->getOrganization();
-        $form = $this->createForm(new OpportunityType(), $opportunity);
+        $skills = $this->container->getParameter('skill_required');
+        $form = $this->createForm(new OpportunityType($skills), $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $opportunity->setLastupdate(new \DateTime());

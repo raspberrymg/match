@@ -126,7 +126,8 @@ pugx_multi_user:
             name: staff_profile_form
             validation_groups:  [Profile, Default]
         options: 
-            focus_required: false
+            skill_required: %skill_required%
+            focus_required: %focus_required%
     volunteer:
         entity: 
           class: Truckee\MatchBundle\Entity\Volunteer
@@ -139,8 +140,8 @@ pugx_multi_user:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType
         options: 
-            skill_required: true
-            focus_required: false
+            skill_required: %skill_required%
+            focus_required: %focus_required%
     admin:
         entity: 
           class: Truckee\MatchBundle\Entity\Admin

@@ -21,11 +21,6 @@ use Truckee\MatchBundle\Form\PersonType as BaseType;
 
 class VolunteerFormType extends BaseType
 {
-//    public function __construct()
-//    {
-//        parent::__construct();
-//    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -56,6 +51,7 @@ class VolunteerFormType extends BaseType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        dump($this->options['focus_required']);
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Person',
             'required' => false,

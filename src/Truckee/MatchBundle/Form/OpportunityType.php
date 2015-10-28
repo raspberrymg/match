@@ -14,9 +14,17 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class OpportunityType extends AbstractType
 {
+    private $skills;
+
+    public function __construct($skills = null)
+    {
+        $this->skills = $skills;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -80,7 +88,6 @@ class OpportunityType extends AbstractType
                         'class' => 'sr-only',
                     )
                 ))
-                ->add('skills', 'skills')
                 ->add('save', 'submit', array(
                     'label' => 'Save opportunity',
                     'attr' => array(
@@ -88,6 +95,16 @@ class OpportunityType extends AbstractType
                     )
                 ))
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+            $form = $event->getForm();
+                    dump($this->skills);
+
+            if (true === $this->skills) {
+                $form->add('skills', 'skills');
+            };
+        });
     }
 
     /**

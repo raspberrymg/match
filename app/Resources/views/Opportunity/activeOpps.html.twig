@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<pdf>
+    <page font-size="12">
+        <h1 style="text-align: center;">{{ org_name }}</h1>
+        <h1 style="text-align: center;">Opportunity Report: {{ "now"|date("m/d/Y") }}</h1>
+        {% if opportunities|length > 0 %}
+            {% for opp in opportunities %}
+                <ul>
+                    <li>
+                        <strong>Organization: {{ opp.organization.orgName }}</strong></li>
+
+                    <li>Opportunity: {{ opp.oppName }}</li>
+                    <li>Expiration: {{ opp.expireDate|date('m/d/Y') }}</li>
+                        {% for person in opp.organization.staff %}
+                            {%  if person.enabled %}
+                            <li>Name: {{ person.firstName }} {{ person.lastName }}</li>
+                            <li>E-mail: {{ person.email }}</li>
+                            {% else %}
+                            <li>No staff member is enabled</li>
+                            {% endif %}
+                        <li>Description: {{ opp.description }}</li>
+
+                    {% endfor %}
+                </ul>
+                <br/>
+            {% endfor %}
+        {%else%}
+            There are no  opportunities
+        {% endif %}
+    </page>
+</pdf>
