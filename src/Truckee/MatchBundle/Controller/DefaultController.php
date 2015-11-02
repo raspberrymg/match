@@ -38,7 +38,6 @@ class DefaultController extends Controller
         $tool = $this->container->get('truckee_match.toolbox');
 
         $form = $this->createForm(new MatchSearchType($tokenStorage, $tool));
-        dump($form);
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
             $data = $request->get('match_search');

@@ -81,7 +81,7 @@ class AdminControllerTest extends WebTestCase
         $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $this->assertEquals(2, $mailCollector->getMessageCount());
         $this->client->followRedirects();
     }
 

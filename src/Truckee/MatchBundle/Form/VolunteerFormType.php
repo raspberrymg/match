@@ -51,7 +51,6 @@ class VolunteerFormType extends BaseType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        dump($this->options['focus_required']);
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Person',
             'required' => false,

@@ -99,8 +99,6 @@ class OpportunityType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
             $form = $event->getForm();
-                    dump($this->skills);
-
             if (true === $this->skills) {
                 $form->add('skills', 'skills');
             };
