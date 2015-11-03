@@ -65,13 +65,4 @@ class VolunteerFormType extends BaseType
         ));
     }
 
-//    public function setSkill($skill)
-//    {
-//        $this->skillRequired = $skill;
-//    }
-//
-//    public function setFocus($focus)
-//    {
-//        $this->focusRequired = $focus;
-//    }
 }
