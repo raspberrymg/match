@@ -108,6 +108,8 @@ fos_user:
             
 braincrafted_bootstrap:
     less_filter: lessphp
+    customize:
+        variables_file: %kernel.root_dir%/Resources/less/variables.less
 
 pugx_multi_user:
   users:
@@ -125,6 +127,9 @@ pugx_multi_user:
             type: Truckee\MatchBundle\Form\ProfileFormType
             name: staff_profile_form
             validation_groups:  [Profile, Default]
+        options: 
+            skill_required: %skill_required%
+            focus_required: %focus_required%
     volunteer:
         entity: 
           class: Truckee\MatchBundle\Entity\Volunteer
@@ -135,6 +140,9 @@ pugx_multi_user:
         profile:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType
+        options: 
+            skill_required: %skill_required%
+            focus_required: %focus_required%
     admin:
         entity: 
           class: Truckee\MatchBundle\Entity\Admin

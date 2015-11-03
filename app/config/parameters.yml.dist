@@ -23,4 +23,5 @@ parameters:
     admin_email:        admin@example.com
     admin_first_name:   ~
     admin_last_name:    ~
-
+    skill_required: true
+    focus_required: true

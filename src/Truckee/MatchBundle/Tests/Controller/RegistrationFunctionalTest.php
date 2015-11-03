@@ -40,14 +40,14 @@ class RegistrationFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[firstName]'] = 'Harry';
-        $form['fos_user_registration_form[lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [1];
-        $form['fos_user_registration_form[skills]'] = [14];
+        $form['volunteer_registration[email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[username]'] = 'hvolunteer';
+        $form['volunteer_registration[firstName]'] = 'Harry';
+        $form['volunteer_registration[lastName]'] = 'Volunteer';
+        $form['volunteer_registration[plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [1];
+        $form['volunteer_registration[skills]'] = [14];
 
         $crawler = $this->client->submit($form);
     }
