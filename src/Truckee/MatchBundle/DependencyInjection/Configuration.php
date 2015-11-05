@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\DependencyInjection\Configuration.php
 
+
 namespace Truckee\MatchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Controller\OpportunityController
 
+
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,11 +28,10 @@ use Truckee\MatchBundle\Form\OpportunityType;
  */
 class OpportunityController extends Controller
 {
-
     /**
      * Create a new opportunity for organization
      * If user is staff, then for that org
-     * if user is admin, then any org
+     * if user is admin, then any org.
      * 
      * @Route("/new/{id}", name="opp_new")
      * @Template("Opportunity/manage.html.twig")
@@ -48,9 +48,8 @@ class OpportunityController extends Controller
         $opportunity = new Opportunity();
         if (null === $id) {
             $organization = $user->getOrganization();
-        }
-        else {
-            $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
+        } else {
+            $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         }
         $opportunity->setOrganization($organization);
         $form = $this->createForm(new OpportunityType(), $opportunity);
@@ -64,12 +63,11 @@ class OpportunityController extends Controller
             $em->persist($opportunity);
             $em->flush();
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success("Opportunity added");
+            $flash->success('Opportunity added');
 
             if ('staff' === $type) {
                 return $this->redirect($this->generateUrl('org_edit'));
-            }
-            else {
+            } else {
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
@@ -81,7 +79,7 @@ class OpportunityController extends Controller
             'title' => 'New opportunity',
             'opp' => $opportunity,
             'errors' => $errors,
-            'method' => 'New'
+            'method' => 'New',
         );
     }
 
@@ -94,11 +92,11 @@ class OpportunityController extends Controller
         $user = $this->getUser();
         $tool = $this->container->get('truckee_match.toolbox');
         $type = $tool->getUserType($user);
-        if ($type <> 'admin' && $type <> 'staff') {
+        if ($type != 'admin' && $type != 'staff') {
             throw $this->createNotFoundException('You do not have permission to edit an opportunity');
         }
         $em = $this->getDoctrine()->getManager();
-        $opportunity = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
+        $opportunity = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
         $organization = $opportunity->getOrganization();
         $skills = $this->container->getParameter('skill_required');
         $form = $this->createForm(new OpportunityType($skills), $opportunity);
@@ -110,12 +108,11 @@ class OpportunityController extends Controller
             $em->persist($opportunity);
             $em->flush();
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success("Opportunity updated");
+            $flash->success('Opportunity updated');
 
             if ('staff' === $type) {
                 return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
-            }
-            else {
+            } else {
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
@@ -127,7 +124,7 @@ class OpportunityController extends Controller
             'organization' => $organization,
             'error' => $errors,
             'title' => 'Edit opportunity',
-            'method' => 'Edit'
+            'method' => 'Edit',
         );
     }
 }

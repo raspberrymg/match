@@ -8,13 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Truckee\MatchBundle\Entity\SkillRepository;
 
 /**
- * Description of SkillType
+ * Description of SkillType.
  *
  * @author George
  */
 class SkillFieldType extends AbstractType
 {
-
     private $repo;
 
     public function __construct(SkillRepository $repo)
@@ -40,21 +39,20 @@ class SkillFieldType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'attr' => array('class' => 'list-inline'),
-            'query_builder' => function(EntityRepository $er) {
+            'query_builder' => function (EntityRepository $er) {
             return $er->createQueryBuilder('s')
                     ->orderBy('s.skill', 'ASC')
                     ->where("s.enabled = '1'")
                     ->andWhere("s.skill <> 'All'");
-        }
-            ,
-            'label' => $this->isPopulated()
+        },
+            'label' => $this->isPopulated(),
         ));
     }
 
     private function isPopulated()
     {
-        $populated = $this->repo->isSkillPopulated();
+        $populated = $this->repo->countSkills();
 
-        return ("0" === $populated) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
+        return (1 >=  $populated) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
     }
 }

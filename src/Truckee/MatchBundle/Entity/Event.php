@@ -11,22 +11,24 @@
 
 //src\Truckee\MatchBundle\Entity\Event.php
 
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of Event
+ * Description of Event.
+ *
  * @ORM\Table(name="event")
  * @ORM\Entity
+ *
  * @author George
  */
 class Event
 {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -68,36 +70,36 @@ class Event
     private $starttime;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="Truckee\MatchBundle\Entity\Person", inversedBy="events", cascade={"persist","remove"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="personId", referencedColumnName="id")
      * })
      */
     private $owner;
-    
+
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Opportunity
      */
     public function setEvent($name)
     {
         $this->event = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getEvent()
     {
@@ -105,9 +107,10 @@ class Event
     }
 
     /**
-     * Set eventdate
+     * Set eventdate.
      *
      * @param \DateTime $eventdate
+     *
      * @return Opportunity
      */
     public function setEventdate($eventdate)
@@ -118,9 +121,9 @@ class Event
     }
 
     /**
-     * Get eventdate
+     * Get eventdate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEventdate()
     {
@@ -128,22 +131,23 @@ class Event
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Opportunity
      */
     public function setLocation($name)
     {
         $this->location = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getLocation()
     {
@@ -151,20 +155,19 @@ class Event
     }
 
     /**
-     *
      * @param string $starttime
      */
     public function setStarttime($time)
     {
         $this->starttime = $time;
-    
+
         return $this;
     }
 
     /**
-     * Get starttime
+     * Get starttime.
      *
-     * @return string 
+     * @return string
      */
     public function getStarttime()
     {
@@ -172,21 +175,21 @@ class Event
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \Truckee\MatchBundle\Entity\Person $owner
      */
     public function setOwner(\Truckee\MatchBundle\Entity\Person $owner = null)
     {
         $this->owner = $owner;
-    
+
         return $this;
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return \Truckee\MatchBundle\Entity\Person 
+     * @return \Truckee\MatchBundle\Entity\Person
      */
     public function getOwner()
     {

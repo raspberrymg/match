@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Form\MatchSearchType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,16 +19,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Truckee\MatchBundle\Form\OrganizationSelectType;
 
 /**
- * Description of MatchSearch
+ * Description of MatchSearch.
  *
  * @author George
  */
 class MatchSearchType extends AbstractType
 {
-
     private $tokenStorage;
     private $tool;
 
@@ -44,7 +43,7 @@ class MatchSearchType extends AbstractType
                 ->add('Search', 'submit', array(
                     'attr' => array(
                         'class' => 'btn-xs',
-                    )
+                    ),
                 ))
         ;
         $user = $this->tokenStorage->getToken()->getUser();
@@ -62,15 +61,13 @@ class MatchSearchType extends AbstractType
                             'mapped' => false,
                             'data' => $user->getSkills(),
                 ));
-                ;
-            }
-            else {
+            } else {
                 $form
                         ->add('focuses', 'focuses', array(
-                            'mapped' => false
+                            'mapped' => false,
                         ))
                         ->add('skills', 'skills', array(
-                            'mapped' => false
+                            'mapped' => false,
                 ));
             }
         });

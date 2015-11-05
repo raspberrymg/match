@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
 /**
- * Admin
+ * Admin.
  *
  * @ORM\Table(name="admin")
  * @ORM\Entity
@@ -25,12 +25,11 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 class Admin extends Person
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
 }

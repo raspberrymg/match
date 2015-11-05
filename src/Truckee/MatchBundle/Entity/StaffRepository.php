@@ -14,16 +14,16 @@ namespace Truckee\MatchBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Description of StaffRepository
+ * Description of StaffRepository.
  *
  * @author George
  */
 class StaffRepository extends EntityRepository
 {
-
     public function getActivePersons($id)
     {
         $qb = $this->createQueryBuilder('s');
+
         return $qb->select('s')
                         ->join('s.organization', 'o')
                         ->where("o.id = $id")

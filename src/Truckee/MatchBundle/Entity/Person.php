@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Entity\Person.php
 
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,9 +28,8 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 abstract class Person extends BaseUser
 {
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -38,7 +38,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -77,9 +77,9 @@ abstract class Person extends BaseUser
     protected $addDate;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -87,9 +87,10 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
+     *
      * @return Person
      */
     public function setFirstName($firstName)
@@ -100,7 +101,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -110,9 +111,10 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
+     *
      * @return Person
      */
     public function setLastName($lastName)
@@ -123,7 +125,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -134,7 +136,7 @@ abstract class Person extends BaseUser
 
     public function getName()
     {
-        return $this->getLastName() . ', ' . $this->getFirstName();
+        return $this->getLastName().', '.$this->getFirstName();
     }
     public function isGranted($role)
     {
@@ -142,9 +144,10 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Add events
+     * Add events.
      *
      * @param \Truckee\MatchBundle\Entity\Event $events
+     *
      * @return Event
      */
     public function addEvent(\Truckee\MatchBundle\Entity\Event $event)
@@ -155,7 +158,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Remove events
+     * Remove events.
      *
      * @param \Truckee\MatchBundle\Entity\Event $events
      */
@@ -165,7 +168,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Get events
+     * Get events.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -177,13 +180,15 @@ abstract class Person extends BaseUser
     public function getNameLockStatus()
     {
         $marker = ($this->locked) ? '*' : '';
-        return $this->getLastName() . ', ' . $this->getFirstName() . $marker;
+
+        return $this->getLastName().', '.$this->getFirstName().$marker;
     }
 
     /**
-     * Set addDate
+     * Set addDate.
      *
      * @param \DateTime $addDate
+     *
      * @return Person
      */
     public function setAddDate($addDate)
@@ -194,7 +199,7 @@ abstract class Person extends BaseUser
     }
 
     /**
-     * Get addDate
+     * Get addDate.
      *
      * @return \DateTime
      */

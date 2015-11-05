@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserGlenshire
 
+
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -21,18 +22,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Truckee\MatchBundle\Entity\Organization;
 
 /**
- * Loads user data
+ * Loads user data.
  */
 class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
 {
-
     /**
      * @var ContainerInterface
      */
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -40,7 +40,7 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
     }
 
     /**
-     * Load fixtures
+     * Load fixtures.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
@@ -72,7 +72,7 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
         $org->setEmail('jglenshire@bogus.info');
         $org->setTemp(false);
         $org->setAddDate(new \DateTime());
-        $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Animal Welfare');
+        $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Animal Welfare');
         $org->addFocus($foc1);
         $manager->persist($org);
         $staff->setOrganization($org);

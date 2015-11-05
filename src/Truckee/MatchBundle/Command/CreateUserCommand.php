@@ -103,6 +103,7 @@ EOT
                     'A username is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(2);
@@ -118,6 +119,7 @@ EOT
                     'A first name is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(2);
@@ -133,6 +135,7 @@ EOT
                     'A last name is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(2);
@@ -148,6 +151,7 @@ EOT
                     'An e-mail address is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(2);
@@ -163,6 +167,7 @@ EOT
                     'A password is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(5);
@@ -178,6 +183,7 @@ EOT
                     'A type is required'
                     );
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(2);

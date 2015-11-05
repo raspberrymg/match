@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\DataFixtures\Test
 
+
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -21,12 +22,11 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Truckee\MatchBundle\Entity\Opportunity;
 
 /**
- * Loads opportunity data
+ * Loads opportunity data.
  */
 class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
 {
-
-//    /**
+    //    /**
 //     * @var ContainerInterface
 //     */
 //    private $container;
@@ -40,15 +40,15 @@ class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
 //    }
 
     /**
-     * Load fixtures
+     * Load fixtures.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
         $manager->clear();
-        $org = $manager->getRepository("TruckeeMatchBundle:Organization")->findOneBy(array('orgName' => "Glenshire Marmot Fund"));
-        $skill = $manager->getRepository("TruckeeMatchBundle:Skill")->findOneBy(array('skill' => "Administrative Support"));
+        $org = $manager->getRepository('TruckeeMatchBundle:Organization')->findOneBy(array('orgName' => 'Glenshire Marmot Fund'));
+        $skill = $manager->getRepository('TruckeeMatchBundle:Skill')->findOneBy(array('skill' => 'Administrative Support'));
         $opp = new Opportunity();
         $opp->setOppName('Feeder');
         $opp->setDescription("Make sure the critters don't go hungry");
@@ -58,7 +58,7 @@ class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
         $opp->addSkill($skill);
         $manager->persist($opp);
         $manager->flush();
-   }
+    }
 
     public function getOrder()
     {

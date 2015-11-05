@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData.php
 
+
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -19,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * LoadMinimumData: minimum data for application
+ * LoadMinimumData: minimum data for application.
  *
  * @author George Brooks <truckeesolutions@gmail.com>
  */
@@ -31,7 +32,7 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -39,7 +40,7 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * Load fixtures
+     * Load fixtures.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
@@ -54,11 +55,11 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
 
         $admin = $userManager->createUser();
 
-        $userName  = $this->container->getParameter('admin_username');
-        $email     = $this->container->getParameter('admin_email');
-        $password  = $this->container->getParameter('admin_password');
+        $userName = $this->container->getParameter('admin_username');
+        $email = $this->container->getParameter('admin_email');
+        $password = $this->container->getParameter('admin_password');
         $firstName = $this->container->getParameter('admin_first_name');
-        $lastName  = $this->container->getParameter('admin_last_name');
+        $lastName = $this->container->getParameter('admin_last_name');
 
         $admin->setUsername($userName);
         $admin->setEmail($email);

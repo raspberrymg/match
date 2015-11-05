@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\DataFixtures\Test\
 
+
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -22,13 +23,12 @@ use Truckee\MatchBundle\Entity\Focus;
 use Truckee\MatchBundle\Entity\Skill;
 
 /**
- * Loads forcus & skill data
+ * Loads forcus & skill data.
  */
 class LoadFocusSkillData extends AbstractFixture implements  OrderedFixtureInterface
 {
-
     /**
-     * Load fixtures
+     * Load fixtures.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */

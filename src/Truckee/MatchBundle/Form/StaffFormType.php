@@ -11,22 +11,21 @@
 
 //src\Truckee\MatchBundle\Form\StaffFormType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Truckee\MatchBundle\Form\PersonType as BaseType;
-use Truckee\MatchBundle\Form\OrganizationType;
 
 class StaffFormType extends BaseType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
-                ->add('organization', new OrganizationType())
+                ->add('organization', new OrganizationType($this->options))
         ;
     }
 

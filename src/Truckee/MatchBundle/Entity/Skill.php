@@ -13,10 +13,9 @@ namespace Truckee\MatchBundle\Entity;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Truckee\MatchBundle\Entity\Search;
 
 /**
- * Skill
+ * Skill.
  *
  * @ORM\Table(name="skill")
  * @ORM\Entity(repositoryClass="Truckee\MatchBundle\Entity\SkillRepository")
@@ -25,7 +24,7 @@ use Truckee\MatchBundle\Entity\Search;
 class Skill
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -48,9 +47,9 @@ class Skill
     protected $enabled;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -58,22 +57,23 @@ class Skill
     }
 
     /**
-     * Set skill
+     * Set skill.
      *
      * @param string $skill
+     *
      * @return Skill
      */
     public function setSkill($skill)
     {
         $this->skill = $skill;
-    
+
         return $this;
     }
 
     /**
-     * Get skill
+     * Get skill.
      *
-     * @return string 
+     * @return string
      */
     public function getSkill()
     {
@@ -81,29 +81,29 @@ class Skill
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
      * @param string $enabled
+     *
      * @return Enabled
      */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return string 
+     * @return string
      */
     public function getEnabled()
     {
         return $this->enabled;
     }
 
-    
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -118,7 +118,7 @@ class Skill
 //    public function getOpportunities() {
 //        return $this->opportunities;
 //    }
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -140,7 +140,6 @@ class Skill
      * @ORM\OneToMany(targetEntity="Search", mappedBy="skill", cascade={"persist"})
      */
     protected $searches;
-
 
 //    /**
 //     * Add searches

@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\Form\VolunteerFormType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,7 +39,7 @@ class VolunteerFormType extends BaseType
             if ($this->options['skill_required']) {
                 $form->add('skills', 'skills');
             };
-            if (null <> $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+            if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
                 $form->add('focuses', 'focuses');
             };
         });
@@ -51,28 +52,17 @@ class VolunteerFormType extends BaseType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        dump($this->options['focus_required']);
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Person',
             'required' => false,
             'validation_groups' => function (FormInterface $form) {
-                if (null <> $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
+                if (null != $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
                     return 'skill_required';
                 }
-                if (null <> $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+                if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
                     return 'focus_required';
                 }
-            }
+            },
         ));
     }
-
-//    public function setSkill($skill)
-//    {
-//        $this->skillRequired = $skill;
-//    }
-//
-//    public function setFocus($focus)
-//    {
-//        $this->focusRequired = $focus;
-//    }
 }

@@ -15,16 +15,15 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\UserManipulator as Manipulator;
 
 /**
- * Executes some manipulations on the users
+ * Executes some manipulations on the users.
  *
  * @author Christophe Coevoet <stof@notk.org>
  * @author Luis Cordova <cordoval@gmail.com>
  */
 class UserManipulator extends Manipulator
 {
-
     /**
-     * User manager
+     * User manager.
      *
      * @var UserManagerInterface
      */
@@ -79,17 +78,17 @@ class UserManipulator extends Manipulator
 
         return $user;
     }
-    
+
     public function setType($type)
     {
         $this->type = $type;
     }
-    
+
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
     }
-    
+
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;

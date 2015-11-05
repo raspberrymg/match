@@ -10,14 +10,14 @@
 
 //src\Truckee\MatchBundle\Tools\AdminMailer.php
 
+
 namespace Truckee\MatchBundle\Tools;
 
 use Truckee\MatchBundle\Entity\AdminOutbox;
-use Truckee\MatchBundle\Tools\Toolbox;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Description of AdminMailer
+ * Description of AdminMailer.
  *
  * @author George
  */
@@ -32,16 +32,16 @@ class AdminMailer
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig,
                                 $address, EntityManager $em, Toolbox $tool)
     {
-        $this->mailer  = $mailer;
-        $this->twig    = $twig;
+        $this->mailer = $mailer;
+        $this->twig = $twig;
         $this->address = $address;
-        $this->em      = $em;
-        $this->tool    = $tool;
+        $this->em = $em;
+        $this->tool = $tool;
     }
 
     /**
      * Send eblast to selected volunteers re: new opportunity
-     * called by AdminController::showMatchedVolunteersAction()
+     * called by AdminController::showMatchedVolunteersAction().
      */
     public function sendNewOppMail($bcc, $opportunity, $criteria)
     {
@@ -49,9 +49,9 @@ class AdminMailer
         foreach ($bcc as $volunteer) {
             $bccAddresses[] = $volunteer->getEmail();
         }
-        $body    = $this->twig->render(
+        $body = $this->twig->render(
             'Admin/newOppEmail.html.twig',
-            array('opportunity' => $opportunity,), 'text/html');
+            array('opportunity' => $opportunity), 'text/html');
         $message = \Swift_Message::newInstance()
             ->setSubject('New opportunity')
             ->setFrom($this->address)
@@ -71,16 +71,16 @@ class AdminMailer
             //record search criteria
 //                $tool = $this->container->get('truckee_match.toolbox');
             $this->tool->setSearchRecord($criteria, 'volunteer');
-            $oppId          = $opportunity->getId();
-            $orgId          = $opportunity->getOrganization()->getId();
+            $oppId = $opportunity->getId();
+            $orgId = $opportunity->getOrganization()->getId();
             $recipientArray = [];
             foreach ($bcc as $recipient) {
-                $recipientArray['function']    = 'showMatchedVolunteersAction';
+                $recipientArray['function'] = 'showMatchedVolunteersAction';
                 $recipientArray['messageType'] = 'bcc';
-                $recipientArray['oppId']       = $oppId;
-                $recipientArray['orgId']       = $orgId;
-                $recipientArray['id']          = $recipient->getId();
-                $recipientArray['userType']    = 'volunteer';
+                $recipientArray['oppId'] = $oppId;
+                $recipientArray['orgId'] = $orgId;
+                $recipientArray['id'] = $recipient->getId();
+                $recipientArray['userType'] = 'volunteer';
             }
             $this->populateAdminOutbox($recipientArray);
         }
@@ -90,7 +90,7 @@ class AdminMailer
 
     /**
      * Send organization alert on expiring opportunities
-     * called by AdminController::expiringAlertsAction()
+     * called by AdminController::expiringAlertsAction().
      */
     public function sendExpiringAlerts($opportunities)
     {
@@ -98,9 +98,9 @@ class AdminMailer
 
         $recipientCount = 0;
         foreach ($expiringOppData['expiring'] as $opp) {
-            $user      = $opp['user'];
+            $user = $opp['user'];
             $addressee = $user->getEmail();
-            $message   = \Swift_Message::newInstance()
+            $message = \Swift_Message::newInstance()
                 ->setSubject('Expiring opportunities')
                 ->setFrom($this->address)
                 ->setTo($addressee)
@@ -116,7 +116,7 @@ class AdminMailer
                 )
             ;
             $this->mailer->send($message);
-            $recipientCount ++;
+            ++$recipientCount;
         }
 
         //populate admin_outbox
@@ -124,16 +124,15 @@ class AdminMailer
         foreach ($expiringOppData['expiring'] as $key => $value) {
             $recipientId = $key;
             foreach ($value['oppData'] as $opp) {
-                $recipientArray['function']    = 'expiringAlertsAction';
+                $recipientArray['function'] = 'expiringAlertsAction';
                 $recipientArray['messageType'] = 'to';
-                $recipientArray['oppId']       = $opp['oppId'];
-                $recipientArray['orgId']       = $opp['orgId'];
-                $recipientArray['id']          = $recipientId;
-                $recipientArray['userType']    = 'staff';
+                $recipientArray['oppId'] = $opp['oppId'];
+                $recipientArray['orgId'] = $opp['orgId'];
+                $recipientArray['id'] = $recipientId;
+                $recipientArray['userType'] = 'staff';
             }
             $this->populateAdminOutbox($recipientArray);
         }
-
 
         return [
             'nOrgs' => $expiringOppData['stats']['nOrgs'],
@@ -144,7 +143,7 @@ class AdminMailer
 
     /**
      * Alert admins to new org being created
-     * called by RegistrationListener::onRegistrationSuccess()
+     * called by RegistrationListener::onRegistrationSuccess().
      */
     public function sendNewOrganization($organization)
     {
@@ -168,7 +167,7 @@ class AdminMailer
 
     /**
      * Send notice re: activated organization
-     * called by AdminController::activateOrgAction()
+     * called by AdminController::activateOrgAction().
      */
     public function activateOrgMail($organization, $to)
     {
@@ -201,7 +200,7 @@ class AdminMailer
 
     /**
      * Send e-mail re volunteer interest
-     * called by DefaultController::oppFormAction()
+     * called by DefaultController::oppFormAction().
      */
     public function sendOppInterestEmail($to, $from, $subject, $content)
     {
@@ -210,7 +209,7 @@ class AdminMailer
             $recipient[] = $user->getEmail();
         }
         if (!empty($recipient)) {
-            $message        = \Swift_Message::newInstance()
+            $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
                 ->setFrom($from)
                 ->setTo($recipient)
@@ -218,7 +217,7 @@ class AdminMailer
                 ->setContentType('text/html')
                 ->setBody(
                 $this->twig->render(
-                    "TruckeeMatchBundle:Default:onlineOppEmailContent.html.twig",
+                    'TruckeeMatchBundle:Default:onlineOppEmailContent.html.twig',
                     array(
                     'content' => $content,
                     'recipient' => $recipient,
@@ -226,7 +225,7 @@ class AdminMailer
                 )
                 )
             ;
-            $headers        = $message->getHeaders();
+            $headers = $message->getHeaders();
             $headers->addTextHeader('Opportunity-Interest', 'true');
             $this->mailer->send($message);
             $recipientCount = $this->recipientCount($message);
@@ -239,11 +238,11 @@ class AdminMailer
 
     private function adminRecipients()
     {
-        $em         = $this->em;
-        $admins     = $em->getRepository("TruckeeMatchBundle:Admin")->findBy(['locked' => false]);
+        $em = $this->em;
+        $admins = $em->getRepository('TruckeeMatchBundle:Admin')->findBy(['locked' => false]);
         $adminEmail = [];
         foreach ($admins as $admin) {
-            $email        = $admin->getEmail();
+            $email = $admin->getEmail();
             $adminEmail[] = $email;
         }
 
@@ -251,7 +250,7 @@ class AdminMailer
     }
 
     /**
-     * populate AdminOutbox
+     * populate AdminOutbox.
      */
     public function populateAdminOutbox($recipientArray)
     {
@@ -283,8 +282,8 @@ class AdminMailer
 
     private function recipientCount($message)
     {
-        $to  = count($message->getTo());
-        $cc  = count($message->getCc());
+        $to = count($message->getTo());
+        $cc = count($message->getCc());
         $bcc = count($message->getBcc());
 
         return $to + $cc + $bcc;
@@ -294,15 +293,15 @@ class AdminMailer
     {
         if ('New opportunity' === $message->getSubject()) {
             //send e-blast re: volunteers notified
-            $count        = $this->recipientCount($message);
-            $body         = $message->getBody();
+            $count = $this->recipientCount($message);
+            $body = $message->getBody();
             $adminMessage = \Swift_Message::newInstance()
                 ->setSubject('E-blast results')
                 ->setFrom($this->address)
                 ->setTo($this->adminRecipients())
                 ->setContentType('text/html')
                 ->setBody(
-                "$count e-mails have been sent with the following:"."<br>".
+                "$count e-mails have been sent with the following:".'<br>'.
                 $body
                 )
             ;
@@ -315,19 +314,19 @@ class AdminMailer
 
     private function getExpiringOpportunityData($opportunities)
     {
-        $nOpps    = count($opportunities);
+        $nOpps = count($opportunities);
         $expiring = [];
-        $nOrgs    = 0;
-        $org      = '';
+        $nOrgs = 0;
+        $org = '';
         foreach ($opportunities as $opp) {
-            if ($org <> $opp->getOrganization()) {
+            if ($org != $opp->getOrganization()) {
                 $org = $opp->getOrganization();
-                $nOrgs++;
+                ++$nOrgs;
             }
             foreach ($org->getStaff() as $user) {
                 $id = $user->getId();
                 if (!array_key_exists($id, $expiring)) {
-                    $expiring[$id]['user']    = $user;
+                    $expiring[$id]['user'] = $user;
                     $expiring[$id]['orgName'] = $org->getOrgName();
                     $expiring[$id]['oppData'] = [];
                 }
@@ -345,7 +344,7 @@ class AdminMailer
             'stats' => [
                 'nOpps' => $nOpps,
                 'nOrgs' => $nOrgs,
-            ]
+            ],
         ];
     }
 }

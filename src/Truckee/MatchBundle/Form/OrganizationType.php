@@ -11,15 +11,17 @@
 
 //src\Truckee\MatchBundle\Form\OrganizationType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OrganizationType extends AbstractType {
-
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+class OrganizationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->add('active', 'checkbox', array(
                     'label' => 'Active: ',
@@ -107,7 +109,7 @@ class OrganizationType extends AbstractType {
                         'class' => 'sr-only',
                     ),
                 ))
-                
+
                 ->add('website', 'text', array(
                     'label' => 'Website',
                     'attr' => array(
@@ -131,16 +133,18 @@ class OrganizationType extends AbstractType {
                     'label' => 'Save organization',
                     'attr' => array(
                         'class' => 'btn  btn-xs active btn-primary',
-                    )
+                    ),
                 ))
         ;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'org';
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Organization',
             'cascade_validation' => true,

@@ -13,10 +13,9 @@ namespace Truckee\MatchBundle\Entity;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Truckee\MatchBundle\Entity\Search;
 
 /**
- * Focus
+ * Focus.
  *
  * @ORM\Table(name="focus")
  * @ORM\Entity(repositoryClass="Truckee\MatchBundle\Entity\FocusRepository")
@@ -24,9 +23,8 @@ use Truckee\MatchBundle\Entity\Search;
  */
 class Focus
 {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -49,9 +47,9 @@ class Focus
     protected $enabled;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -59,22 +57,23 @@ class Focus
     }
 
     /**
-     * Set focus
+     * Set focus.
      *
      * @param string $focus
+     *
      * @return Focus
      */
     public function setFocus($focus)
     {
         $this->focus = $focus;
-    
+
         return $this;
     }
 
     /**
-     * Get focus
+     * Get focus.
      *
-     * @return string 
+     * @return string
      */
     public function getFocus()
     {
@@ -82,28 +81,29 @@ class Focus
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
      * @param string $enabled
+     *
      * @return Enabled
      */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return string 
+     * @return string
      */
     public function getEnabled()
     {
         return $this->enabled;
     }
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -118,7 +118,7 @@ class Focus
 //    public function getOrganizations() {
 //        return $this->organizations;
 //    }
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -140,7 +140,6 @@ class Focus
      * @ORM\OneToMany(targetEntity="Search", mappedBy="focus", cascade={"persist"})
      */
     protected $searches;
-
 
 //    /**
 //     * Add searches

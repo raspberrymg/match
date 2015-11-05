@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
 /**
- * Staff
+ * Staff.
  *
  * @ORM\Table(name="staff")
  * @ORM\Entity(repositoryClass="Truckee\MatchBundle\Entity\StaffRepository")
@@ -25,7 +25,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 class Staff extends Person
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -44,9 +44,9 @@ class Staff extends Person
     protected $organization;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -54,26 +54,26 @@ class Staff extends Person
     }
 
     /**
-     * Set organization
+     * Set organization.
      *
      * @param \Truckee\MatchBundle\Entity\Organization $organization
+     *
      * @return Staff
      */
     public function setOrganization(\Truckee\MatchBundle\Entity\Organization $organization = null)
     {
         $this->organization = $organization;
-    
+
         return $this;
     }
 
     /**
-     * Get organization
+     * Get organization.
      *
-     * @return \Truckee\MatchBundle\Entity\Organization 
+     * @return \Truckee\MatchBundle\Entity\Organization
      */
     public function getOrganization()
     {
         return $this->organization;
     }
-    
 }

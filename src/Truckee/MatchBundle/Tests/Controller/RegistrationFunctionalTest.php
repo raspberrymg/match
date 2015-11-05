@@ -11,19 +11,19 @@
 
 //src\Truckee\MatchBundle\Tests\Controller\RegistrationFunctionalTest.php
 
+
 namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
  * Tests registration process through e-mail confirmation notice
- * Gets confirmation token and confirms registration
+ * Gets confirmation token and confirms registration.
  *
  * @author George
  */
 class RegistrationFunctionalTest extends WebTestCase
 {
-
     private $client;
 
     public function setup()
@@ -122,7 +122,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitVolunteerForm();
         $this->activateVolunteer();
         $crawler = $this->client->request('GET', '/profile/edit');
-        $form = $crawler->selectButton("Update")->form();
+        $form = $crawler->selectButton('Update')->form();
         $values = $form->getPhpValues();
         $receiveEmail = $values['fos_user_profile_form']['receiveEmail'];
 
@@ -135,10 +135,10 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitVolunteerForm();
         $this->activateVolunteer();
         $crawler = $this->client->request('GET', '/profile/change-password');
-        $form = $crawler->selectButton("Change password")->form();
-        $form["fos_user_change_password_form[current_password]"] = '123Abcd';
-        $form["fos_user_change_password_form[plainPassword][first]"] = 'Abcd123';
-        $form["fos_user_change_password_form[plainPassword][second]"] = 'Abcd123';
+        $form = $crawler->selectButton('Change password')->form();
+        $form['fos_user_change_password_form[current_password]'] = '123Abcd';
+        $form['fos_user_change_password_form[plainPassword][first]'] = 'Abcd123';
+        $form['fos_user_change_password_form[plainPassword][second]'] = 'Abcd123';
         $crawler = $this->client->submit($form);
         $crawler = $this->client->followRedirect();
 
@@ -182,7 +182,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitStaffForm();
         $this->activateStaff();
         $crawler = $this->client->request('GET', '/profile/edit');
-        $form = $crawler->selectButton("Update")->form();
+        $form = $crawler->selectButton('Update')->form();
         $values = $form->getPhpValues();
         $filled = count($values['staff_profile_form']);
 

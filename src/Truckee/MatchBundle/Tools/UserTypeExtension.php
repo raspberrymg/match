@@ -11,19 +11,19 @@
 
 //src\Truckee\MatchBundle\Tools\UserTypeExtension.php
 
+
 namespace Truckee\MatchBundle\Tools;
 
 //use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
- * Creates Twig "filter" to allow use of user type (as defined in Person entity)
+ * Creates Twig "filter" to allow use of user type (as defined in Person entity).
  *
  * @author George
  */
 class UserTypeExtension extends \Twig_Extension
 {
-
     private $token;
 
     public function __construct(TokenStorage $token, $tools)
@@ -35,19 +35,21 @@ class UserTypeExtension extends \Twig_Extension
     private function getUser()
     {
         $user = (is_object($this->token->getToken())) ? $this->token->getToken()->getUser() : 'anon.';
+
         return $user;
     }
 
     public function getType()
     {
         $user = $this->getUser();
+
         return $this->tools->getUserType($user);
     }
 
-        public function getFilters()
+    public function getFilters()
     {
         return array(
-            'userType' => new \Twig_Filter_Method($this, "getType"),
+            'userType' => new \Twig_Filter_Method($this, 'getType'),
         );
     }
 

@@ -19,7 +19,7 @@ class DefaultController extends Controller
         $tool = $this->container->get('truckee_match.toolbox');
         $type = $tool->getUserType($user);
         if ('admin' === $type) {
-            return $this->redirect($this->generateUrl("admin_home"));
+            return $this->redirect($this->generateUrl('admin_home'));
         }
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(
@@ -52,7 +52,7 @@ class DefaultController extends Controller
 //                $record['skills'] = $search['skills'] = (array_key_exists('skills', $data)) ? $data['skills'] : [];
 //            }
             $tool->setSearchRecord($data, 'opportunity');
-            $opportunities = $em->getRepository("TruckeeMatchBundle:Opportunity")->doFocusSkillSearch($data);
+            $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->doFocusSkillSearch($data);
 
             if ($opportunities) {
                 return array(
@@ -61,9 +61,10 @@ class DefaultController extends Controller
                 );
             }
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->alert("No opportunities meet your criteria");
+            $flash->alert('No opportunities meet your criteria');
         }
-        return $this->render("default/oppSearchForm.html.twig", array(
+
+        return $this->render('default/oppSearchForm.html.twig', array(
                     'form' => $form->createView(),
                     'title' => 'Search for opportunities',
         ));

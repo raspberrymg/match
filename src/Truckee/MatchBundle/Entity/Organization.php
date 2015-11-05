@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Truckee\MatchBundle\Validator\Constraints as MatchAssert;
 
 /**
- * Organization
+ * Organization.
  *
  * @ORM\Table(name="organization")
  * @ORM\Entity
@@ -27,7 +27,7 @@ use Truckee\MatchBundle\Validator\Constraints as MatchAssert;
 class Organization
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -87,14 +87,14 @@ class Organization
     protected $website;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
     protected $active;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="temp", type="boolean", nullable=false)
      */
@@ -139,14 +139,14 @@ class Organization
      * @Assert\NotNull(message="Please select at least one")
      */
     protected $focuses;
-    
+
     /**
      *  @ORM\Column(name="background", type="boolean", nullable=true)
      */
     protected $background;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -156,12 +156,11 @@ class Organization
         $this->focuses = new ArrayCollection();
         $this->active = true;
     }
-    
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -169,22 +168,23 @@ class Organization
     }
 
     /**
-     * Set organization
+     * Set organization.
      *
      * @param string $organization
+     *
      * @return Organization
      */
     public function setOrgName($name)
     {
         $this->orgName = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get organization
+     * Get organization.
      *
-     * @return string 
+     * @return string
      */
     public function getOrgName()
     {
@@ -192,22 +192,23 @@ class Organization
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
+     *
      * @return Organization
      */
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
-     * Get address
+     * Get address.
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -215,22 +216,23 @@ class Organization
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return Organization
      */
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
-     * Get city
+     * Get city.
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -238,22 +240,23 @@ class Organization
     }
 
     /**
-     * Set state
+     * Set state.
      *
      * @param string $state
+     *
      * @return Organization
      */
     public function setState($state)
     {
         $this->state = $state;
-    
+
         return $this;
     }
 
     /**
-     * Get state
+     * Get state.
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -261,22 +264,23 @@ class Organization
     }
 
     /**
-     * Set zip
+     * Set zip.
      *
      * @param string $zip
+     *
      * @return Organization
      */
     public function setZip($zip)
     {
         $this->zip = $zip;
-    
+
         return $this;
     }
 
     /**
-     * Get zip
+     * Get zip.
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -284,22 +288,23 @@ class Organization
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
+     *
      * @return Organization
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -307,22 +312,23 @@ class Organization
     }
 
     /**
-     * Set website
+     * Set website.
      *
      * @param string $website
+     *
      * @return Organization
      */
     public function setWebsite($website)
     {
         $this->website = $website;
-    
+
         return $this;
     }
 
     /**
-     * Get website
+     * Get website.
      *
-     * @return string 
+     * @return string
      */
     public function getWebsite()
     {
@@ -330,22 +336,23 @@ class Organization
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return Organization
      */
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getActive()
     {
@@ -353,21 +360,21 @@ class Organization
     }
 
     /**
-     * Set temp
+     * Set temp.
      *
-     * @param boolean $temp
+     * @param bool $temp
+     *
      * @return Organization
      */
     public function setTemp($temp)
     {
         $this->temp = $temp;
-    
     }
 
     /**
-     * Get temp
+     * Get temp.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getTemp()
     {
@@ -375,22 +382,23 @@ class Organization
     }
 
     /**
-     * Set addDate
+     * Set addDate.
      *
      * @param \DateTime $addDate
+     *
      * @return Organization
      */
     public function setAddDate($addDate)
     {
         $this->addDate = $addDate;
-    
+
         return $this;
     }
 
     /**
-     * Get addDate
+     * Get addDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getAddDate()
     {
@@ -398,20 +406,21 @@ class Organization
     }
 
     /**
-     * Add opportunities
+     * Add opportunities.
      *
      * @param \Truckee\MatchBundle\Entity\Opportunity $opportunities
+     *
      * @return Organization
      */
     public function addOpportunity(\Truckee\MatchBundle\Entity\Opportunity $opportunity)
     {
         $this->opportunities[] = $opportunity;
-    
+
         return $this;
     }
 
     /**
-     * Remove opportunities
+     * Remove opportunities.
      *
      * @param \Truckee\MatchBundle\Entity\Opportunity $opportunities
      */
@@ -421,9 +430,9 @@ class Organization
     }
 
     /**
-     * Get opportunities
+     * Get opportunities.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOpportunities()
     {
@@ -436,20 +445,21 @@ class Organization
     }
 
     /**
-     * Add search
+     * Add search.
      *
      * @param \Truckee\MatchBundle\Entity\Search $search
+     *
      * @return Organization
      */
     public function addSearch(\Truckee\MatchBundle\Entity\Search $search)
     {
         $this->searches[] = $search;
-    
+
         return $this;
     }
 
     /**
-     * Remove search
+     * Remove search.
      *
      * @param \Truckee\MatchBundle\Entity\Search $search
      */
@@ -459,9 +469,9 @@ class Organization
     }
 
     /**
-     * Get search
+     * Get search.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSearch()
     {
@@ -469,20 +479,21 @@ class Organization
     }
 
     /**
-     * Add focuses
+     * Add focuses.
      *
      * @param \Truckee\MatchBundle\Entity\Focus $focuses
+     *
      * @return Organization
      */
     public function addFocus(\Truckee\MatchBundle\Entity\Focus $focus)
     {
         $this->focuses[] = $focus;
-    
+
         return $this;
     }
 
     /**
-     * Remove focuses
+     * Remove focuses.
      *
      * @param \Truckee\MatchBundle\Entity\Focus $focuses
      */
@@ -492,9 +503,9 @@ class Organization
     }
 
     /**
-     * Get focuses
+     * Get focuses.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFocuses()
     {
@@ -502,35 +513,38 @@ class Organization
     }
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="email", type="string", nullable=true)
      */
     protected $email;
 
     /**
-     * Set email
+     * Set email.
      *
-     * @param boolean $email
+     * @param bool $email
+     *
      * @return email
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return boolean 
+     * @return bool
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="areacode", type="integer", nullable=true)
      * @MatchAssert\AreaCode
@@ -538,44 +552,50 @@ class Organization
     protected $areacode;
 
     /**
-     * Set areacode
+     * Set areacode.
      *
      * @param $areacode
+     *
      * @return areacode
      */
-    public function setAreacode($areacode) {
+    public function setAreacode($areacode)
+    {
         $this->areacode = $areacode;
 
         return $this;
     }
 
     /**
-     * Get areacode
+     * Get areacode.
      *
-     * @return boolean 
+     * @return bool
      */
-    public function getAreacode() {
+    public function getAreacode()
+    {
         return $this->areacode;
     }
 
     /**
-     * Set background
+     * Set background.
      *
      * @param $background
+     *
      * @return background
      */
-    public function setBackground($background) {
+    public function setBackground($background)
+    {
         $this->background = $background;
 
         return $this;
     }
 
     /**
-     * Get background
+     * Get background.
      *
-     * @return boolean 
+     * @return bool
      */
-    public function getBackground() {
+    public function getBackground()
+    {
         return $this->background;
     }
 }

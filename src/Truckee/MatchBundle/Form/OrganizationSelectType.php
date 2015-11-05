@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Form\OrganizationSelectType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -19,13 +20,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Description of OrganizationSelectType
+ * Description of OrganizationSelectType.
  *
  * @author George
  */
 class OrganizationSelectType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -35,11 +35,11 @@ class OrganizationSelectType extends AbstractType
                     'label_attr' => array(
                         'class' => 'sr-only',
                     ),
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('o')
                         ->where("o.temp = '0'");
             },
-                    'empty_value' => 'Select organization']
+                    'empty_value' => 'Select organization', ]
                 )
         ;
     }

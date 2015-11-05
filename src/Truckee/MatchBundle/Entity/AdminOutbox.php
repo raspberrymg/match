@@ -5,7 +5,7 @@ namespace Truckee\MatchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AdminOutbox
+ * AdminOutbox.
  *
  * @ORM\Table("admin_outbox")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AdminOutbox
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,7 +22,7 @@ class AdminOutbox
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="recipient", type="integer")
      */
@@ -30,14 +30,14 @@ class AdminOutbox
 
     /**
      * @var string
-     * Message type: To, CC, BCC
+     *             Message type: To, CC, BCC
      *
      * @ORM\Column(name="message_type", type="string", nullable=true)
      */
     private $messageType;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="user_type", type="string", nullable=true)
      */
@@ -59,23 +59,21 @@ class AdminOutbox
 
     /**
      * @var string
-     * Function name triggering message
+     *             Function name triggering message
      *
      * @ORM\Column(name="function", type="string")
-     * 
      */
     private $function;
-    
+
     /**
      * @ORM\Column(name="date", type="date")
      */
     private $date;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -83,9 +81,10 @@ class AdminOutbox
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param date $date
+     *
      * @return AdminOutbox
      */
     public function setDate($date)
@@ -96,9 +95,9 @@ class AdminOutbox
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return integer 
+     * @return int
      */
     public function getDate()
     {
@@ -106,9 +105,10 @@ class AdminOutbox
     }
 
     /**
-     * Set oppId
+     * Set oppId.
      *
      * @param string $oppId
+     *
      * @return AdminOutbox
      */
     public function setOppId($oppId)
@@ -119,9 +119,9 @@ class AdminOutbox
     }
 
     /**
-     * Get oppId
+     * Get oppId.
      *
-     * @return string 
+     * @return string
      */
     public function getOppId()
     {
@@ -129,7 +129,7 @@ class AdminOutbox
     }
 
     /**
-     * Set function
+     * Set function.
      *
      * @return AdminOutbox
      */
@@ -141,8 +141,7 @@ class AdminOutbox
     }
 
     /**
-     * Get function
-     *
+     * Get function.
      */
     public function getFunction()
     {
@@ -150,9 +149,9 @@ class AdminOutbox
     }
 
     /**
-     * Set recipientId
+     * Set recipientId.
      *
-     * @param integer $recipientId
+     * @param int $recipientId
      *
      * @return AdminOutbox
      */
@@ -164,9 +163,9 @@ class AdminOutbox
     }
 
     /**
-     * Get recipientId
+     * Get recipientId.
      *
-     * @return integer
+     * @return int
      */
     public function getRecipientId()
     {
@@ -174,7 +173,7 @@ class AdminOutbox
     }
 
     /**
-     * Set messageType
+     * Set messageType.
      *
      * @param string $messageType
      *
@@ -188,7 +187,7 @@ class AdminOutbox
     }
 
     /**
-     * Get messageType
+     * Get messageType.
      *
      * @return string
      */
@@ -198,9 +197,9 @@ class AdminOutbox
     }
 
     /**
-     * Set userType
+     * Set userType.
      *
-     * @param integer $userType
+     * @param int $userType
      *
      * @return AdminOutbox
      */
@@ -212,9 +211,9 @@ class AdminOutbox
     }
 
     /**
-     * Get userType
+     * Get userType.
      *
-     * @return integer
+     * @return int
      */
     public function getUserType()
     {
@@ -222,9 +221,9 @@ class AdminOutbox
     }
 
     /**
-     * Set orgId
+     * Set orgId.
      *
-     * @param integer $orgId
+     * @param int $orgId
      *
      * @return AdminOutbox
      */
@@ -236,9 +235,9 @@ class AdminOutbox
     }
 
     /**
-     * Get orgId
+     * Get orgId.
      *
-     * @return integer
+     * @return int
      */
     public function getOrgId()
     {

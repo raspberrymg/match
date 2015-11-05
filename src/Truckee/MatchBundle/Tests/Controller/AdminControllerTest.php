@@ -11,18 +11,18 @@
 
 //src\Truckee\MatchBundle\Tests\Controller\AdminControllerTest.php
 
+
 namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
- * Description of TestAdminController
+ * Description of TestAdminController.
  *
  * @author George
  */
 class AdminControllerTest extends WebTestCase
 {
-
     private $client;
     private $em;
     private $tool;
@@ -37,7 +37,7 @@ class AdminControllerTest extends WebTestCase
         $this->tool = static::$kernel->getContainer()
                 ->get('truckee_match.toolbox')
         ;
-        
+
         $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
@@ -57,12 +57,13 @@ class AdminControllerTest extends WebTestCase
 
     public function login($user)
     {
-//        $this->client->followRedirects();
+        //        $this->client->followRedirects();
         $crawler = $this->client->request('GET', '/login');
         $form = $crawler->selectButton('Login')->form();
         $form['_username'] = $user;
         $form['_password'] = '123Abcd';
         $crawler = $this->client->submit($form);
+
         return $crawler;
     }
 
@@ -88,7 +89,7 @@ class AdminControllerTest extends WebTestCase
     public function testExpiringAlerts()
     {
         $crawler = $this->login('admin');
-        $link = $crawler->selectLink("Send alerts to organizations")->link();
+        $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Expiration alerts sent to")')->count());
     }
@@ -96,7 +97,7 @@ class AdminControllerTest extends WebTestCase
     public function testShowMatchedVolunteers()
     {
         $crawler = $this->login('admin');
-        $link = $crawler->selectLink("E-mail volunteers")->link();
+        $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0, $crawler->filter('html:contains("hvolunteer")')->count());
     }
@@ -104,7 +105,7 @@ class AdminControllerTest extends WebTestCase
     public function testSendVolunteerEmail()
     {
         $crawler = $this->login('admin');
-        $link = $crawler->selectLink("E-mail volunteers")->link();
+        $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Send')->form();
         $form['vol_email[send][0]']->setValue(3);
@@ -149,11 +150,11 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0, $crawler->filter('html:contains("has been dropped")')->count());
     }
-    
+
     public function testOutboxUser()
     {
         $crawler = $this->login('admin');
-        $link = $crawler->selectLink("Send alerts to organizations")->link();
+        $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $outboxObj = $this->em->getRepository('TruckeeMatchBundle:AdminOutbox')->findAll();
         $outbox = $outboxObj[0];

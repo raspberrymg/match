@@ -8,12 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Truckee\MatchBundle\Entity\FocusRepository;
 
 /**
- * Description of FocusFieldType
+ * Description of FocusFieldType.
  *
  * @author George
  */
-class FocusFieldType extends AbstractType {
-
+class FocusFieldType extends AbstractType
+{
     private $repo;
 
     public function __construct(FocusRepository $repo)
@@ -21,15 +21,18 @@ class FocusFieldType extends AbstractType {
         $this->repo = $repo;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'focuses';
     }
 
-    public function getParent() {
+    public function getParent()
+    {
         return 'entity';
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(
             array(
                     'class' => 'TruckeeMatchBundle:Focus',
@@ -37,13 +40,13 @@ class FocusFieldType extends AbstractType {
                     'expanded' => true,
                     'multiple' => true,
                     'attr' => array('class' => 'list-inline'),
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('f')
                                 ->orderBy('f.focus', 'ASC')
                                 ->where("f.enabled = '1'")
                                 ->andWhere("f.focus <> 'All'");
                         },
-                    'label' => $this->isPopulated()
+                    'label' => $this->isPopulated(),
                 )
                             )
         ;
@@ -51,8 +54,8 @@ class FocusFieldType extends AbstractType {
 
     private function isPopulated()
     {
-        $populated = $this->repo->isFocusPopulated();
+        $populated = $this->repo->countFocuses();
 
-        return ("0" === $populated) ? 'Sign in as Admin; add focus critieria' : 'Focus criteria';
+        return (1 >= $populated) ? 'Sign in as Admin; add focus critieria' : 'Focus criteria';
     }
 }

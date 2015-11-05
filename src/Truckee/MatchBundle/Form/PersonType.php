@@ -10,23 +10,23 @@
 
 //src\Truckee\MatchBundle\Form\PersonType
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
 
 /**
- * Description of PersonType
+ * Description of PersonType.
  *
  * @author George
  */
 class PersonType extends BaseType
 {
-
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,7 +41,7 @@ class PersonType extends BaseType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-                )
+                ),
             ))
             ->add('lastName', null,
                 array(
@@ -51,7 +51,7 @@ class PersonType extends BaseType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-                )
+                ),
             ))
             ->add('email', 'email',
                 array(
@@ -62,7 +62,7 @@ class PersonType extends BaseType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-            )))
+            ), ))
             ->add('username', null,
                 array(
                 'label' => 'form.username',
@@ -72,7 +72,7 @@ class PersonType extends BaseType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-            )))
+            ), ))
             ->add('plainPassword', 'repeated',
                 array(
                 'type' => 'password',
@@ -83,14 +83,14 @@ class PersonType extends BaseType
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
-                    )),
+                    ), ),
                 'second_options' => array('label' => 'form.password_confirmation',
                     'attr' => array(
                         'placeholder' => 'Confirm password',
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
-                    )),
+                    ), ),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
             ->add('save', 'submit',
@@ -98,7 +98,7 @@ class PersonType extends BaseType
                 'label' => 'Save',
                 'attr' => array(
                     'class' => 'btn-xs btn-info',
-                )
+                ),
             ))
         ;
     }

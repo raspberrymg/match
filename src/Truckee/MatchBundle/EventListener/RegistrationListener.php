@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\EventListener\RegistrationListener
 
+
 namespace Truckee\MatchBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
@@ -19,13 +20,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Description of RegistrationListener
+ * Description of RegistrationListener.
  *
  * @author George
  */
 class RegistrationListener implements EventSubscriberInterface
 {
-
     private $em;
     private $mailer;
     private $tools;
@@ -45,7 +45,8 @@ class RegistrationListener implements EventSubscriberInterface
     }
 
     /**
-     * Persist organization on staff registration success
+     * Persist organization on staff registration success.
+     *
      * @param \FOS\UserBundle\Event\FormEvent $event
      */
     public function onRegistrationSuccess(FormEvent $event)

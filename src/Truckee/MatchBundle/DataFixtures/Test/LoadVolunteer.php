@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Tests\Repository\DataFixtures\Test\LoadVolunteer
 
+
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -20,18 +21,17 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Loads user data
+ * Loads user data.
  */
 class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
 {
-
     /**
      * @var ContainerInterface
      */
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -39,7 +39,7 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
     }
 
     /**
-     * Load fixtures
+     * Load fixtures.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
@@ -60,9 +60,9 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
         $volunteer->setLastName('Volunteer');
         $volunteer->setReceiveEmail(true);
         $volunteer->addRole('ROLE_USER');
-        $foc1 = $manager->getRepository("TruckeeMatchBundle:Focus")->findOneByFocus('Animal Welfare');
+        $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Animal Welfare');
         $volunteer->addFocus($foc1);
-        $skill = $manager->getRepository("TruckeeMatchBundle:Skill")->findOneBy(array('skill' => "Administrative Support"));
+        $skill = $manager->getRepository('TruckeeMatchBundle:Skill')->findOneBy(array('skill' => 'Administrative Support'));
         $volunteer->addSkill($skill);
 
         $userManager->updateUser($volunteer, true);

@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Opportunity
+ * Opportunity.
  *
  * @ORM\Table(name="opportunity")
  * @ORM\Entity(repositoryClass="Truckee\MatchBundle\Entity\OpportunityRepository")
@@ -29,9 +29,9 @@ class Opportunity
         $this->email = new ArrayCollection();
         $this->searches = new ArrayCollection();
     }
-    
+
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -62,21 +62,21 @@ class Opportunity
     private $lastupdate;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="minAge", type="integer", nullable=true)
      */
     private $minage;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
     private $active;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="group_ok", type="boolean", nullable=true)
      */
@@ -116,9 +116,9 @@ class Opportunity
     protected $searches;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -126,22 +126,23 @@ class Opportunity
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Opportunity
      */
     public function setOppName($name)
     {
         $this->oppName = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getOppName()
     {
@@ -149,22 +150,23 @@ class Opportunity
     }
 
     /**
-     * Set addDate
+     * Set addDate.
      *
      * @param \DateTime $addDate
+     *
      * @return Opportunity
      */
     public function setAddDate($addDate)
     {
         $this->addDate = $addDate;
-    
+
         return $this;
     }
 
     /**
-     * Get addDate
+     * Get addDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getAddDate()
     {
@@ -172,22 +174,23 @@ class Opportunity
     }
 
     /**
-     * Set lastupdate
+     * Set lastupdate.
      *
      * @param \DateTime $lastupdate
+     *
      * @return Opportunity
      */
     public function setLastupdate($lastupdate)
     {
         $this->lastupdate = $lastupdate;
-    
+
         return $this;
     }
 
     /**
-     * Get lastupdate
+     * Get lastupdate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastupdate()
     {
@@ -195,22 +198,23 @@ class Opportunity
     }
 
     /**
-     * Set minage
+     * Set minage.
      *
-     * @param integer $minage
+     * @param int $minage
+     *
      * @return Opportunity
      */
     public function setMinage($minage)
     {
         $this->minage = $minage;
-    
+
         return $this;
     }
 
     /**
-     * Get minage
+     * Get minage.
      *
-     * @return integer 
+     * @return int
      */
     public function getMinage()
     {
@@ -218,22 +222,23 @@ class Opportunity
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return Opportunity
      */
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getActive()
     {
@@ -241,22 +246,23 @@ class Opportunity
     }
 
     /**
-     * Set group
+     * Set group.
      *
-     * @param boolean $groupOk
+     * @param bool $groupOk
+     *
      * @return Opportunity
      */
     public function setGroupOk($groupOk)
     {
         $this->groupOk = $groupOk;
-    
+
         return $this;
     }
 
     /**
-     * Get group
+     * Get group.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getGroupOk()
     {
@@ -264,22 +270,23 @@ class Opportunity
     }
 
     /**
-     * Set expiredate
+     * Set expiredate.
      *
      * @param \DateTime $expiredate
+     *
      * @return Opportunity
      */
     public function setExpireDate($expiredate)
     {
         $this->expireDate = $expiredate;
-    
+
         return $this;
     }
 
     /**
-     * Get expiredate
+     * Get expiredate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpireDate()
     {
@@ -287,22 +294,23 @@ class Opportunity
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return Opportunity
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -310,22 +318,23 @@ class Opportunity
     }
 
     /**
-     * Set organization
+     * Set organization.
      *
      * @param \Truckee\MatchBundle\Entity\Organization $organization
+     *
      * @return Opportunity
      */
     public function setOrganization(\Truckee\MatchBundle\Entity\Organization $organization = null)
     {
         $this->organization = $organization;
-    
+
         return $this;
     }
 
     /**
-     * Get organization
+     * Get organization.
      *
-     * @return \Truckee\MatchBundle\Entity\Organization 
+     * @return \Truckee\MatchBundle\Entity\Organization
      */
     public function getOrganization()
     {
@@ -345,20 +354,21 @@ class Opportunity
     protected $skills;
 
     /**
-     * Add skills
+     * Add skills.
      *
      * @param \Truckee\MatchBundle\Entity\Skill $skills
+     *
      * @return Opportunity
      */
     public function addSkill(\Truckee\MatchBundle\Entity\Skill $skill)
     {
         $this->skills[] = $skill;
-    
+
         return $this;
     }
 
     /**
-     * Remove skills
+     * Remove skills.
      *
      * @param \Truckee\MatchBundle\Entity\Skill $skills
      */
@@ -368,20 +378,19 @@ class Opportunity
     }
 
     /**
-     * Get skills
+     * Get skills.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSkills()
     {
         return $this->skills;
-    
     }
 
     /**
-     * Get search
+     * Get search.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSearches()
     {

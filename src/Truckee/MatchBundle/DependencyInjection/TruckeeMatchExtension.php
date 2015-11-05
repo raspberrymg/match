@@ -10,21 +10,17 @@
 
 //src\Truckee\MatchBundle\DependencyInjection\Truckee.php
 
+
 namespace Truckee\MatchBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
-use Truckee\MatchBundle\DependencyInjection\Configuration;
 
 /**
- * TruckeeMatchExtension
- *
+ * TruckeeMatchExtension.
  */
 class TruckeeMatchExtension extends Extension
 {
-
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();

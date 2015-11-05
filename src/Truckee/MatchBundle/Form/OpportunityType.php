@@ -28,13 +28,13 @@ class OpportunityType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
                 ->add('active', 'checkbox', array(
-                    'label' => 'Active'
+                    'label' => 'Active',
                 ))
                 ->add('oppName', 'text', array(
                     'label' => 'Name',
@@ -64,7 +64,7 @@ class OpportunityType extends AbstractType
                         '12' => '12',
                         '18' => '18',
                         '21' => '21',
-                        '55' => '55'
+                        '55' => '55',
                     ),
                     'label' => 'Minimum age: ',
                     'attr' => array(
@@ -75,7 +75,7 @@ class OpportunityType extends AbstractType
                     ),
                 ))
                 ->add('groupOk', 'checkbox', array(
-                    'label' => 'Group OK'
+                    'label' => 'Group OK',
                 ))
                 ->add('expireDate', 'date', array(
                     'widget' => 'single_text',
@@ -86,13 +86,13 @@ class OpportunityType extends AbstractType
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
-                    )
+                    ),
                 ))
                 ->add('save', 'submit', array(
                     'label' => 'Save opportunity',
                     'attr' => array(
                         'class' => 'btn-xs',
-                    )
+                    ),
                 ))
         ;
 

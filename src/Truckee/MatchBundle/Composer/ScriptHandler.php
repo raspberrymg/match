@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\Composer\ScriptHandler.php
 
+
 namespace Truckee\MatchBundle\Composer;
 
 use Symfony\Component\Process\Process;
@@ -17,8 +18,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Composer\Script\CommandEvent;
 
 /**
- * ScriptHandler
- *
+ * ScriptHandler.
  */
 class ScriptHandler
 {
@@ -100,11 +100,13 @@ class ScriptHandler
             if (!static::hasDirectory($event, 'symfony-bin-dir', $options['symfony-bin-dir'], $actionName)) {
                 return;
             }
+
             return $options['symfony-bin-dir'];
         }
         if (!static::hasDirectory($event, 'symfony-app-dir', $options['symfony-app-dir'], 'execute command')) {
             return;
         }
+
         return $options['symfony-app-dir'];
     }
 
@@ -113,6 +115,7 @@ class ScriptHandler
         $options = array_merge(static::$options, $event->getComposer()->getPackage()->getExtra());
         $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ?: $options['symfony-assets-install'];
         $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
+
         return $options;
     }
 
@@ -120,8 +123,10 @@ class ScriptHandler
     {
         if (!is_dir($path)) {
             $event->getIO()->write(sprintf('The %s (%s) specified in composer.json was not found in %s, can not %s.', $configName, $path, getcwd(), $actionName));
+
             return false;
         }
+
         return true;
     }
 
@@ -143,6 +148,7 @@ class ScriptHandler
         if (!$phpPath = $phpFinder->find($includeArgs)) {
             throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
         }
+
         return $phpPath;
     }
     protected static function getPhpArguments()
@@ -155,7 +161,7 @@ class ScriptHandler
         if (false !== $ini = php_ini_loaded_file()) {
             $arguments[] = '--php-ini='.$ini;
         }
+
         return $arguments;
     }
-
 }

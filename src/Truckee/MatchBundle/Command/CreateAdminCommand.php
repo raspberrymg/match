@@ -22,7 +22,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateAdminCommand extends ContainerAwareCommand
 {
-
     /**
      * @see Command
      */
@@ -57,19 +56,20 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em        = $this->getContainer()->get('doctrine')->getManager();
-        $username  = $this->getContainer()->getParameter('admin_username');
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $username = $this->getContainer()->getParameter('admin_username');
         $firstname = $this->getContainer()->getParameter('admin_first_name');
-        $lastname  = $this->getContainer()->getParameter('admin_last_name');
-        $email     = $this->getContainer()->getParameter('admin_email');
-        $password  = $this->getContainer()->getParameter('admin_password');
+        $lastname = $this->getContainer()->getParameter('admin_last_name');
+        $email = $this->getContainer()->getParameter('admin_email');
+        $password = $this->getContainer()->getParameter('admin_password');
 
         if (null === $username ||
             null === $firstname ||
             null === $lastname ||
             null === $email ||
             null === $password) {
-                $output->writeln(sprintf('Insufficient data in parameters.yml for creating admin user'));
+            $output->writeln(sprintf('Insufficient data in parameters.yml for creating admin user'));
+
             return;
         }
 

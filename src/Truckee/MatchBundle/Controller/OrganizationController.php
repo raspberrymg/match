@@ -11,6 +11,7 @@
 
 //src\Truckee\MatchBundle\Controller\OrganizationController
 
+
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,14 +23,15 @@ use Truckee\MatchBundle\Form\OrganizationType;
 use Truckee\MatchBundle\Form\OrganizationSelectType;
 
 /**
- * Description of Organization
+ * Description of Organization.
+ *
  * @Route("/org")
  * @Security("is_granted('ROLE_STAFF')")
+ *
  * @author George
  */
 class OrganizationController extends Controller
 {
-
     /**
      * @Route("/edit/{id}", name="org_edit")
      * @Template()
@@ -42,7 +44,7 @@ class OrganizationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $organization = ('staff' === $type) ? $user->getOrganization() :
-                $em->getRepository("TruckeeMatchBundle:Organization")->find($id);
+                $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         $name = $organization->getOrgName();
 
         $similarNames = array();
@@ -55,16 +57,16 @@ class OrganizationController extends Controller
             $em->persist($organization);
             $em->flush();
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success($name . " updated");
+            $flash->success($name.' updated');
 
             if ('staff' === $type) {
                 return $this->redirect($this->generateUrl('org_edit'));
-            }
-            else {
+            } else {
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
         $errors = $form->getErrorsAsString();
+
         return array(
             'form' => $form->createView(),
             'organization' => $organization,
@@ -86,10 +88,8 @@ class OrganizationController extends Controller
             $id = $org['organization'];
             if ('' === $id) {
                 $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->alert("No organization selected");
-            }
-            else {
-
+                $flash->alert('No organization selected');
+            } else {
                 return $this->redirect($this->generateUrl('org_edit', array(
                                     'id' => $id,
                 )));
@@ -98,7 +98,7 @@ class OrganizationController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'title' => 'Select organization'
+            'title' => 'Select organization',
         );
     }
 }

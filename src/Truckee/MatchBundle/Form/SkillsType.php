@@ -11,21 +11,20 @@
 
 //src\Truckee\MatchBundle\Form\SkillsType.php
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Truckee\MatchBundle\Form\SkillType;
 
 /**
- * Description of SkillType
+ * Description of SkillType.
  *
  * @author George
  */
 class SkillsType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -35,7 +34,7 @@ class SkillsType extends AbstractType
                     'label' => 'Save',
                     'attr' => array(
                         'class' => 'btn-xs',
-                    )
+                    ),
                 ))
             ;
     }

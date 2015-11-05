@@ -14,12 +14,11 @@ namespace Truckee\MatchBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Validates area code length
+ * Validates area code length.
+ *
  * @Annotation
  */
 class AreaCode extends Constraint
-
 {
     public $message = 'Area code must be 3 digits';
-
 }

@@ -10,20 +10,21 @@
 
 //src\Truckee\MatchBundle\DataFixtures\ORM\LoadInitialFocusSkill.php
 
+
 namespace Truckee\MatchBundle\DataFixtures\ORM;
+
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Truckee\MatchBundle\Entity\Focus;
 use Truckee\MatchBundle\Entity\Skill;
 
 /**
- * LoadInitialFocusSkill
- *
+ * LoadInitialFocusSkill.
  */
 class LoadInitialFocusSkill implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {

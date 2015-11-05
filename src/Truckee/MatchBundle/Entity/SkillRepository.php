@@ -11,31 +11,33 @@
 
 //src\Truckee\MatchBundle\Entity\SkillRepository.php
 
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Description of SkillRepository
+ * Description of SkillRepository.
  *
  * @author George
  */
 class SkillRepository extends EntityRepository
 {
-
     public function getSkillsNoAll()
     {
-        $em  = $this->getEntityManager();
-        return $em->createQuery("select s from TruckeeMatchBundle:Skill s "
-                . "WHERE s.skill <> 'All' "
-                . "order by s.skill asc")->getResult();
+        $em = $this->getEntityManager();
+
+        return $em->createQuery('select s from TruckeeMatchBundle:Skill s '
+                ."WHERE s.skill <> 'All' "
+                .'order by s.skill asc')->getResult();
     }
 
-    public function isSkillPopulated()
+    public function countSkills()
     {
-        $em  = $this->getEntityManager();
-        return $em->createQuery("select count(s) from TruckeeMatchBundle:Skill s "
-            . "WHERE s.enabled = '1'")
+        $em = $this->getEntityManager();
+
+        return $em->createQuery('select count(s) from TruckeeMatchBundle:Skill s '
+            ."WHERE s.enabled = '1'")
             ->getSingleScalarResult();
     }
 }

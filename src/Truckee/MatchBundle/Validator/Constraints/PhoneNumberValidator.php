@@ -13,7 +13,7 @@ namespace Truckee\MatchBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
- 
+
 class PhoneNumberValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
@@ -21,12 +21,11 @@ class PhoneNumberValidator extends ConstraintValidator
         $a = preg_match('/([0-9]{3})[ .-]([0-9]{4})/', $value);
         $b = empty($value);
         if (!($a || $b)) {
- 
             $this->context->addViolation($constraint->message);
- 
+
             return false;
         }
- 
+
         return true;
     }
 }

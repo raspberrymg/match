@@ -13,11 +13,10 @@ namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
-use Truckee\MatchBundle\Entity\Opportunity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Opportunity
+ * Opportunity.
  *
  * @ORM\Table(name="volunteer")
  * @ORM\Entity(repositoryClass="Truckee\MatchBundle\Entity\VolunteerRepository")
@@ -26,9 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Volunteer extends Person
 {
-   
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -37,16 +35,16 @@ class Volunteer extends Person
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="receive_email", type="boolean", nullable=true)
      */
     protected $receiveEmail;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -54,9 +52,10 @@ class Volunteer extends Person
     }
 
     /**
-     * Set receiveEmail
+     * Set receiveEmail.
      *
      * @param string $receiveEmail
+     *
      * @return Person
      */
     public function setReceiveEmail($receiveEmail)
@@ -67,9 +66,9 @@ class Volunteer extends Person
     }
 
     /**
-     * Get receiveEmail
+     * Get receiveEmail.
      *
-     * @return string 
+     * @return string
      */
     public function getReceiveEmail()
     {
@@ -89,9 +88,10 @@ class Volunteer extends Person
     protected $focuses;
 
     /**
-     * Add focuses
+     * Add focuses.
      *
      * @param \Truckee\MatchBundle\Entity\Focus $focuses
+     *
      * @return Opportunity
      */
     public function addFocus(\Truckee\MatchBundle\Entity\Focus $focus)
@@ -102,7 +102,7 @@ class Volunteer extends Person
     }
 
     /**
-     * Remove focuses
+     * Remove focuses.
      *
      * @param \Truckee\MatchBundle\Entity\Focus $focuses
      */
@@ -112,9 +112,9 @@ class Volunteer extends Person
     }
 
     /**
-     * Get focuses
+     * Get focuses.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFocuses()
     {
@@ -134,9 +134,10 @@ class Volunteer extends Person
     protected $skills;
 
     /**
-     * Add skills
+     * Add skills.
      *
      * @param \Truckee\MatchBundle\Entity\Skill $skills
+     *
      * @return Opportunity
      */
     public function addSkill(\Truckee\MatchBundle\Entity\Skill $skill)
@@ -147,7 +148,7 @@ class Volunteer extends Person
     }
 
     /**
-     * Remove skills
+     * Remove skills.
      *
      * @param \Truckee\MatchBundle\Entity\Skill $skills
      */
@@ -157,9 +158,9 @@ class Volunteer extends Person
     }
 
     /**
-     * Get skills
+     * Get skills.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSkills()
     {

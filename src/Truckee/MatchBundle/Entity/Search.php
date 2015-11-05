@@ -14,7 +14,7 @@ namespace Truckee\MatchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Search
+ * Search.
  *
  * @ORM\Table("search")
  * @ORM\Entity
@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Search
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -36,16 +36,16 @@ class Search
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
-    
+
     /**
      * @ORM\Column(name="date", type="date")
      */
     private $date;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -53,22 +53,23 @@ class Search
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return Search
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -86,9 +87,10 @@ class Search
     protected $focus;
 
     /**
-     * Set focus
+     * Set focus.
      *
      * @param \Truckee\MatchBundle\Entity\Focus $focus
+     *
      * @return Contact
      */
     public function setFocus(Focus $focus = null)
@@ -99,8 +101,7 @@ class Search
     }
 
     /**
-     * Get focus
-     *
+     * Get focus.
      */
     public function getFocus()
     {
@@ -118,9 +119,10 @@ class Search
     protected $organization;
 
     /**
-     * Set organization
+     * Set organization.
      *
      * @param \Truckee\MatchBundle\Entity\Organization $organization
+     *
      * @return Contact
      */
     public function setOrganization(Organization $organization = null)
@@ -131,8 +133,7 @@ class Search
     }
 
     /**
-     * Get organization
-     *
+     * Get organization.
      */
     public function getOrganization()
     {
@@ -150,9 +151,10 @@ class Search
     protected $opportunity;
 
     /**
-     * Set opportunity
+     * Set opportunity.
      *
      * @param \Truckee\MatchBundle\Entity\Opportunity $opportunity
+     *
      * @return Contact
      */
     public function setOpportunity(Opportunity $opportunity = null)
@@ -163,8 +165,7 @@ class Search
     }
 
     /**
-     * Get opportunity
-     *
+     * Get opportunity.
      */
     public function getOpportunity()
     {
@@ -182,9 +183,10 @@ class Search
     protected $skill;
 
     /**
-     * Set skill
+     * Set skill.
      *
      * @param \Truckee\MatchBundle\Entity\Skill $skill
+     *
      * @return Contact
      */
     public function setSkill(Skill $skill = null)
@@ -195,8 +197,7 @@ class Search
     }
 
     /**
-     * Get skill
-     *
+     * Get skill.
      */
     public function getSkill()
     {
@@ -204,9 +205,10 @@ class Search
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param date $date
+     *
      * @return Searcn
      */
     public function setDate($date)
@@ -217,9 +219,9 @@ class Search
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return integer 
+     * @return int
      */
     public function getDate()
     {
