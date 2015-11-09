@@ -63,7 +63,6 @@ services:
         arguments: 
             em: @doctrine.orm.entity_manager
             messager: @admin.mailer
-            tools: @truckee_match.toolbox
         tags:
             - { name: kernel.event_subscriber }
 
