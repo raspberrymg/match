@@ -1,25 +1,9 @@
-<form action="{{ path('volunteer_registration') }}" method="POST" class="form-inline">
-    {{ bootstrap_set_style('form-inline') }}
-    {% set submit = 1 %}
-    {% include "Person/person_manage.html.twig" %}
-    <fieldset>
-        {% if form.focuses is empty %}
-            {# do not submit form if focus criteria empty #}
-            {% set submit = 0 %}
-        {% endif %}
-        {{ form_row(form.focuses) }}
-    </fieldset>
-    <fieldset>
-        {% if form.skills is empty %}
-            {# do not submit form if skill criteria empty #}
-            {% set submit = 0 %}
-        {% endif %}
-        {{ form_row(form.skills) }}
-    </fieldset>
-    {{ bootstrap_set_style('') }}
-    <div>
-        {% if submit == 1 %}
-            {{ form_widget(form.save) }}
-        {% endif %}
+{{ form_start(form) }}
+{% for template in templates %}
+    <div class="row">
+        <div class="col-md-5">
+            {% include template %}
+        </div>
     </div>
+{% endfor %}
 </form>
