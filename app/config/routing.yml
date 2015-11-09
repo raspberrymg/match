@@ -8,12 +8,9 @@ fos_user:
 
 staff_registration:
     path:  /register/staff
-    defaults: { _controller: AppBundle:Registration:registerStaff }
 
 volunteer_registration:
     path:  /register/volunteer
-    defaults: { _controller: AppBundle:Registration:registerVolunteer }
 
 admin_registration:
     path:  /register/admin
-    defaults: { _controller: AppBundle:Registration:registerAdmin }
