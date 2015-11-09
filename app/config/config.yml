@@ -140,6 +140,8 @@ pugx_multi_user:
         profile:
           form: 
             type: Truckee\MatchBundle\Form\ProfileFormType
+            name: fos_user_profile
+          template: Volunteer/volunteer.form.html.twig
         options: 
             skill_required: %skill_required%
             focus_required: %focus_required%
