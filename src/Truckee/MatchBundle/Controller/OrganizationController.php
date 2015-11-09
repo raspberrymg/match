@@ -40,7 +40,7 @@ class OrganizationController extends Controller
     {
         $user = $this->getUser();
         $tool = $this->container->get('truckee_match.toolbox');
-        $type = $tool->getUserType($user);
+        $type = $user->getUserType();
         $em = $this->getDoctrine()->getManager();
 
         $organization = ('staff' === $type) ? $user->getOrganization() :

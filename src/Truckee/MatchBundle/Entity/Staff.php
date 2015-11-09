@@ -33,6 +33,8 @@ class Staff extends Person
      */
     protected $id;
 
+    protected $discr = 'staff';
+
     /**
      * @var \Truckee\MatchBundle\Entity\Organization
      *

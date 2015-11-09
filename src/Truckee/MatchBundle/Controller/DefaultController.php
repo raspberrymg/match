@@ -16,8 +16,10 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $user = $this->getUser();
+        $type = $user->getUserType();
         $tool = $this->container->get('truckee_match.toolbox');
-        $type = $tool->getUserType($user);
+        $wtf = $tool->getTypeFromId(2);
+        dump($wtf);
         if ('admin' === $type) {
             return $this->redirect($this->generateUrl('admin_home'));
         }

@@ -28,12 +28,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MatchSearchType extends AbstractType
 {
     private $tokenStorage;
-    private $tool;
 
-    public function __construct(TokenStorageInterface $tokenStorage, $tool)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->tool = $tool;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -49,7 +47,7 @@ class MatchSearchType extends AbstractType
         $user = $this->tokenStorage->getToken()->getUser();
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($user) {
 
-            $type = $this->tool->getUserType($user);
+            $type = $user->getUserType();
             $form = $event->getForm();
             if ('volunteer' === $type) {
                 $form

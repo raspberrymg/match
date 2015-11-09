@@ -28,13 +28,11 @@ class RegistrationListener implements EventSubscriberInterface
 {
     private $em;
     private $mailer;
-    private $tools;
 
-    public function __construct(EntityManager $em, $messager, $tools)
+    public function __construct(EntityManager $em, $messager)
     {
         $this->em = $em;
         $this->mailer = $messager;
-        $this->tools = $tools;
     }
 
     public static function getSubscribedEvents()
@@ -54,7 +52,7 @@ class RegistrationListener implements EventSubscriberInterface
         /** @var $user \FOS\UserBundle\Model\UserInterface */
         $user = $event->getForm()->getData();
         $user->setAddDate(new \DateTime());
-        $type = $this->tools->getUserType($user);
+        $type = $user->getUserType();
         if ('staff' === $type) {
             $organization = $user->getOrganization();
             $organization->setTemp(true);

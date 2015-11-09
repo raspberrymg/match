@@ -27,8 +27,7 @@ class ProfileController extends Controller
     public function editAction()
     {
         $user = $this->getUser();
-        $tools = $this->container->get('truckee_match.toolbox');
-        $userType = $tools->getUserType($user);
+        $userType = $user->getUserType();
         switch ($userType) {
             case 'volunteer':
                 return $this->volunteerProfileAction();

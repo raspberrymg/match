@@ -32,4 +32,6 @@ class Admin extends Person
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+
+    protected $discr = 'admin';
 }

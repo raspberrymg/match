@@ -34,6 +34,8 @@ class Volunteer extends Person
      */
     protected $id;
 
+    protected $discr = 'volunteer';
+
     /**
      * @var int
      *

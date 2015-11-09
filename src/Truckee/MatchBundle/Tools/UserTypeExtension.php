@@ -41,9 +41,9 @@ class UserTypeExtension extends \Twig_Extension
 
     public function getType()
     {
-        $user = $this->getUser();
+        $user = (is_object($this->token->getToken())) ? $this->token->getToken()->getUser() : 'anon.';
 
-        return $this->tools->getUserType($user);
+        return $user->getUserType();
     }
 
     public function getFilters()

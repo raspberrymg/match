@@ -207,4 +207,9 @@ abstract class Person extends BaseUser
     {
         return $this->addDate;
     }
+
+    public function getUserType()
+    {
+        return $this->discr;
+    }
 }

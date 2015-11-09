@@ -39,8 +39,7 @@ class OpportunityController extends Controller
     public function newAction(Request $request, $id = null)
     {
         $user = $this->getUser();
-        $tool = $this->container->get('truckee_match.toolbox');
-        $type = $tool->getUserType($user);
+        $type = $user->getUserType();
         if (false === $this->get('security.context')->isGranted('ROLE_STAFF')) {
             throw $this->AccessDeniedException('You do not have permission to create an opportunity');
         }
@@ -90,8 +89,7 @@ class OpportunityController extends Controller
     public function editAction(Request $request, $id)
     {
         $user = $this->getUser();
-        $tool = $this->container->get('truckee_match.toolbox');
-        $type = $tool->getUserType($user);
+        $type = $user->getUserType();
         if ($type != 'admin' && $type != 'staff') {
             throw $this->createNotFoundException('You do not have permission to edit an opportunity');
         }
