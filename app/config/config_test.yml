@@ -23,7 +23,7 @@ doctrine:
         connections:
             test:
                 driver:   pdo_sqlite
-                path:     %kernel.cache_dir%/test.sqlite
+                path:     %kernel.root_dir%/cache/test/test.sqlite
     orm:
         dql:
             string_functions:

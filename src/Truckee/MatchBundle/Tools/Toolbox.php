@@ -28,43 +28,10 @@ class Toolbox
         $this->em = $em;
     }
 
-    /**
-     * gets type as class of user entity
-     * e.g., "...\Entity\Admin" is type "admin".
-     * 
-     * @param object Entity $user
-     *
-     * @return mixed
-     */
-    public function getUserType($user)
-    {
-        if (null === $user || !is_object($user)) {
-            return;
-        }
-
-        $class = get_class($user);
-        $l = strrpos($class, '\\');
-        $type = strtolower(substr($class, $l + 1));
-
-        return $type;
-    }
-
     public function getTypeFromId($id)
     {
-        $sql = "select A.type from 
-            (select 'staff' as type from Staff  s where s.id = :id
-            union all
-            select 'volunteer' as type from Volunteer v where v.id = :id
-            union all
-            select 'admin' as type from Admin a where a.id = :id) A";
-
-        $conn = $this->em->getConnection();
-        $sth = $conn->prepare($sql);
-        $sth->bindParam(':id', $id);
-        $sth->execute();
-        $type = $sth->fetchColumn();
-
-        return $type;
+        $user = $this->em->getRepository('TruckeeMatchBundle:Person')->find($id);
+        return $user->getUserType();
     }
 
     public function setSearchRecord($data, $searched)

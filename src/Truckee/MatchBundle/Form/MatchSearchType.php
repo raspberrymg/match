@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -18,7 +17,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Description of MatchSearch.
@@ -27,46 +25,44 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class MatchSearchType extends AbstractType
 {
-    private $tokenStorage;
+    private $userOptions;
+    private $user;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct($user, $userOptions)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->userOptions = $userOptions;
+        $this->user = $user;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('organization', new OrganizationSelectType())
-                ->add('Search', 'submit', array(
-                    'attr' => array(
-                        'class' => 'btn-xs',
-                    ),
-                ))
+            ->add('organization', new OrganizationSelectType())
+            ->add('Search', 'submit',
+                array(
+                'attr' => array(
+                    'class' => 'btn-xs',
+                ),
+            ))
         ;
-        $user = $this->tokenStorage->getToken()->getUser();
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($user) {
 
-            $type = $user->getUserType();
+        $user = $this->user;
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($user) {
+
             $form = $event->getForm();
-            if ('volunteer' === $type) {
-                $form
-                        ->add('focuses', 'focuses', array(
-                            'mapped' => false,
-                            'data' => $user->getFocuses(),
-                        ))
-                        ->add('skills', 'skills', array(
-                            'mapped' => false,
-                            'data' => $user->getSkills(),
-                ));
-            } else {
-                $form
-                        ->add('focuses', 'focuses', array(
-                            'mapped' => false,
-                        ))
-                        ->add('skills', 'skills', array(
-                            'mapped' => false,
-                ));
+            $focusOptions = $skillOptions = array('mapped' => false);
+            $userType = ('anon.' != $user) ? $user->getUserType() : array();
+
+            if ($this->userOptions['focus_required']) {
+                $focusOptions['data'] = ('volunteer' === $userType) ? $user->getFocuses()
+                        : null;
+                $form->add('focuses', 'focuses', $focusOptions);
+            }
+            if ($this->userOptions['skill_required']) {
+                $skillOptions['data'] = ('volunteer' === $userType) ? $user->getSkills()
+                        : null;
+                $form->add('skills', 'skills', $skillOptions);
             }
         });
     }

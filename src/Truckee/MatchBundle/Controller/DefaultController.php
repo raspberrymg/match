@@ -15,18 +15,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $user = $this->getUser();
-        $type = $user->getUserType();
-        $tool = $this->container->get('truckee_match.toolbox');
-        $wtf = $tool->getTypeFromId(2);
-        dump($wtf);
-        if ('admin' === $type) {
+        if (true === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirect($this->generateUrl('admin_home'));
         }
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'title' => '',
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
+        return $this->render('default/index.html.twig',
+                array(
+                'title' => '',
+                'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));
     }
 
@@ -36,23 +32,15 @@ class DefaultController extends Controller
      */
     public function oppSearchAction(Request $request)
     {
-        $tokenStorage = $this->container->get('security.token_storage');
-        $tool = $this->container->get('truckee_match.toolbox');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userOptions['focus_required'] = $this->getParameter('focus_required');
+        $userOptions['skill_required'] = $this->getParameter('skill_required');
 
-        $form = $this->createForm(new MatchSearchType($tokenStorage, $tool));
+        $form = $this->createForm(new MatchSearchType($user, $userOptions));
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
+            $tool = $this->container->get('truckee_match.toolbox');
             $data = $request->get('match_search');
-
-//            $search['organization'] = $record['organization'] = $data['organization'];
-//            if (!array_key_exists('focuses', $data) && !array_key_exists('skills', $data)) {
-//                $record['focuses'] = $em->getRepository("TruckeeMatchBundle:Focus")->findBy(['focus' => 'All']);
-//                $record['skills'] = $em->getRepository("TruckeeMatchBundle:Skill")->findBy(['skill' => 'All']);
-//            }
-//            else {
-//                $record['focuses'] = $search['focuses'] = (array_key_exists('focuses', $data)) ? $data['focuses'] : [];
-//                $record['skills'] = $search['skills'] = (array_key_exists('skills', $data)) ? $data['skills'] : [];
-//            }
             $tool->setSearchRecord($data, 'opportunity');
             $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->doFocusSkillSearch($data);
 
@@ -66,9 +54,19 @@ class DefaultController extends Controller
             $flash->alert('No opportunities meet your criteria');
         }
 
-        return $this->render('default/oppSearchForm.html.twig', array(
-                    'form' => $form->createView(),
-                    'title' => 'Search for opportunities',
+        $templates = array();
+        if ($userOptions['focus_required']) {
+            $templates[] = 'default/focus.html.twig';
+        }
+        if ($userOptions['skill_required']) {
+            $templates[] = 'default/skill.html.twig';
+        }
+
+        return $this->render('default/oppSearchForm.html.twig',
+                array(
+                'form' => $form->createView(),
+                'templates' => $templates,
+                'title' => 'Search for opportunities',
         ));
     }
 }

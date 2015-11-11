@@ -10,16 +10,13 @@
                 {{ form_widget(form.organization) }}
             </div>
         </div>
+        {% for template in templates %}
         <div class="row">
-            <div class="col-md-8">
-                {{ form_row(form.focuses) }}
+            <div class="col-md-5">
+            {% include template %}
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                {{ form_row(form.skills) }}
-            </div>
-        </div>
+        {% endfor %}
         <div class="row">
             <div class="col-md-5">
                 {{ form_widget(form.Search) }}

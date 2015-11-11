@@ -17,8 +17,6 @@ namespace Truckee\MatchBundle\DataFixtures\Test;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-//use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
 use Truckee\MatchBundle\Entity\Focus;
 use Truckee\MatchBundle\Entity\Skill;
 
