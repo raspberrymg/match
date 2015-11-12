@@ -40,14 +40,14 @@ class RegistrationFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['volunteer_registration[email]'] = 'hvolunteer@bogus.info';
-        $form['volunteer_registration[username]'] = 'hvolunteer';
-        $form['volunteer_registration[firstName]'] = 'Harry';
-        $form['volunteer_registration[lastName]'] = 'Volunteer';
-        $form['volunteer_registration[plainPassword][first]'] = '123Abcd';
-        $form['volunteer_registration[plainPassword][second]'] = '123Abcd';
-        $form['volunteer_registration[focuses]'] = [1];
-        $form['volunteer_registration[skills]'] = [14];
+        $form['fos_user_registration_form[email]'] = 'hvolunteer@bogus.info';
+        $form['fos_user_registration_form[username]'] = 'hvolunteer';
+        $form['fos_user_registration_form[firstName]'] = 'Harry';
+        $form['fos_user_registration_form[lastName]'] = 'Volunteer';
+        $form['fos_user_registration_form[plainPassword][first]'] = '123Abcd';
+        $form['fos_user_registration_form[plainPassword][second]'] = '123Abcd';
+        $form['fos_user_registration_form[focuses]'] = [1];
+        $form['fos_user_registration_form[skills]'] = [14];
 
         $crawler = $this->client->submit($form);
     }
@@ -122,12 +122,11 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitVolunteerForm();
         $this->activateVolunteer();
         $crawler = $this->client->request('GET', '/profile/edit');
-        $form = $crawler->selectButton('Update')->form();
+        $form = $crawler->selectButton('Save')->form();
         $values = $form->getPhpValues();
-        $receiveEmail = $values['fos_user_profile_form']['receiveEmail'];
+        $receiveEmail = $values['fos_user_profile']['receiveEmail'];
 
         $this->assertTrue(1 == $receiveEmail);
-        $this->assertTrue($crawler->filter('html:contains("Signed in as hvolunteer")')->count() > 0);
     }
 
     public function testChangePasswordVolunteer()
@@ -182,11 +181,10 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitStaffForm();
         $this->activateStaff();
         $crawler = $this->client->request('GET', '/profile/edit');
-        $form = $crawler->selectButton('Update')->form();
+        $form = $crawler->selectButton('Save')->form();
         $values = $form->getPhpValues();
         $filled = count($values['staff_profile_form']);
 
-        $this->assertEquals(6, $filled);
-        $this->assertTrue($crawler->filter('html:contains("Signed in as jglenshire")')->count() > 0);
+        $this->assertEquals(7, $filled);
     }
 }

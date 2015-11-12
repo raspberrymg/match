@@ -15,11 +15,21 @@
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OrganizationType extends AbstractType
 {
+    private $options;
+
+    public function __construct($options)
+    {
+        $this->options = $options;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -128,7 +138,6 @@ class OrganizationType extends AbstractType
                     'by_reference' => false,
                     'prototype' => true,
                 ))
-                ->add('focuses', 'focuses')
                 ->add('save', 'submit', array(
                     'label' => 'Save organization',
                     'attr' => array(
@@ -136,6 +145,14 @@ class OrganizationType extends AbstractType
                     ),
                 ))
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+            $form = $event->getForm();
+            if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+                $form->add('focuses', 'focuses');
+            };
+        });
     }
 
     public function getName()
@@ -149,6 +166,11 @@ class OrganizationType extends AbstractType
             'data_class' => 'Truckee\MatchBundle\Entity\Organization',
             'cascade_validation' => true,
             'required' => false,
+            'validation_groups' => function (FormInterface $form) {
+                if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+                    return 'focus_required';
+                }
+            },
         ));
     }
 }

@@ -8,7 +8,6 @@ class DefaultController_FF_Test extends WebTestCase
 {
     private $client;
     private $em;
-    private $skillRequired;
 
     public function setUp()
     {
@@ -42,9 +41,7 @@ class DefaultController_FF_Test extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Welcome to Symfony',
             $crawler->filter('#container h1')->text());
-        $this->assertTrue($this->focusRequired);
     }
-
 
     public function testSearchSkill_FF()
     {

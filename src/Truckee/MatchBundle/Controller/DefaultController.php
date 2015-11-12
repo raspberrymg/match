@@ -54,13 +54,8 @@ class DefaultController extends Controller
             $flash->alert('No opportunities meet your criteria');
         }
 
-        $templates = array();
-        if ($userOptions['focus_required']) {
-            $templates[] = 'default/focus.html.twig';
-        }
-        if ($userOptions['skill_required']) {
-            $templates[] = 'default/skill.html.twig';
-        }
+        $tools = $this->container->get('truckee_match.toolbox');
+        $templates = $tools->templatesFocusSkill();
 
         return $this->render('default/oppSearchForm.html.twig',
                 array(

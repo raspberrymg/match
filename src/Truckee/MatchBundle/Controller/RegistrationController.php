@@ -29,8 +29,9 @@ class RegistrationController extends Controller
      */
     public function registerStaffAction(Request $request)
     {
-        $templates = array();
-
+        $tools = $this->container->get('truckee_match.toolbox');
+        $templates = $tools->getStaffTemplates('register');
+//        var_dump($templates);die;
         return $this->container
                 ->get('pugx_multi_user.registration_manager')
                 ->register('Truckee\MatchBundle\Entity\Staff', $templates);
@@ -43,11 +44,8 @@ class RegistrationController extends Controller
      */
     public function registerVolunteerAction()
     {
-        $focusRequired = $this->getParameter('focus_required');
-        $skillRequired = $this->getParameter('skill_required');
         $tools = $this->container->get('truckee_match.toolbox');
-
-        $templates = $tools->getVolunteerTemplates($focusRequired, $skillRequired, 'register');
+        $templates = $tools->getVolunteerTemplates('register');
 
         return $this->container
                 ->get('pugx_multi_user.registration_manager')

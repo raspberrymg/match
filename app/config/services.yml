@@ -56,7 +56,9 @@ services:
 
     truckee_match.toolbox:
         class: Truckee\MatchBundle\Tools\Toolbox
-        arguments: [@doctrine.orm.entity_manager]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - {focus_required: %focus_required%, skill_required: %skill_required%}
             
     truckee_match.registration_listener:
         class: Truckee\MatchBundle\EventListener\RegistrationListener

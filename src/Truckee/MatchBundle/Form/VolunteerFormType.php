@@ -36,7 +36,7 @@ class VolunteerFormType extends BaseType
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
             $form = $event->getForm();
-            if ($this->options['skill_required']) {
+            if (null != $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
                 $form->add('skills', 'skills');
             };
             if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {

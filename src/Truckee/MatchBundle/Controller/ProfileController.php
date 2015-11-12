@@ -31,9 +31,11 @@ class ProfileController extends Controller
         switch ($userType) {
             case 'volunteer':
                 return $this->volunteerProfileAction();
-
                 break;
+            case 'staff';
 
+                return $this->staffProfileAction();
+                break;
             default:
                 break;
         }
@@ -41,13 +43,21 @@ class ProfileController extends Controller
 
     private function volunteerProfileAction()
     {
-        $focusRequired = $this->getParameter('focus_required');
-        $skillRequired = $this->getParameter('skill_required');
         $tools = $this->container->get('truckee_match.toolbox');
-        $templates = $tools->getVolunteerTemplates($focusRequired, $skillRequired, 'profile');
+        $templates = $tools->getVolunteerTemplates('profile');
 
         return $this->container
                 ->get('pugx_multi_user.profile_manager')
                 ->edit('Truckee\MatchBundle\Entity\Volunteer', $templates);
+    }
+
+    private function staffProfileAction()
+    {
+        $tools = $this->container->get('truckee_match.toolbox');
+        $templates = $tools->getStaffTemplates('profile');
+
+        return $this->container
+                ->get('pugx_multi_user.profile_manager')
+                ->edit('Truckee\MatchBundle\Entity\Staff', $templates);
     }
 }

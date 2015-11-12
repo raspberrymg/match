@@ -22,16 +22,28 @@ use Truckee\MatchBundle\Entity\Search;
 class Toolbox
 {
     private $em;
+    private $options;
+    private $focusRequired;
+    private $skillRequired;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, $userOptions)
     {
         $this->em = $em;
+        $this->options = $userOptions;
+        $this->focusRequired = $userOptions['focus_required'];
+        $this->skillRequired = $userOptions['skill_required'];
     }
 
     public function getTypeFromId($id)
     {
         $user = $this->em->getRepository('TruckeeMatchBundle:Person')->find($id);
+
         return $user->getUserType();
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     public function setSearchRecord($data, $searched)
@@ -184,34 +196,74 @@ class Toolbox
         return $em->flush();
     }
 
-    public function getVolunteerTemplates($focusRequired, $skillRequired,
-                                          $method)
+    public function getStaffTemplates($method)
     {
         $em = $this->em;
-        $nFocuses = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
-        $nSkills = $em->getRepository('TruckeeMatchBundle:Skill')->countSkills();
-        switch ($method) {
-            case 'register':
-                $templates[] = 'Person/person_manage.html.twig';
-                $templates[] = 'Person/registerPassword.html.twig';
-                break;
-            case 'profile':
-                $templates[] = 'Person/person_manage.html.twig';
-                $templates[] = 'Person/currentPassword.html.twig';
-            default:
-                break;
-        }
         $submit = true;
-        if ($focusRequired) {
-            $templates[] = 'default/focus.html.twig';
+        $templates = $this->templatesPerson($method, 'staff');
+        if ($this->focusRequired && 'register' === $method) {
+            $templates[] = 'Organization/orgFocus.html.twig';
+            $nFocuses = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
             $submit = (1 < $nFocuses) ? $submit : false;
         }
-        if ($skillRequired) {
-            $templates[] = 'default/skill.html.twig';
+        if (true === $submit) {
+            $templates[] = 'default/save.html.twig';
+        }
+
+        return $templates;
+    }
+
+    public function getVolunteerTemplates($method)
+    {
+        $em = $this->em;
+        $submit = true;
+        $templates = array_merge($this->templatesPerson($method, 'volunteer'),
+            $this->templatesFocusSkill());
+        if ($this->focusRequired) {
+            $nFocuses = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
+            $submit = (1 < $nFocuses) ? $submit : false;
+        }
+        if ($this->skillRequired) {
+            $nSkills = $em->getRepository('TruckeeMatchBundle:Skill')->countSkills();
             $submit = (1 < $nSkills) ? $submit : false;
         }
         if (true === $submit) {
             $templates[] = 'default/save.html.twig';
+        }
+
+        return $templates;
+    }
+
+    public function templatesFocusSkill()
+    {
+        $templates = array();
+        if ($this->focusRequired) {
+            $templates[] = 'default/focus.html.twig';
+        }
+        if ($this->skillRequired) {
+            $templates[] = 'default/skill.html.twig';
+        }
+
+        return $templates;
+    }
+
+    private function templatesPerson($method, $userType)
+    {
+        $templates[] = 'Person/person_manage.html.twig';
+        switch ($method) {
+            case 'register':
+                $templates[] = 'Person/registerPassword.html.twig';
+                if ('staff' === $userType) {
+                    $templates[] = 'Organization/orgForm.html.twig';
+                }
+                break;
+            case 'profile':
+                $templates[] = 'Person/currentPassword.html.twig';
+                if ('volunteer' === $userType) {
+                    $templates[] = 'Volunteer/receiveEmail.html.twig';
+                }
+            default:
+                break;
         }
 
         return $templates;

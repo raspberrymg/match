@@ -127,6 +127,7 @@ pugx_multi_user:
             type: Truckee\MatchBundle\Form\ProfileFormType
             name: staff_profile_form
             validation_groups:  [Profile, Default]
+          template: Staff/staff.form.html.twig
         options: 
             skill_required: %skill_required%
             focus_required: %focus_required%
