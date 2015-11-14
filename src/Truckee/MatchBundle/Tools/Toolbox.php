@@ -160,27 +160,52 @@ class Toolbox
 
     public function getMatchedVolunteers($id)
     {
+        $focusMatched = $skillMatched = array();
         $opportunity = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
-        $skills = $opportunity->getSkills()->toArray();
-        $organization = $opportunity->getOrganization();
-        $focuses = $organization->getFocuses()->toArray();
-
-        $criteria['skills'] = [];
-        foreach ($skills as $skill) {
-            $criteria['skills'][] = $skill->getId();
-        }
-        $criteria['focuses'] = [];
-        foreach ($focuses as $focus) {
-            $criteria['focuses'][] = $focus->getId();
-        }
         $criteria['opportunity'] = $opportunity;
-        $matched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->getMatchedVolunteers($criteria['focuses'],
-            $criteria['skills']);
+        if (true === $this->focusRequired) {
+            $organization = $opportunity->getOrganization();
+            $focuses = $organization->getFocuses()->toArray();
+            $criteria['focuses'] = [];
+            foreach ($focuses as $focus) {
+                $criteria['focuses'][] = $focus->getId();
+            }
+            $focusMatched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->getVolunteersByFocus($criteria['focuses']);
+        }
+        if (true === $this->skillRequired) {
+            $skills = $opportunity->getSkills()->toArray();
+            $criteria['skills'] = [];
+            foreach ($skills as $skill) {
+                $criteria['skills'][] = $skill->getId();
+            }
+            $skillMatched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->getVolunteersBySkill($criteria['skills']);
+            foreach ($skills as $skill) {
+                $criteria['skills'][] = $skill->getId();
+            }
+        }
 
-        return [
+        $matchedArray = array_unique(array_merge($focusMatched, $skillMatched),
+            SORT_REGULAR);
+        foreach ($matchedArray as $volunteer) {
+            $idArray[$volunteer['id']] = $volunteer['id'];
+        }
+
+        if (array() === $matchedArray) {
+            $matched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->findBy(array(
+                    'receiveEmail' => true, 'enabled' => true, ));
+            foreach ($matched as $volunteer) {
+                $id = $volunteer->getId();
+                $idArray[$id] = $id;
+            }
+        } else {
+            $matched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->findById($idArray);
+        }
+
+        return array(
             'volunteers' => $matched,
             'criteria' => $criteria,
-        ];
+            'idArray' => $idArray,
+        );
     }
 
     public function activateOrganization($id)

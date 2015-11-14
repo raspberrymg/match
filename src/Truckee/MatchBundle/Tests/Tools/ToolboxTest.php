@@ -35,6 +35,10 @@ class ToolboxTest extends \PHPUnit_Framework_TestCase
             ->willReturn($this->repository);
         $this->user = $this->getMock('Truckee\MatchBundle\Tests\Stub\SomeUser',
             array('getUserType'));
+        $this->userOptions = array(
+            'focus_required' => true,
+            'skill_required' => true,
+        );
     }
 
     public function testGetTypeFromId()
@@ -46,7 +50,7 @@ class ToolboxTest extends \PHPUnit_Framework_TestCase
             ->method('getUserType')
             ->willReturn('volunteer');
 
-        $tools = new Toolbox($this->em);
+        $tools = new Toolbox($this->em, $this->userOptions);
         $type = $tools->getTypeFromId(12);
 
         $this->assertEquals('volunteer', $type);

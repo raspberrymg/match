@@ -108,19 +108,15 @@ class AdminController extends Controller
         $opportunity = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
         $tool = $this->container->get('truckee_match.toolbox');
         $matched = $tool->getMatchedVolunteers($id);
-        $matchedVolunteers = $matched['volunteers'];
+        $volunteers = $matched['volunteers'];
         $criteria = $matched['criteria'];
-        if (empty($matchedVolunteers)) {
+        if (empty($volunteers)) {
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->alert('No volunteers match opportunity criteria');
 
             return $this->redirect($this->generateUrl('admin_home'));
         }
-        foreach ($matchedVolunteers as $volunteer) {
-            $idArray[$volunteer['id']] = $volunteer['id'];
-        }
-        $volunteers = $em->getRepository('TruckeeMatchBundle:Volunteer')->findById($idArray);
-        $form = $this->createForm(new VolunteerEmailType($idArray),
+        $form = $this->createForm(new VolunteerEmailType($matched['idArray']),
             $volunteers);
         $form->handleRequest($request);
         if ($form->isValid()) {

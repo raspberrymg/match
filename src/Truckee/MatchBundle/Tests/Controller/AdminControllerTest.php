@@ -99,7 +99,9 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("hvolunteer")')->count());
+        $getting = $this->client->getResponse()->getContent();
+        file_put_contents("G:\\Documents\\response.html", $getting);
+        $this->assertEquals(2, $crawler->filter('div:contains("Harry")')->count());
     }
 
     public function testSendVolunteerEmail()

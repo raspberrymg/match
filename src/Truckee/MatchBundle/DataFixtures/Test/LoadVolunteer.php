@@ -66,6 +66,38 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
         $volunteer->addSkill($skill);
 
         $userManager->updateUser($volunteer, true);
+
+        $volunteerA = $userManager->createUser();
+        $volunteerA->setUsername('hvola');
+        $volunteerA->setEmail('hvola.info');
+        $volunteerA->setPlainPassword('123Abcd');
+        $volunteerA->setEnabled(true);
+        $volunteerA->setFirstName('Harry');
+        $volunteerA->setLastName('Volunteer');
+        $volunteerA->setReceiveEmail(true);
+        $volunteerA->addRole('ROLE_USER');
+        $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Arts and Culture');
+        $volunteerA->addFocus($foc1);
+        $skill = $manager->getRepository('TruckeeMatchBundle:Skill')->findOneBy(array('skill' => 'Legal Services'));
+        $volunteerA->addSkill($skill);
+
+        $userManager->updateUser($volunteerA, true);
+
+        $volunteerB = $userManager->createUser();
+        $volunteerB->setUsername('hvolb');
+        $volunteerB->setEmail('hvolb@bogus.info');
+        $volunteerB->setPlainPassword('123Abcd');
+        $volunteerB->setEnabled(true);
+        $volunteerB->setFirstName('Harry');
+        $volunteerB->setLastName('Volunteer');
+        $volunteerB->setReceiveEmail(true);
+        $volunteerB->addRole('ROLE_USER');
+        $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Animal Welfare');
+        $volunteerB->addFocus($foc1);
+        $skill = $manager->getRepository('TruckeeMatchBundle:Skill')->findOneBy(array('skill' => 'Administrative Support'));
+        $volunteerB->addSkill($skill);
+
+        $userManager->updateUser($volunteerB, true);
     }
 
     public function getOrder()
