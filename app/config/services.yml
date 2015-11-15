@@ -67,3 +67,8 @@ services:
             messager: @admin.mailer
         tags:
             - { name: kernel.event_subscriber }
+
+    truckee_match.dashboard:
+        class: Truckee\MatchBundle\Tools\Dashboard
+        arguments: 
+            em: @doctrine.orm.entity_manager

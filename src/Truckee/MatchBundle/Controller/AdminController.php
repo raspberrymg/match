@@ -185,57 +185,56 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_home'));
     }
-//    /**
-//     * @Route("/dashboard", name="dashboard")
-//     * @Template()
-//     */
-//    public function dashboardAction()
-//    {
-//        $dashboard = $this->container->get('truckee_match.dashboard');
-//        $data['oppSearchForm30Day'] = $dashboard->oppSearchForm30Day();
-//        $data['oppSearchFormAll'] = $dashboard->oppSearchFormAll();
-//        $data['newOppEmails30Day'] = $dashboard->newOppEmails30Day();
-//        $data['newOppEmails'] = $dashboard->newOppEmails();
-//        $data['expiringOppEmails30Day'] = $dashboard->expiringOppEmails30Day();
-//        $data['expiringOppEmails'] = $dashboard->expiringOppEmails();
-//        $data['newVols30Day'] = $dashboard->newVols30Day();
-//        $data['newVols'] = $dashboard->newVols();
-//        $data['volReceivingMailOn'] = $dashboard->volReceivingMailOn();
-//        $data['volReceivingMailOff'] = $dashboard->volReceivingMailOff();
-//        $data['volLocked'] = $dashboard->volLocked();
-//        $data['newOrg30Day'] = $dashboard->newOrg30Day();
-//        $data['newOrg'] = $dashboard->newOrg();
-//        $data['newOpps30Day'] = $dashboard->newOpps30Day();
-//        $data['newOpps'] = $dashboard->newOpps();
-//        $data['orgActive'] = $dashboard->orgActive();
-//        $data['orgInactive'] = $dashboard->orgInactive();
-//        $data['oppActive'] = $dashboard->oppActive();
-//        $data['oppInactive'] = $dashboard->oppInactive();
-//        $data['oppExpired'] = $dashboard->oppExpired();
-//
-//        return [
-//            'oppSearchForm30Day' => $data['oppSearchForm30Day'],
-//            'oppSearchFormAll' => $data['oppSearchFormAll'],
-//            'newOppEmails30Day' => $data['newOppEmails30Day'],
-//            'newOppEmails' => $data['newOppEmails'],
-//            'expiringOppEmails30Day' => $data['expiringOppEmails30Day'],
-//            'expiringOppEmails' => $data['expiringOppEmails'],
-//            'newVols30Day' => $data['newVols30Day'],
-//            'newVols' => $data['newVols'],
-//            'volReceivingMailOn' => $data['volReceivingMailOn'],
-//            'volReceivingMailOff' => $data['volReceivingMailOff'],
-//            'volLocked' => $data['volLocked'],
-//            'newOrg30Day' => $data['newOrg30Day'],
-//            'newOrg' => $data['newOrg'],
-//            'newOpps30Day' => $data['newOpps30Day'],
-//            'newOpps' => $data['newOpps'],
-//            'orgActive' => $data['orgActive'],
-//            'orgInactive' => $data['orgInactive'],
-//            'oppActive' => $data['oppActive'],
-//            'oppInactive' => $data['oppInactive'],
-//            'oppExpired' => $data['oppExpired'],
-//        ];
-//    }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     * @Template("Admin/Dashboard/dashboard.html.twig")
+     */
+    public function dashboardAction()
+    {
+        $dashboard = $this->container->get('truckee_match.dashboard');
+        $expire = $this->getParameter('truckee_match.expiring_alerts');
+        $oppMail = $this->getParameter('truckee_match.opportunity_email');
+        $searchMail = $this->getParameter('truckee_match.search_email');
+        $templates[] = 'Admin/Dashboard/websiteEmailHeader.html.twig';
+
+        if ($expire || $oppMail || $searchMail) {
+            if ($searchMail) {
+                $data['oppSearchForm30Day'] = $dashboard->oppSearchForm30Day();
+                $data['oppSearchFormAll'] = $dashboard->oppSearchFormAll();
+                $templates[] = 'Admin/Dashboard/oppSearchFormEmail.html.twig';
+            }
+            if ($oppMail) {
+                $data['newOppEmails30Day'] = $dashboard->newOppEmails30Day();
+                $data['newOppEmails'] = $dashboard->newOppEmails();
+                $templates[] = 'Admin/Dashboard/newOppEmail.html.twig';
+            }
+            if ($expire) {
+                $data['expiringOppEmails30Day'] = $dashboard->expiringOppEmails30Day();
+                $data['expiringOppEmails'] = $dashboard->expiringOppEmails();
+                $templates[] = 'Admin/Dashboard/expiringOppEmail.html.twig';
+            }
+        }
+        $data['newVols30Day'] = $dashboard->newVols30Day();
+        $data['newVols'] = $dashboard->newVols();
+        $data['volReceivingMailOn'] = $dashboard->volReceivingMailOn();
+        $data['volReceivingMailOff'] = $dashboard->volReceivingMailOff();
+        $data['volLocked'] = $dashboard->volLocked();
+        $data['newOrg30Day'] = $dashboard->newOrg30Day();
+        $data['newOrg'] = $dashboard->newOrg();
+        $data['newOpps30Day'] = $dashboard->newOpps30Day();
+        $data['newOpps'] = $dashboard->newOpps();
+        $data['orgActive'] = $dashboard->orgActive();
+        $data['orgInactive'] = $dashboard->orgInactive();
+        $data['oppActive'] = $dashboard->oppActive();
+        $data['oppInactive'] = $dashboard->oppInactive();
+        $data['oppExpired'] = $dashboard->oppExpired();
+
+        return [
+            'dashboard' => $data,
+            'templates' => $templates,
+        ];
+    }
 //
 //    /**
 //     * @Route("/select/{class}", name="person_select")

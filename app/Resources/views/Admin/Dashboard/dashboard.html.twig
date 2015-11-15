@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div body="row">
+        <div class="col-md-3">
+            <h4>{{ label_info("Admin Dashboard") }}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>{{ label_success("Activity") }}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-2 text-right">
+            Last 30 days
+        </div>
+        <div class="col-md-2 text-right">
+            All
+        </div>
+    </div>
+    {% for template in templates %}
+        {% include template %}
+    {% endfor %}
+    {% include "Admin/Dashboard/volunteerRegistrations.html.twig" %}
+    {% include "Admin/Dashboard/organizationRegistrations.html.twig" %}
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>{{ label_success("Status") }}</h4>
+        </div>
+    </div>
+    {% include "Admin/Dashboard/volunteerStatus.html.twig" %}
+    {% include "Admin/Dashboard/organizationStatus.html.twig" %}
+    {% include "Admin/Dashboard/opportunityStatus.html.twig" %}
+
+{% endblock %}
