@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    profile.form.type: Truckee\MatchBundle\Form\ProfileFormType
 
 framework:
     #esi:             ~
@@ -124,7 +125,7 @@ pugx_multi_user:
           template: Staff/staff.form.html.twig
         profile:
           form:
-            type: Truckee\MatchBundle\Form\ProfileFormType
+            type: %profile.form.type%
             name: staff_profile_form
             validation_groups:  [Profile, Default]
           template: Staff/staff.form.html.twig
@@ -140,7 +141,7 @@ pugx_multi_user:
           template: Volunteer/volunteer.form.html.twig
         profile:
           form: 
-            type: Truckee\MatchBundle\Form\ProfileFormType
+            type: %profile.form.type%
             name: fos_user_profile
           template: Volunteer/volunteer.form.html.twig
         options: 
@@ -156,7 +157,7 @@ pugx_multi_user:
           template: Admin/add.html.twig
         profile:
           form: 
-            type: Truckee\MatchBundle\Form\ProfileFormType
+            type: %profile.form.type%
 
 truckee_match:
     expiring_alerts: true

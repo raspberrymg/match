@@ -1,0 +1,21 @@
+{% set id = skill.vars.value.id %}{% set name = skill.vars.value.skill %}
+<div class="row">
+    <div class="col-md-3">
+        {{ name }}
+        <input type="hidden" name="skills[skills][{{ loop.index0 }}][skill]" value="{{ skill.vars.value.skill }}">
+    </div>
+    <div class="col-md-2 text-right">
+        {% if id in skillsUsage['volunteer']|keys %}
+            {{ skillsUsage['volunteer'][id] }}{% else %}0
+            {% endif %}
+        </div>
+        <div class="col-md-2 text-right">
+            {% if id in skillsUsage['opportunity']|keys %}
+                {{ skillsUsage['opportunity'][id] }}{% else %}0
+                {% endif %}
+            </div>
+            <div class="col-md-1 text-center">
+                <input type="checkbox" name="skills[skills][{{ loop.index0 }}][enabled]" 
+                       {%if skill.vars.value.enabled %}checked="checked"{%endif%}>
+            </div>
+        </div>

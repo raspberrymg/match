@@ -29,12 +29,14 @@ class ProfileController extends Controller
         $user = $this->getUser();
         $userType = $user->getUserType();
         switch ($userType) {
-            case 'volunteer':
-                return $this->volunteerProfileAction();
+            case 'admin';
+                return $this->adminProfileAction();
                 break;
             case 'staff';
-
                 return $this->staffProfileAction();
+                break;
+            case 'volunteer':
+                return $this->volunteerProfileAction();
                 break;
             default:
                 break;
@@ -59,5 +61,15 @@ class ProfileController extends Controller
         return $this->container
                 ->get('pugx_multi_user.profile_manager')
                 ->edit('Truckee\MatchBundle\Entity\Staff', $templates);
+    }
+
+    private function adminProfileAction()
+    {
+//        $tools = $this->container->get('truckee_match.toolbox');
+//        $templates = $tools->getStaffTemplates('profile');
+
+        return $this->container
+                ->get('pugx_multi_user.profile_manager')
+                ->edit('Truckee\MatchBundle\Entity\Admin');
     }
 }

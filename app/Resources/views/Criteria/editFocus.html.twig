@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form  name="focuses" method="post" action="" role="form">
+        {{ form_widget(formFocus._token) }}
+        {% include "Criteria/editFocus_content.html.twig" %}
+        <br>
+        {{ form_row(formFocuses.save) }}
+    </form>
+{% endblock %}

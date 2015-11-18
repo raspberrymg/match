@@ -235,45 +235,45 @@ class AdminController extends Controller
             'templates' => $templates,
         ];
     }
-//
-//    /**
-//     * @Route("/select/{class}", name="person_select")
-//     * @Template()
-//     */
-//    public function personSelectAction(Request $request, $class)
-//    {
-//        switch ($class) {
-//            case 'admin':
-//                $form = $this->createForm(new AdminUsersType());
-//                break;
-//            case 'volunteer':
-//                $form = $this->createForm(new VolunteerUsersType());
-//                break;
-//            default:
-//                break;
-//        }
-//        $form->handleRequest($request);
-//        if ($form->isValid()) {
-//            $formName = $form->getName();
-//            $selected = $this->get('request')->request->get($formName);
-//            $id = $selected['user'];
-//            if ('' === $id) {
-//                $flash = $this->get('braincrafted_bootstrap.flash');
-//                $flash->alert("No person selected");
-//            }
-//            else {
-//                return $this->redirect($this->generateUrl('account_lock', array(
-//                                    'id' => $id,
-//                                    'class' => $class,
-//                )));
-//            }
-//        }
-//        return array(
-//            'form' => $form->createView(),
-//            'title' => 'Select person',
-//            'class' => $class,
-//        );
-//    }
+
+    /**
+     * @Route("/select/{class}", name="person_select")
+     * @Template()
+     */
+    public function personSelectAction(Request $request, $class)
+    {
+        switch ($class) {
+            case 'admin':
+                $form = $this->createForm(new AdminUsersType());
+                break;
+            case 'volunteer':
+                $form = $this->createForm(new VolunteerUsersType());
+                break;
+            default:
+                break;
+        }
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $formName = $form->getName();
+            $selected = $this->get('request')->request->get($formName);
+            $id = $selected['user'];
+            if ('' === $id) {
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->alert("No person selected");
+            }
+            else {
+                return $this->redirect($this->generateUrl('account_lock', array(
+                                    'id' => $id,
+                                    'class' => $class,
+                )));
+            }
+        }
+        return array(
+            'form' => $form->createView(),
+            'title' => 'Select person',
+            'class' => $class,
+        );
+    }
 //
 //    /**
 //     * @Route("/lock/{class}/{id}", name="account_lock")

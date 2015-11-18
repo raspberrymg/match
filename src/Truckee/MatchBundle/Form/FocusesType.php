@@ -9,40 +9,40 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\Form\SkillsType.php
-
+//src\Truckee\MatchBundle\Form\FocusesType.php
 
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Truckee\MatchBundle\Form\SkillType;
+use Truckee\MatchBundle\Form\FocusType;
 
 /**
- * Description of SkillType.
+ * Description of FocusType
  *
  * @author George
  */
-class SkillsType extends AbstractType
+class FocusesType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('skills', 'collection', ['type' => new SkillType(),
+                ->add('focuses', 'collection', ['type' => new FocusType(),
                     ])
                 ->add('save', 'submit', array(
                     'label' => 'Save',
                     'attr' => array(
                         'class' => 'btn-xs',
-                    ),
+                    )
                 ))
             ;
     }
 
     public function getName()
     {
-        return 'skills';
+        return 'focuses';
     }
 
     /**
