@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -34,24 +33,45 @@ class OrganizationController extends Controller
 {
     /**
      * @Route("/edit/{id}", name="org_edit")
-     * @Template()
+     * @Template("Organization/orgEdit.html.twig")
      */
     public function editAction(Request $request, $id = null)
     {
         $user = $this->getUser();
-        $tool = $this->container->get('truckee_match.toolbox');
         $type = $user->getUserType();
         $em = $this->getDoctrine()->getManager();
+        $tool = $this->container->get('truckee_match.toolbox');
 
         $organization = ('staff' === $type) ? $user->getOrganization() :
-                $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
+            $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         $name = $organization->getOrgName();
+        $focus = $this->container->getParameter('focus_required');
+        $form = $this->createForm(new OrganizationType($focus),
+            $organization);
 
-        $similarNames = array();
+        //organization templates
         if ($organization->getTemp()) {
-            $similarNames = $tool->getOrgNames($name);
+            $templates[] = 'Organization/inactiveOrganization.html.twig';
+        } else {
+            $templates[] = 'Organization/activeOrganization.html.twig';
         }
-        $form = $this->createForm(new OrganizationType(), $organization);
+        $templates[] = 'Organization/orgForm.html.twig';
+        if ('admin' === $type) {
+            $similarNames = ($organization->getTemp()) ? $tool->getOrgNames($name)
+                    : array();
+            $templates[] = 'Organization/similarNames.html.twig';
+            $templates[] = 'Organization/orgForm.html.twig';
+            if ($focus) {
+                $templates[] = 'default/focus.html.twig';
+            }
+            $templates[] = 'Organization/orgFormStaffEdit.html.twig';
+        } else {
+            $templates[] = 'Organization/orgForm.html.twig';
+            if ($focus) {
+                $templates[] = 'default/focus.html.twig';
+            }
+        }
+
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em->persist($organization);
@@ -71,34 +91,9 @@ class OrganizationController extends Controller
             'form' => $form->createView(),
             'organization' => $organization,
             'errors' => $errors,
+            'templates' => $templates,
             'title' => 'Edit organization',
             'similars' => $similarNames,
-        );
-    }
-
-    /**
-     * @Route("/select", name="org_select")
-     * @Template()
-     */
-    public function orgSelectAction(Request $request)
-    {
-        $form = $this->createForm(new OrganizationSelectType());
-        if ($request->isMethod('POST')) {
-            $org = $this->get('request')->request->get('org_select');
-            $id = $org['organization'];
-            if ('' === $id) {
-                $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->alert('No organization selected');
-            } else {
-                return $this->redirect($this->generateUrl('org_edit', array(
-                                    'id' => $id,
-                )));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'title' => 'Select organization',
         );
     }
 }

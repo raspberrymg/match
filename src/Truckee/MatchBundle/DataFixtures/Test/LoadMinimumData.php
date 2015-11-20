@@ -18,6 +18,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Truckee\MatchBundle\Entity\Focus;
+use Truckee\MatchBundle\Entity\Skill;
 
 /**
  * LoadMinimumData: minimum data for application.
@@ -46,7 +48,18 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        //create admin user
+        $manager->clear();
+        $focus = new Focus();
+        $focus->setFocus('All');
+        $focus->setEnabled(true);
+        $manager->persist($focus);
+
+        $skill = new Skill();
+        $skill->setSkill('All');
+        $skill->setEnabled(true);
+        $manager->persist($skill);
+
+        $manager->flush();
 
         $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
         $discriminator->setClass('Truckee\MatchBundle\Entity\Admin');
@@ -55,11 +68,11 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
 
         $admin = $userManager->createUser();
 
-        $userName = $this->container->getParameter('admin_username');
-        $email = $this->container->getParameter('admin_email');
-        $password = $this->container->getParameter('admin_password');
+        $userName  = $this->container->getParameter('admin_username');
+        $email     = $this->container->getParameter('admin_email');
+        $password  = $this->container->getParameter('admin_password');
         $firstName = $this->container->getParameter('admin_first_name');
-        $lastName = $this->container->getParameter('admin_last_name');
+        $lastName  = $this->container->getParameter('admin_last_name');
 
         $admin->setUsername($userName);
         $admin->setEmail($email);
@@ -70,8 +83,6 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
         $admin->addRole('ROLE_SUPER_ADMIN');
 
         $userManager->updateUser($admin, true);
-
-        $manager->flush();
     }
 
     public function getOrder()

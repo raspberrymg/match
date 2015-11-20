@@ -1,0 +1,9 @@
+<hr>
+<h4>{{ label_info("Opportunities") }}</h4>
+
+{% for opp in organization.opportunities %}
+    <a class="btn btn-primary btn-xs active" href="{{ path('opp_edit', {'id': opp.id}) }}">Edit</a>
+    <b>{% if not opp.active %}Not {% endif %}Active:</b> {{ opp.oppName }}; <b>Expiration:</b> {{ opp.expireDate|date('m/d/Y') }}
+{% endfor %}
+<hr/>
+<a  class="btn btn-primary btn-xs active" href="{{ path('opp_new', {'id': organization.id}) }}">Add opportunity</a>

@@ -34,6 +34,7 @@ class RegistrationFunctionalTest extends WebTestCase
         );
         $this->loadFixtures($classes);
         $this->client = static::createClient();
+//        file_put_contents("G:\\Documents\\response.html", $this->client->getResponse()->getContent());
     }
 
     public function submitVolunteerForm()
@@ -46,8 +47,8 @@ class RegistrationFunctionalTest extends WebTestCase
         $form['fos_user_registration_form[lastName]'] = 'Volunteer';
         $form['fos_user_registration_form[plainPassword][first]'] = '123Abcd';
         $form['fos_user_registration_form[plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [1];
-        $form['fos_user_registration_form[skills]'] = [14];
+        $form['fos_user_registration_form[focuses]'] = [2];
+        $form['fos_user_registration_form[skills]'] = [15];
 
         $crawler = $this->client->submit($form);
     }
@@ -72,7 +73,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $form['staff_registration[plainPassword][first]'] = '123Abcd';
         $form['staff_registration[plainPassword][second]'] = '123Abcd';
         $form['staff_registration[organization][orgName]'] = 'Glenshire Marmot Fund';
-        $form['staff_registration[organization][focuses]'] = [1];
+        $form['staff_registration[organization][focuses]'] = [2];
 
         $crawler = $this->client->submit($form);
     }

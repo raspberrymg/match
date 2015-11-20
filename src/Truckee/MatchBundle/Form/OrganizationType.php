@@ -23,11 +23,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OrganizationType extends AbstractType
 {
-    private $options;
+    private $focusRequired;
 
-    public function __construct($options)
+    public function __construct($focusRequired)
     {
-        $this->options = $options;
+        $this->focusRequired = $focusRequired;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -149,9 +149,9 @@ class OrganizationType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
             $form = $event->getForm();
-            if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+            if ($this->focusRequired) {
                 $form->add('focuses', 'focuses');
-            };
+            }
         });
     }
 
@@ -167,7 +167,7 @@ class OrganizationType extends AbstractType
             'cascade_validation' => true,
             'required' => false,
             'validation_groups' => function (FormInterface $form) {
-                if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
+                if ($this->focusRequired) {
                     return 'focus_required';
                 }
             },

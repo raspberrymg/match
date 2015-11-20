@@ -1,0 +1,3 @@
+{% for similar in similars if similars|length > 0 %}
+    <p>{{ label_warning('Possibly same as: ') }} {{ similar }}</p>
+{% endfor %}

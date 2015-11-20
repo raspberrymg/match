@@ -43,7 +43,7 @@ class CriteriaController extends Controller
         if (!$doFocus) {
             $flash->error('Focus criteria not enabled');
             
-            return $this->redirect($this->generateUrl("home"));
+            return $this->redirect($this->generateUrl("admin_home"));
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -95,7 +95,7 @@ class CriteriaController extends Controller
         if (!$doSkill) {
             $flash->error('Skill criteria not enabled');
 
-            return $this->redirect($this->generateUrl("home"));
+            return $this->redirect($this->generateUrl("admin_home"));
         }
         $em         = $this->getDoctrine()->getManager();
         $skills     = $em->getRepository("TruckeeMatchBundle:Skill")->getSkillsNoAll();

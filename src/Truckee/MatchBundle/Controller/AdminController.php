@@ -274,44 +274,125 @@ class AdminController extends Controller
             'class' => $class,
         );
     }
-//
-//    /**
-//     * @Route("/lock/{class}/{id}", name="account_lock")
-//     */
-//    public function lockAction(Request $request, $id, $class)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $person = $em->getRepository("TruckeeMatchBundle:Person")->find($id);
-//        if ('staff' === $class) {
-//            $org = $person->getOrganization();
-//            $orgId = $person->getOrganization()->getId();
-//            $staff = $org->getStaff();
-//            $canLock = false;
-//            foreach ($staff as $user) {
-//                $canLock = ($id <> $user->getId() && $user->isLocked()) ? true : false;
-//            }
-//            if (!$canLock) {
-//                $flash = $this->get('braincrafted_bootstrap.flash');
-//                $flash->alert("Cannot lock only unlocked staff person");
-//                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
-//            }
-//        }
-//        $firstName = $person->getFirstname();
-//        $lastName = $person->getLastname();
-//
-//        $userManager = $this->container->get('pugx_user_manager');
-//        $locked = $person->isLocked();
-//        $person->setLocked(!$locked);
-//        $userManager->updateUser($person, true);
-//        $flash = $this->get('braincrafted_bootstrap.flash');
-//        $flash->success("User $firstName $lastName updated");
-//
-//        switch ($class) {
-//            case 'staff':
-//                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
-//            default:
-//                return $this->redirect($this->generateUrl('admin_home'));
-//                break;
-//        }
-//    }
+
+    /**
+     * @Route("/lock/{class}/{id}", name="account_lock")
+     */
+    public function lockAction(Request $request, $id, $class)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository("TruckeeMatchBundle:Person")->find($id);
+        if ('staff' === $class) {
+            $org = $person->getOrganization();
+            $orgId = $person->getOrganization()->getId();
+            $staff = $org->getStaff();
+            $canLock = false;
+            foreach ($staff as $user) {
+                $canLock = ($id <> $user->getId() && $user->isLocked()) ? true : false;
+            }
+            if (!$canLock) {
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->alert("Cannot lock only unlocked staff person");
+                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
+            }
+        }
+        $firstName = $person->getFirstname();
+        $lastName = $person->getLastname();
+
+        $userManager = $this->container->get('pugx_user_manager');
+        $locked = $person->isLocked();
+        $person->setLocked(!$locked);
+        $userManager->updateUser($person, true);
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success("User $firstName $lastName updated");
+
+        switch ($class) {
+            case 'staff':
+                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
+            default:
+                return $this->redirect($this->generateUrl('admin_home'));
+                break;
+        }
+    }
+
+    /**
+     * Adds staff member for existing organization
+     * Note: /register/staff cannot accept existing organization
+     *
+     * @Route("/staffAdd/{orgId}", name="staff_add")
+     * @Template()
+     */
+    public function staffAddAction(Request $request, $orgId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($orgId);
+        $staff = new Staff();
+        $class = 'Truckee\MatchBundle\Entity\Staff';
+        $form = $this->createForm(new PersonType($class), $staff);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+            $discriminator->setClass('Truckee\MatchBundle\Entity\Staff');
+
+            $userManager = $this->container->get('pugx_user_manager');
+
+            $staff = $userManager->createUser();
+
+            $staff->setUsername($data->getUsername());
+            $firstName = $data->getFirstname();
+            $lastName = $data->getLastname();
+            $staff->setFirstname($firstName);
+            $staff->setLastname($lastName);
+            $staff->setEmail($data->getEmail());
+            $staff->setPlainPassword($data->getPlainPassword());
+            $staff->setEnabled(true);
+            $staff->setOrganization($organization);
+            $staff->addRole('ROLE_STAFF');
+
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $staff->setConfirmationToken($tokenGenerator->generateToken());
+            $mailer = $this->container->get('admin.mailer');
+            $mailer->sendConfirmationEmailMessage($staff);
+
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success("User $firstName $lastName created");
+
+            $userManager->updateUser($staff, true);
+            return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
+        }
+        return array(
+            'form' => $form->createView(),
+            'errors' => $form->getErrorsAsString(),
+            'organization' => $organization,
+        );
+    }
+
+    /**
+     * @Route("/select", name="org_select")
+     * @Template()
+     */
+    public function orgSelectAction(Request $request)
+    {
+        $form = $this->createForm(new OrganizationSelectType());
+        if ($request->isMethod('POST')) {
+            $org = $this->get('request')->request->get('org_select');
+            $id = $org['organization'];
+            if ('' === $id) {
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->alert('No organization selected');
+            } else {
+                return $this->redirect($this->generateUrl('org_edit',
+                            array(
+                            'id' => $id,
+                )));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'title' => 'Select organization',
+        );
+    }
 }

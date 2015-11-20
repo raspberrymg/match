@@ -1,0 +1,11 @@
+<hr>
+<h4>Staff</h4>
+<p>*: User account is locked</p>
+{% for person in organization.staff %}
+    <p>{{person.nameLockStatus}}; {{ person.email }}; 
+        <a  class="btn btn-primary btn-xs active" href="{{ path('account_lock', {'id': person.id, 'class':'staff'}) }}">
+            {% if person.locked %}Unlock account{%else%}Lock account{% endif %}
+        </a>
+    </p>
+{% endfor %}
+<p><a  class="btn btn-primary btn-xs active" href="{{ path('staff_add', {'orgId': organization.id}) }}">Add staff</a></p>
