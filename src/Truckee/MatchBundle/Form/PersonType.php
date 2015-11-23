@@ -24,6 +24,13 @@ use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
  */
 class PersonType extends BaseType
 {
+//    private $class;
+//
+//    public function __construct($class)
+//    {
+//        $this->class = $class;
+//    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options

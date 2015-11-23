@@ -19,8 +19,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\VolunteerEmailType;
-use Truckee\MatchBundle\Form\AdminUsersType;
+use Truckee\MatchBundle\Form\PersonType;
 use Truckee\MatchBundle\Form\VolunteerUsersType;
+use Truckee\MatchBundle\Entity\Staff;
 
 /**
  * Description of AdminController.
@@ -320,7 +321,7 @@ class AdminController extends Controller
      * Note: /register/staff cannot accept existing organization
      *
      * @Route("/staffAdd/{orgId}", name="staff_add")
-     * @Template()
+     * @Template("Staff/add.html.twig")
      */
     public function staffAddAction(Request $request, $orgId)
     {
@@ -338,28 +339,28 @@ class AdminController extends Controller
 
             $userManager = $this->container->get('pugx_user_manager');
 
-            $staff = $userManager->createUser();
+            $user = $userManager->createUser();
 
-            $staff->setUsername($data->getUsername());
+            $user->setUsername($data->getUsername());
             $firstName = $data->getFirstname();
             $lastName = $data->getLastname();
-            $staff->setFirstname($firstName);
-            $staff->setLastname($lastName);
-            $staff->setEmail($data->getEmail());
-            $staff->setPlainPassword($data->getPlainPassword());
-            $staff->setEnabled(true);
-            $staff->setOrganization($organization);
-            $staff->addRole('ROLE_STAFF');
+            $user->setFirstname($firstName);
+            $user->setLastname($lastName);
+            $user->setEmail($data->getEmail());
+            $user->setPlainPassword($data->getPlainPassword());
+            $user->setEnabled(true);
+            $user->setOrganization($organization);
+            $user->addRole('ROLE_STAFF');
+            $userManager->updateUser($user, true);
 
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-            $staff->setConfirmationToken($tokenGenerator->generateToken());
+            $user->setConfirmationToken($tokenGenerator->generateToken());
             $mailer = $this->container->get('admin.mailer');
-            $mailer->sendConfirmationEmailMessage($staff);
+            $mailer->sendConfirmationEmailMessage($user);
 
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success("User $firstName $lastName created");
 
-            $userManager->updateUser($staff, true);
             return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
         }
         return array(

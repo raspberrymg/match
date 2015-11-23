@@ -31,7 +31,7 @@ class RegistrationController extends Controller
     {
         $tools = $this->container->get('truckee_match.toolbox');
         $templates = $tools->getStaffTemplates('register');
-//        var_dump($templates);die;
+
         return $this->container
                 ->get('pugx_multi_user.registration_manager')
                 ->register('Truckee\MatchBundle\Entity\Staff', $templates);

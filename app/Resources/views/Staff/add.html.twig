@@ -1,11 +1,8 @@
-{# src/Truckee/UserBundle/Resources/views/Staff/add.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <h4>{{ label_info(organization.orgName) }}</h4>
     <h4>Staff Form</h4>
-    
-    {% if edit is not defined %}
     <div class="row">
         <div class="col-md-6">
             <p>Note that the person being registered here must confirm registration 
@@ -13,10 +10,11 @@
             <p>Be sure to advise person of password used and suggest it be changed.</p>
         </div>
     </div>
-    {% endif %}
     <form action="" method="post" class="form-inline">
-        {% include "TruckeeVolunteerBundle:Person:person_manage.html.twig" %}
-    <div>
-        {{ form_widget(form.save) }}
-    </div>    </form>
+        {% include "Person/person_manage.html.twig" %}
+        {% include "Person/registerPassword.html.twig" %}
+        <div>
+            {{ form_widget(form.save) }}
+        </div>    
+    </form>
 {% endblock %}

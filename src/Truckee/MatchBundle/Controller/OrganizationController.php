@@ -51,9 +51,9 @@ class OrganizationController extends Controller
 
         //organization templates
         if ($organization->getTemp()) {
-            $templates[] = 'Organization/inactiveOrganization.html.twig';
+            $templates[] = 'Organization/notEnabledOrganization.html.twig';
         } else {
-            $templates[] = 'Organization/activeOrganization.html.twig';
+            $templates[] = 'Organization/enabledOrganization.html.twig';
         }
         $templates[] = 'Organization/orgForm.html.twig';
         if ('admin' === $type) {

@@ -51,8 +51,7 @@ class AdminControllerTest extends WebTestCase
         $this->loadFixtures($classes);
         $this->client = $this->createClient();
         $this->client->followRedirects();
-//        $getting = $this->client->getResponse()->getContent();
-//        file_put_contents("G:\\Documents\\response.html", $getting);
+//        file_put_contents("G:\\Documents\\response.html", $this->client->getResponse()->getContent());
     }
 
     public function login($user)
@@ -99,8 +98,6 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $getting = $this->client->getResponse()->getContent();
-        file_put_contents("G:\\Documents\\response.html", $getting);
         $this->assertEquals(2, $crawler->filter('div:contains("Harry")')->count());
     }
 
@@ -166,6 +163,35 @@ class AdminControllerTest extends WebTestCase
         $this->assertEquals('staff', $type);
     }
 
+    public function testExistingOrganizationEdit()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/org/edit/1');
+        $form = $crawler->selectButton('Save organization')->form();
+        $form['org[address]'] = 'PO Box 9999';
+        $form['org[city]'] = 'Reno';
+        $form['org[state]'] = 'NV';
+        $form['org[zip]'] = '88888';
+        $form['org[website]'] = 'www.glenshire.org';
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
+    }
+
+    public function testAddStaff()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/admin/staffAdd/1');
+        $form = $crawler->selectButton('Save')->form();
+        $form['registration[email]'] = 'dingus@bogus.info';
+        $form['registration[username]'] = 'dingus';
+        $form['registration[firstName]'] = 'Dorkus';
+        $form['registration[lastName]'] = 'Ingus';
+        $form['registration[plainPassword][first]'] = '123Abcd';
+        $form['registration[plainPassword][second]'] = '123Abcd';
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
+    }
+
 //    public function organizationSelect()
 //    {
 //        $crawler = $this->login('admin');
@@ -187,19 +213,6 @@ class AdminControllerTest extends WebTestCase
 //        $form['org_select[organization]'] = $value;
 //        $crawler = $this->client->submit($form);
 //        return $this->client->submit($form);
-//    }
-//
-//    public function testExistingOrganizationEdit()
-//    {
-//        $crawler = $this->organizationEdit();
-//        $form = $crawler->selectButton('Save organization')->form();
-//        $form['org[address]'] = 'PO Box 9999';
-//        $form['org[city]'] = 'Reno';
-//        $form['org[state]'] = 'NV';
-//        $form['org[zip]'] = '88888';
-//        $form['org[website]'] = 'www.glenshire.org';
-//        $crawler = $this->client->submit($form);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
 //    }
 //    
 //    public function testOpportunityEdit()
@@ -257,22 +270,6 @@ class AdminControllerTest extends WebTestCase
 //    {
 //        $crawler = $this->addAdmin();
 //        $this->assertGreaterThan(0, $crawler->filter('html:contains("The user has been created successfully")')->count());
-//    }
-//
-//    public function testAddStaff()
-//    {
-//        $crawler = $this->organizationEdit();
-//        $link = $crawler->selectLink('Add staff')->link();
-//        $crawler = $this->client->click($link);
-//        $form = $crawler->selectButton('Save')->form();
-//        $form['person_registration[email]'] = 'bborko@bogus.info';
-//        $form['person_registration[username]'] = 'bborko';
-//        $form['person_registration[firstName]'] = 'Benny';
-//        $form['person_registration[lastName]'] = 'Borko';
-//        $form['person_registration[plainPassword][first]'] = '123Abcd';
-//        $form['person_registration[plainPassword][second]'] = '123Abcd';
-//        $crawler = $this->client->submit($form);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Benny Borko created")')->count());
 //    }
 //
 //    public function testAdminUserLock()

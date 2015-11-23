@@ -1,9 +1,0 @@
-{# src/Truckee/UserBundle/Resources/views/Staff/add.html.twig #}
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h4>{{ label_info('Account lock: '~staff.username) }}</h4>
-    <p>User will be unable to log in while account is locked</p>
-    {{ form(form) }}
-    
-    {% endblock %}

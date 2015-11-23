@@ -1,6 +1,8 @@
 <p><strong>Organization</strong></p>
 <div id="orgNotice"></div>
 <div id="orgForm">
+{% set staff = form %}
+{% set form = staff.organization %}
     {{ form_row(form.orgName) }}
     {{ form_row(form.address) }}
     {{ form_row(form.city) }}

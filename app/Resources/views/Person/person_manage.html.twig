@@ -1,5 +1,4 @@
-{{ form_errors(form) }}
-{%if form._token is defined %}{{ form_widget(form._token) }}{% endif %}
+{{ form_widget(form._token) }}
 {{ form_row(form.firstName) }}
 {{ form_row(form.lastName) }}
 {{ form_row(form.username) }}
