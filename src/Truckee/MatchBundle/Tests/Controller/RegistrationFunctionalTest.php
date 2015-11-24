@@ -41,12 +41,12 @@ class RegistrationFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[firstName]'] = 'Harry';
-        $form['fos_user_registration_form[lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[plainPassword][second]'] = '123Abcd';
+        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
+        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
+        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
+        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
         $form['fos_user_registration_form[focuses]'] = [2];
         $form['fos_user_registration_form[skills]'] = [15];
 
@@ -66,12 +66,12 @@ class RegistrationFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/staff');
         $form = $crawler->selectButton('Save')->form();
-        $form['staff_registration[email]'] = 'jglenshire@bogus.info';
-        $form['staff_registration[username]'] = 'jglenshire';
-        $form['staff_registration[firstName]'] = 'Joe';
-        $form['staff_registration[lastName]'] = 'Glenshire';
-        $form['staff_registration[plainPassword][first]'] = '123Abcd';
-        $form['staff_registration[plainPassword][second]'] = '123Abcd';
+        $form['staff_registration[personData][email]'] = 'jglenshire@bogus.info';
+        $form['staff_registration[personData][username]'] = 'jglenshire';
+        $form['staff_registration[personData][firstName]'] = 'Joe';
+        $form['staff_registration[personData][lastName]'] = 'Glenshire';
+        $form['staff_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['staff_registration[registerPassword][plainPassword][second]'] = '123Abcd';
         $form['staff_registration[organization][orgName]'] = 'Glenshire Marmot Fund';
         $form['staff_registration[organization][focuses]'] = [2];
 
@@ -186,6 +186,6 @@ class RegistrationFunctionalTest extends WebTestCase
         $values = $form->getPhpValues();
         $filled = count($values['staff_profile_form']);
 
-        $this->assertEquals(7, $filled);
+        $this->assertEquals(4, $filled);
     }
 }

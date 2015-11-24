@@ -8,36 +8,28 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\Form\PersonType
-
+//src\Truckee\MatchBundle\Form\StaffAddType.php
 
 namespace Truckee\MatchBundle\Form;
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
 
 /**
- * Description of PersonType.
+ * StaffAddType
  *
- * @author George
  */
-class PersonType extends BaseType
+class StaffAddType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         $builder
             ->add('personData', new PersonDataType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Person'
+                'data_class' => 'Truckee\MatchBundle\Entity\Staff'
             ))
             ->add('registerPassword', new RegisterPasswordType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Person'
+                'data_class' => 'Truckee\MatchBundle\Entity\Staff'
             ))
             ->add('save', 'submit',
                 array(
@@ -52,13 +44,13 @@ class PersonType extends BaseType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => $this->class,
-            'intention' => 'registration',
+            'data_class' => 'Truckee\MatchBundle\Entity\Staff',
         ));
     }
 
     public function getName()
     {
-        return 'registration';
+        return 'staff_add';
     }
+    
 }

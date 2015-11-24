@@ -1,3 +1,0 @@
-imports:
-    - { resource: config_test.yml }
-    - { resource: parameters_test_TF.yml }

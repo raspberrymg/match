@@ -80,17 +80,15 @@ class OrganizationController extends Controller
             $flash->success($name.' updated');
 
             if ('staff' === $type) {
-                return $this->redirect($this->generateUrl('org_edit'));
+                return $this->redirect($this->generateUrl('home'));
             } else {
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
-        $errors = $form->getErrorsAsString();
 
         return array(
             'form' => $form->createView(),
             'organization' => $organization,
-            'errors' => $errors,
             'templates' => $templates,
             'title' => 'Edit organization',
             'similars' => $similarNames,

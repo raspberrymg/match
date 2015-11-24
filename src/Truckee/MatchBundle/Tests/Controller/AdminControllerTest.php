@@ -180,14 +180,14 @@ class AdminControllerTest extends WebTestCase
     public function testAddStaff()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET', '/admin/staffAdd/1');
+        $crawler = $this->client->request('GET', '/admin/addStaff/1');
         $form = $crawler->selectButton('Save')->form();
-        $form['registration[email]'] = 'dingus@bogus.info';
-        $form['registration[username]'] = 'dingus';
-        $form['registration[firstName]'] = 'Dorkus';
-        $form['registration[lastName]'] = 'Ingus';
-        $form['registration[plainPassword][first]'] = '123Abcd';
-        $form['registration[plainPassword][second]'] = '123Abcd';
+        $form['staff_add[personData][email]'] = 'dingus@bogus.info';
+        $form['staff_add[personData][username]'] = 'dingus';
+        $form['staff_add[personData][firstName]'] = 'Dorkus';
+        $form['staff_add[personData][lastName]'] = 'Ingus';
+        $form['staff_add[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['staff_add[registerPassword][plainPassword][second]'] = '123Abcd';
         $crawler = $this->client->submit($form);
         $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
     }

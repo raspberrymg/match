@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\VolunteerEmailType;
 use Truckee\MatchBundle\Form\PersonType;
 use Truckee\MatchBundle\Form\VolunteerUsersType;
+use Truckee\MatchBundle\Form\StaffAddType;
 use Truckee\MatchBundle\Entity\Staff;
 
 /**
@@ -260,15 +261,15 @@ class AdminController extends Controller
             $id = $selected['user'];
             if ('' === $id) {
                 $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->alert("No person selected");
-            }
-            else {
+                $flash->alert('No person selected');
+            } else {
                 return $this->redirect($this->generateUrl('account_lock', array(
                                     'id' => $id,
                                     'class' => $class,
                 )));
             }
         }
+
         return array(
             'form' => $form->createView(),
             'title' => 'Select person',
@@ -282,18 +283,19 @@ class AdminController extends Controller
     public function lockAction(Request $request, $id, $class)
     {
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository("TruckeeMatchBundle:Person")->find($id);
+        $person = $em->getRepository('TruckeeMatchBundle:Person')->find($id);
         if ('staff' === $class) {
             $org = $person->getOrganization();
             $orgId = $person->getOrganization()->getId();
             $staff = $org->getStaff();
             $canLock = false;
             foreach ($staff as $user) {
-                $canLock = ($id <> $user->getId() && $user->isLocked()) ? true : false;
+                $canLock = ($id != $user->getId() && $user->isLocked()) ? true : false;
             }
             if (!$canLock) {
                 $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->alert("Cannot lock only unlocked staff person");
+                $flash->alert('Cannot lock only unlocked staff person');
+
                 return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
             }
         }
@@ -314,60 +316,6 @@ class AdminController extends Controller
                 return $this->redirect($this->generateUrl('admin_home'));
                 break;
         }
-    }
-
-    /**
-     * Adds staff member for existing organization
-     * Note: /register/staff cannot accept existing organization
-     *
-     * @Route("/staffAdd/{orgId}", name="staff_add")
-     * @Template("Staff/add.html.twig")
-     */
-    public function staffAddAction(Request $request, $orgId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $organization = $em->getRepository("TruckeeMatchBundle:Organization")->find($orgId);
-        $staff = new Staff();
-        $class = 'Truckee\MatchBundle\Entity\Staff';
-        $form = $this->createForm(new PersonType($class), $staff);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $data = $form->getData();
-
-            $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
-            $discriminator->setClass('Truckee\MatchBundle\Entity\Staff');
-
-            $userManager = $this->container->get('pugx_user_manager');
-
-            $user = $userManager->createUser();
-
-            $user->setUsername($data->getUsername());
-            $firstName = $data->getFirstname();
-            $lastName = $data->getLastname();
-            $user->setFirstname($firstName);
-            $user->setLastname($lastName);
-            $user->setEmail($data->getEmail());
-            $user->setPlainPassword($data->getPlainPassword());
-            $user->setEnabled(true);
-            $user->setOrganization($organization);
-            $user->addRole('ROLE_STAFF');
-            $userManager->updateUser($user, true);
-
-            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-            $user->setConfirmationToken($tokenGenerator->generateToken());
-            $mailer = $this->container->get('admin.mailer');
-            $mailer->sendConfirmationEmailMessage($user);
-
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success("User $firstName $lastName created");
-
-            return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
-        }
-        return array(
-            'form' => $form->createView(),
-            'errors' => $form->getErrorsAsString(),
-            'organization' => $organization,
-        );
     }
 
     /**
@@ -395,5 +343,53 @@ class AdminController extends Controller
             'form' => $form->createView(),
             'title' => 'Select organization',
         );
+    }
+
+    /**
+     * Adds staff member for existing organization
+     * Note: /register/staff cannot accept existing organization.
+     * @Route("/addStaff/{orgId}")
+     */
+    public function addStaffAction(Request $request, $orgId)
+    {
+        $staff = new Staff();
+        $em = $this->getDoctrine()->getManager();
+        $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($orgId);
+        $form = $this->createForm(new StaffAddType(), $staff);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+            $discriminator->setClass('Truckee\MatchBundle\Entity\Staff');
+            $userManager = $this->container->get('pugx_user_manager');
+            $user = $userManager->createUser();
+            $user->setUsername($data->getUsername());
+            $firstName = $data->getFirstname();
+            $lastName = $data->getLastname();
+            $user->setFirstname($firstName);
+            $user->setLastname($lastName);
+            $user->setEmail($data->getEmail());
+            $user->setPlainPassword($data->getPlainPassword());
+            $user->setEnabled(true);
+            $user->setOrganization($organization);
+            $user->addRole('ROLE_STAFF');
+
+            $userManager->updateUser($user, true);
+
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $user->setConfirmationToken($tokenGenerator->generateToken());
+            $mailer = $this->container->get('admin.mailer');
+            $mailer->sendConfirmationEmailMessage($user);
+
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success("User $firstName $lastName created");
+
+            return $this->redirect($this->generateUrl('home'));
+        }
+
+        return $this->render('Staff/add.html.twig', array(
+            'form' => $form->createView(),
+            'organization' => $organization,
+        ));
     }
 }

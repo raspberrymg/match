@@ -22,35 +22,8 @@ class ProfileFormType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null,
-                array(
-                'label' => 'First name: ',
-                'attr' => array(
-                    'placeholder' => 'First name',
-                ),
-            ))
-            ->add('lastName', null,
-                array(
-                'label' => 'Last name: ',
-                'attr' => array(
-                    'placeholder' => 'Last name',
-                ),
-            ))
-            ->add('username', null,
-                array(
-                'label' => 'form.username',
-                'translation_domain' => 'FOSUserBundle',
-                'attr' => array(
-                    'placeholder' => 'Username',
-                ),
-            ))
-            ->add('email', 'email',
-                array(
-                'label' => 'form.email',
-                'translation_domain' => 'FOSUserBundle',
-                'attr' => array(
-                    'placeholder' => 'E-mail',
-                ),
+            ->add('personData', new PersonDataType(), array(
+                'data_class' => 'Truckee\MatchBundle\Entity\Person'
             ))
             ->add('current_password', 'password',
                 array(
