@@ -14,10 +14,10 @@
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Constraints\Count;
 use Truckee\MatchBundle\Form\PersonType as BaseType;
 
 class VolunteerFormType extends BaseType
@@ -37,11 +37,19 @@ class VolunteerFormType extends BaseType
             function (FormEvent $event) {
             $form = $event->getForm();
             if (null != $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
-                $form->add('skills', 'skills');
-            };
+                $form->add('skills', 'skills', array(
+                    'constraints' => array(
+                        new Count(array('min' => '1', 'minMessage' => 'At least one skill is required')),
+                    ),
+                ));
+            }
             if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
-                $form->add('focuses', 'focuses');
-            };
+                $form->add('focuses', 'focuses', array(
+                    'constraints' => array(
+                        new Count(array('min' => '1', 'minMessage' => 'At least one focus is required')),
+                    ),
+                ));
+            }
         });
     }
 
@@ -55,14 +63,6 @@ class VolunteerFormType extends BaseType
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Person',
             'required' => false,
-            'validation_groups' => function (FormInterface $form) {
-                if (null != $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
-                    return 'skill_required';
-                }
-                if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
-                    return 'focus_required';
-                }
-            },
         ));
     }
 }

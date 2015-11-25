@@ -68,11 +68,11 @@ class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface
 
         $admin = $userManager->createUser();
 
-        $userName  = $this->container->getParameter('admin_username');
-        $email     = $this->container->getParameter('admin_email');
-        $password  = $this->container->getParameter('admin_password');
+        $userName = $this->container->getParameter('admin_username');
+        $email = $this->container->getParameter('admin_email');
+        $password = $this->container->getParameter('admin_password');
         $firstName = $this->container->getParameter('admin_first_name');
-        $lastName  = $this->container->getParameter('admin_last_name');
+        $lastName = $this->container->getParameter('admin_last_name');
 
         $admin->setUsername($userName);
         $admin->setEmail($email);

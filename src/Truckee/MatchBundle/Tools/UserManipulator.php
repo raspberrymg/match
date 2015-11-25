@@ -39,11 +39,11 @@ class UserManipulator extends Manipulator
     /**
      * Creates a user and returns it.
      *
-     * @param string  $username
-     * @param string  $password
-     * @param string  $email
-     * @param Boolean $active
-     * @param Boolean $superadmin
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     * @param bool   $active
+     * @param bool   $superadmin
      *
      * @return \FOS\UserBundle\Model\UserInterface
      */

@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\Form\StaffAddType.php
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -17,8 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * StaffAddType
- *
+ * StaffAddType.
  */
 class StaffAddType extends AbstractType
 {
@@ -26,10 +26,10 @@ class StaffAddType extends AbstractType
     {
         $builder
             ->add('personData', new PersonDataType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Staff'
+                'data_class' => 'Truckee\MatchBundle\Entity\Staff',
             ))
             ->add('registerPassword', new RegisterPasswordType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Staff'
+                'data_class' => 'Truckee\MatchBundle\Entity\Staff',
             ))
             ->add('save', 'submit',
                 array(
@@ -52,5 +52,4 @@ class StaffAddType extends AbstractType
     {
         return 'staff_add';
     }
-    
 }

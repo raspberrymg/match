@@ -34,10 +34,10 @@ class PersonType extends BaseType
 
         $builder
             ->add('personData', new PersonDataType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Person'
+                'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
             ->add('registerPassword', new RegisterPasswordType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Person'
+                'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
             ->add('save', 'submit',
                 array(

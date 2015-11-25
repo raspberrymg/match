@@ -11,6 +11,7 @@
 
 //src\Truckee\VolunteerBundle\Menu\RequestVoter.php
 
+
 namespace Truckee\VolunteerBundle\Menu;
 
 use Knp\Menu\ItemInterface;
@@ -18,13 +19,12 @@ use Knp\Menu\Matcher\Voter\VoterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Description of RequestVoter
+ * Description of RequestVoter.
  *
  * @author George
  */
 class RequestVoter implements VoterInterface
 {
-
     private $request;
 
     public function __construct(RequestStack $request_stack)
@@ -37,11 +37,11 @@ class RequestVoter implements VoterInterface
         if ($item->getUri() === $this->request->getRequestUri()) {
             // URL's completely match
             return true;
-        }
-        else if ($item->getUri() !== $this->request->getBaseUrl() . '/' && (substr($this->request->getRequestUri(), 0, strlen($item->getUri())) === $item->getUri())) {
+        } elseif ($item->getUri() !== $this->request->getBaseUrl().'/' && (substr($this->request->getRequestUri(), 0, strlen($item->getUri())) === $item->getUri())) {
             // URL isn't just "/" and the first part of the URL match
             return true;
         }
-        return null;
+
+        return;
     }
 }

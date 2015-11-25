@@ -13,7 +13,7 @@ class DefaultControllerTest extends WebTestCase
     public function setUp()
     {
         self::bootKernel();
-        $this->em            = static::$kernel->getContainer()
+        $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager()
         ;
@@ -25,7 +25,7 @@ class DefaultControllerTest extends WebTestCase
         $this->skillRequired = static::$kernel->getContainer()
             ->getParameter('skill_required')
         ;
-        $this->client        = $this->createClient();
+        $this->client = $this->createClient();
         $this->client->followRedirects();
     }
 

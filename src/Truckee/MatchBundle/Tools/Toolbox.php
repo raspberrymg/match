@@ -10,6 +10,7 @@
 
 //src/Truckee/MatchBundle/Tools/Toolbox.php
 
+
 namespace Truckee\MatchBundle\Tools;
 
 use Doctrine\ORM\EntityManager;
@@ -28,8 +29,8 @@ class Toolbox
 
     public function __construct(EntityManager $em, $userOptions)
     {
-        $this->em            = $em;
-        $this->options       = $userOptions;
+        $this->em = $em;
+        $this->options = $userOptions;
         $this->focusRequired = $userOptions['focus_required'];
         $this->skillRequired = $userOptions['skill_required'];
     }
@@ -51,7 +52,7 @@ class Toolbox
         $search = new Search();
         $search->setDate(new \DateTime());
         $search->setType($searched);
-        $em     = $this->em;
+        $em = $this->em;
 
         if ('opportunity' === $searched && !array_key_exists('focuses', $data) && !array_key_exists('skills',
                 $data)) {
@@ -63,7 +64,7 @@ class Toolbox
             $em->persist($search);
         } else {
             if (array_key_exists('organization', $data) && '' != $data['organization']['organization']) {
-                $orgId        = $data['organization']['organization'];
+                $orgId = $data['organization']['organization'];
                 $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($orgId);
                 $search->setOrganization($organization);
             }
@@ -74,14 +75,14 @@ class Toolbox
             if (array_key_exists('focuses', $data)) {
                 foreach ($data['focuses'] as $focusId) {
                     $searchClone = clone $search;
-                    $focus       = $em->getRepository('TruckeeMatchBundle:Focus')->find($focusId);
+                    $focus = $em->getRepository('TruckeeMatchBundle:Focus')->find($focusId);
                     $searchClone->setFocus($focus);
                     $em->persist($searchClone);
                 }
             }
             if (array_key_exists('skills', $data)) {
                 foreach ($data['skills'] as $skillId) {
-                    $skill       = $em->getRepository('TruckeeMatchBundle:Skill')->find($skillId);
+                    $skill = $em->getRepository('TruckeeMatchBundle:Skill')->find($skillId);
                     $searchClone = clone $search;
                     $searchClone->setSkill($skill);
                     $searchClone->setType($searched);
@@ -95,29 +96,29 @@ class Toolbox
 
     public function usageFocusSkill()
     {
-        $fociUsage['opportunity']   = $skillsUsage['opportunity'] = array();
-        $fociUsage['volunteer']     = $skillsUsage['volunteer']   = array();
+        $fociUsage['opportunity'] = $skillsUsage['opportunity'] = array();
+        $fociUsage['volunteer'] = $skillsUsage['volunteer'] = array();
 
         $focuses = $this->em->getRepository('TruckeeMatchBundle:Focus')->findAll();
         foreach ($focuses as $focus) {
-            $id                            = $focus->getId();
-            $searchOpps                    = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['focus' => $focus,
-                'type' => 'opportunity',]);
+            $id = $focus->getId();
+            $searchOpps = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['focus' => $focus,
+                'type' => 'opportunity', ]);
             $fociUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols                    = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['focus' => $focus,
-                'type' => 'volunteer',]);
-            $fociUsage['volunteer'][$id]   = count($searchVols);
+            $searchVols = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['focus' => $focus,
+                'type' => 'volunteer', ]);
+            $fociUsage['volunteer'][$id] = count($searchVols);
         }
 
         $skills = $this->em->getRepository('TruckeeMatchBundle:Skill')->findAll();
         foreach ($skills as $skill) {
-            $id                              = $skill->getId();
-            $searchOpps                      = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['skill' => $skill,
-                'type' => 'opportunity',]);
+            $id = $skill->getId();
+            $searchOpps = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['skill' => $skill,
+                'type' => 'opportunity', ]);
             $skillsUsage['opportunity'][$id] = count($searchOpps);
-            $searchVols                      = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['skill' => $skill,
-                'type' => 'volunteer',]);
-            $skillsUsage['volunteer'][$id]   = count($searchVols);
+            $searchVols = $this->em->getRepository('TruckeeMatchBundle:Search')->findBy(['skill' => $skill,
+                'type' => 'volunteer', ]);
+            $skillsUsage['volunteer'][$id] = count($searchVols);
         }
 
         return array('fociUsage' => $fociUsage,
@@ -133,7 +134,7 @@ class Toolbox
                 o.temp = '0'
             ");
         $names = $query->getResult();
-        $r     = array();
+        $r = array();
         foreach ($names as $name) {
             $r[$name['id']] = $name['orgName'];
         }
@@ -144,14 +145,14 @@ class Toolbox
     public function getIncomingOrgs()
     {
         //first, get orgs where temp is true
-        $newOrgs  = $this->em->createQuery(
+        $newOrgs = $this->em->createQuery(
                 'SELECT o FROM TruckeeMatchBundle:Organization o '
                 ." WHERE o.temp = '1'")->getResult();
         $incoming = [];
         foreach ($newOrgs as $key => $org) {
-            $incoming[$key]['org']   = $org;
-            $name                    = $org->getOrgname();
-            $hasDupe                 = $this->getOrgNames($name);
+            $incoming[$key]['org'] = $org;
+            $name = $org->getOrgname();
+            $hasDupe = $this->getOrgNames($name);
             $incoming[$key]['dupes'] = $hasDupe;
         }
 
@@ -160,12 +161,12 @@ class Toolbox
 
     public function getMatchedVolunteers($id)
     {
-        $focusMatched            = $skillMatched            = array();
-        $opportunity             = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
+        $focusMatched = $skillMatched = array();
+        $opportunity = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
         $criteria['opportunity'] = $opportunity;
         if (true === $this->focusRequired) {
-            $organization        = $opportunity->getOrganization();
-            $focuses             = $organization->getFocuses()->toArray();
+            $organization = $opportunity->getOrganization();
+            $focuses = $organization->getFocuses()->toArray();
             $criteria['focuses'] = [];
             foreach ($focuses as $focus) {
                 $criteria['focuses'][] = $focus->getId();
@@ -173,7 +174,7 @@ class Toolbox
             $focusMatched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->getVolunteersByFocus($criteria['focuses']);
         }
         if (true === $this->skillRequired) {
-            $skills             = $opportunity->getSkills()->toArray();
+            $skills = $opportunity->getSkills()->toArray();
             $criteria['skills'] = [];
             foreach ($skills as $skill) {
                 $criteria['skills'][] = $skill->getId();
@@ -192,9 +193,9 @@ class Toolbox
 
         if (array() === $matchedArray) {
             $matched = $this->em->getRepository('TruckeeMatchBundle:Volunteer')->findBy(array(
-                'receiveEmail' => true, 'enabled' => true,));
+                'receiveEmail' => true, 'enabled' => true, ));
             foreach ($matched as $volunteer) {
-                $id           = $volunteer->getId();
+                $id = $volunteer->getId();
                 $idArray[$id] = $id;
             }
         } else {
@@ -210,12 +211,12 @@ class Toolbox
 
     public function activateOrganization($id)
     {
-        $em           = $this->em;
+        $em = $this->em;
         $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         $organization->setTemp(false);
         $organization->setActive(true);
         $organization->setAddDate(new \DateTime());
-        $orgName      = $organization->getOrgName();
+        $orgName = $organization->getOrgName();
         $em->persist($organization);
 
         return $em->flush();
@@ -223,13 +224,13 @@ class Toolbox
 
     public function getStaffTemplates($method)
     {
-        $em        = $this->em;
-        $submit    = true;
+        $em = $this->em;
+        $submit = true;
         $templates = $this->templatesPerson($method, 'staff');
         if ($this->focusRequired && 'register' === $method) {
             $templates[] = 'Organization/orgFocus.html.twig';
-            $nFocuses    = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
-            $submit      = (1 < $nFocuses) ? $submit : false;
+            $nFocuses = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
+            $submit = (1 < $nFocuses) ? $submit : false;
         }
         if (true === $submit) {
             $templates[] = 'default/save.html.twig';
@@ -240,17 +241,17 @@ class Toolbox
 
     public function getVolunteerTemplates($method)
     {
-        $em        = $this->em;
-        $submit    = true;
+        $em = $this->em;
+        $submit = true;
         $templates = array_merge($this->templatesPerson($method, 'volunteer'),
             $this->templatesFocusSkill());
         if ($this->focusRequired) {
             $nFocuses = $em->getRepository('TruckeeMatchBundle:Focus')->countFocuses();
-            $submit   = (1 < $nFocuses) ? $submit : false;
+            $submit = (1 < $nFocuses) ? $submit : false;
         }
         if ($this->skillRequired) {
             $nSkills = $em->getRepository('TruckeeMatchBundle:Skill')->countSkills();
-            $submit  = (1 < $nSkills) ? $submit : false;
+            $submit = (1 < $nSkills) ? $submit : false;
         }
         if (true === $submit) {
             $templates[] = 'default/save.html.twig';
@@ -296,11 +297,11 @@ class Toolbox
 
     public function getAdminRecipients()
     {
-        $em         = $this->em;
-        $admins     = $em->getRepository('TruckeeMatchBundle:Admin')->findBy(['locked' => false]);
+        $em = $this->em;
+        $admins = $em->getRepository('TruckeeMatchBundle:Admin')->findBy(['locked' => false]);
         $adminEmail = [];
         foreach ($admins as $admin) {
-            $email        = $admin->getEmail();
+            $email = $admin->getEmail();
             $adminEmail[] = $email;
         }
 

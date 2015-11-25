@@ -136,7 +136,6 @@ class Organization
      *      joinColumns={@ORM\JoinColumn(name="orgId", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="focusId", referencedColumnName="id")}
      *      ))
-     * @Assert\NotNull(message="Please select at least one", groups={"focus_required"})
      */
     protected $focuses;
 

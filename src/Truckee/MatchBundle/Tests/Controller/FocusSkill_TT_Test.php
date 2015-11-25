@@ -7,16 +7,11 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 class FocusSkill_TT_Test extends WebTestCase
 {
     private $client;
-    private $em;
 
     public function setUp()
     {
         self::bootKernel();
-        $this->em     = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager()
-        ;
-        $classes      = array(
+        $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserGlenshire',
@@ -31,11 +26,11 @@ class FocusSkill_TT_Test extends WebTestCase
 
     public function adminLogin()
     {
-        $crawler           = $this->client->request('GET', '/login');
-        $form              = $crawler->selectButton('Login')->form();
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Login')->form();
         $form['_username'] = 'admin';
         $form['_password'] = '123Abcd';
-        $crawler           = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         return $crawler;
     }

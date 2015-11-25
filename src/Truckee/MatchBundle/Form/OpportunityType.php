@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Constraints\Count;
 
 class OpportunityType extends AbstractType
 {
@@ -100,8 +101,12 @@ class OpportunityType extends AbstractType
             function (FormEvent $event) {
             $form = $event->getForm();
             if (true === $this->skills) {
-                $form->add('skills', 'skills');
-            };
+                $form->add('skills', 'skills', array(
+                    'constraints' => array(
+                        new Count(array('min' => '1', 'minMessage' => 'At least one skill is required')),
+                    ),
+                ));
+            }
         });
     }
 

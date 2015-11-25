@@ -85,7 +85,6 @@ class Volunteer extends Person
      *      joinColumns={@ORM\JoinColumn(name="volId", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="focusId", referencedColumnName="id")}
      *      ))
-     * @Assert\NotNull(message="Please select at least one", groups={"focus_required"})
      */
     protected $focuses;
 

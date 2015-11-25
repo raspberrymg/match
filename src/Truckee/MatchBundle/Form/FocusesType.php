@@ -11,21 +11,20 @@
 
 //src\Truckee\MatchBundle\Form\FocusesType.php
 
+
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Truckee\MatchBundle\Form\FocusType;
 
 /**
- * Description of FocusType
+ * Description of FocusType.
  *
  * @author George
  */
 class FocusesType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -35,7 +34,7 @@ class FocusesType extends AbstractType
                     'label' => 'Save',
                     'attr' => array(
                         'class' => 'btn-xs',
-                    )
+                    ),
                 ))
             ;
     }

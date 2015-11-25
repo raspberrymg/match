@@ -15,11 +15,11 @@
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
 
 class OrganizationType extends AbstractType
 {
@@ -150,7 +150,11 @@ class OrganizationType extends AbstractType
             function (FormEvent $event) {
             $form = $event->getForm();
             if ($this->focusRequired) {
-                $form->add('focuses', 'focuses');
+                $form->add('focuses', 'focuses', array(
+                    'constraints' => array(
+                        new Count(array('min' => '1', 'minMessage' => 'At least one focus is required')),
+                    ),
+                ));
             }
         });
     }
@@ -166,11 +170,6 @@ class OrganizationType extends AbstractType
             'data_class' => 'Truckee\MatchBundle\Entity\Organization',
             'cascade_validation' => true,
             'required' => false,
-            'validation_groups' => function (FormInterface $form) {
-                if ($this->focusRequired) {
-                    return 'focus_required';
-                }
-            },
         ));
     }
 }

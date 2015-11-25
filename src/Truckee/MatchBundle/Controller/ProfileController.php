@@ -30,9 +30,11 @@ class ProfileController extends Controller
         $userType = $user->getUserType();
         switch ($userType) {
             case 'admin';
+
                 return $this->adminProfileAction();
                 break;
             case 'staff';
+
                 return $this->staffProfileAction();
                 break;
             case 'volunteer':
@@ -65,7 +67,7 @@ class ProfileController extends Controller
 
     private function adminProfileAction()
     {
-//        $tools = $this->container->get('truckee_match.toolbox');
+        //        $tools = $this->container->get('truckee_match.toolbox');
 //        $templates = $tools->getStaffTemplates('profile');
 
         return $this->container

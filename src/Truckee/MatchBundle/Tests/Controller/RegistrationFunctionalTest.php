@@ -37,7 +37,7 @@ class RegistrationFunctionalTest extends WebTestCase
 //        file_put_contents("G:\\Documents\\response.html", $this->client->getResponse()->getContent());
     }
 
-    public function submitVolunteerForm()
+    private function submitVolunteerForm()
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
@@ -53,7 +53,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler = $this->client->submit($form);
     }
 
-    public function activateVolunteer()
+    private function activateVolunteer()
     {
         $container = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
@@ -62,7 +62,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler = $this->client->request('GET', "/register/confirm/$token");
     }
 
-    public function submitStaffForm()
+    private function submitStaffForm()
     {
         $crawler = $this->client->request('GET', '/register/staff');
         $form = $crawler->selectButton('Save')->form();
@@ -78,7 +78,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler = $this->client->submit($form);
     }
 
-    public function activateStaff()
+    private function activateStaff()
     {
         $container = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
@@ -97,6 +97,8 @@ class RegistrationFunctionalTest extends WebTestCase
     public function testRegisterVolunteer()
     {
         $this->submitVolunteerForm();
+        file_put_contents('G:\\Documents\\response.html', $this->client->getResponse()->getContent());
+
         $crawler = $this->client->followRedirect();
 
         $this->assertTrue($crawler->filter('html:contains("The user has been created successfully")')->count() > 0);

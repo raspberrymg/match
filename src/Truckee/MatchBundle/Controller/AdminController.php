@@ -19,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\VolunteerEmailType;
-use Truckee\MatchBundle\Form\PersonType;
 use Truckee\MatchBundle\Form\VolunteerUsersType;
 use Truckee\MatchBundle\Form\StaffAddType;
 use Truckee\MatchBundle\Entity\Staff;
@@ -348,7 +347,8 @@ class AdminController extends Controller
     /**
      * Adds staff member for existing organization
      * Note: /register/staff cannot accept existing organization.
-     * @Route("/addStaff/{orgId}")
+     *
+     * @Route("/addStaff/{orgId}", name="staff_add")
      */
     public function addStaffAction(Request $request, $orgId)
     {

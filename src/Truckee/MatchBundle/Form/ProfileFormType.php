@@ -23,7 +23,7 @@ class ProfileFormType extends BaseType
     {
         $builder
             ->add('personData', new PersonDataType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Person'
+                'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
             ->add('current_password', 'password',
                 array(

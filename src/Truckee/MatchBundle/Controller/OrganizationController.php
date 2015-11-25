@@ -19,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\OrganizationType;
-use Truckee\MatchBundle\Form\OrganizationSelectType;
 
 /**
  * Description of Organization.

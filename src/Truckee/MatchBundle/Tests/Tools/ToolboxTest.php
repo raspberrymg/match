@@ -10,13 +10,13 @@
 
 //src\Truckee\MatchBundle\Tests\Tools\ToolboxTest.php
 
+
 namespace Truckee\MatchBundle\Tests\Tools;
 
 use Truckee\MatchBundle\Tools\Toolbox;
 
 /**
- * ToolboxTest
- *
+ * ToolboxTest.
  */
 class ToolboxTest extends \PHPUnit_Framework_TestCase
 {

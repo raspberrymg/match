@@ -50,7 +50,7 @@ abstract class Person extends BaseUser
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(message = "First name is required", groups={"RegistrationVM", "ProfileVM", "Default"})
+     * @Assert\NotBlank(message = "First name is required")
      */
     protected $firstName;
 
@@ -58,7 +58,7 @@ abstract class Person extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(message = "Last name is required", groups={"RegistrationVM", "ProfileVM", "Default"})
+     * @Assert\NotBlank(message = "Last name is required")
      */
     protected $lastName;
 

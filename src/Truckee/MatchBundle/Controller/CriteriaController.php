@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\Controller\CriteriaController.php
 
+
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,37 +26,36 @@ use Truckee\MatchBundle\Form\SkillType;
 use Truckee\MatchBundle\Entity\Skill;
 
 /**
- * Description of CriteriaController
+ * Description of CriteriaController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
 class CriteriaController extends Controller
 {
-
     /**
      * @Route("/editFocus", name="focus_edit")
      * @Template("Criteria/editFocus.html.twig")
      */
     public function editFocusAction(Request $request)
     {
-        $flash   = $this->get('braincrafted_bootstrap.flash');
+        $flash = $this->get('braincrafted_bootstrap.flash');
         $doFocus = $this->container->getParameter('focus_required');
         if (!$doFocus) {
             $flash->error('Focus criteria not enabled');
-            
-            return $this->redirect($this->generateUrl("admin_home"));
+
+            return $this->redirect($this->generateUrl('admin_home'));
         }
         $em = $this->getDoctrine()->getManager();
 
-        $focuses     = $em->getRepository("TruckeeMatchBundle:Focus")->getFocusesNoAll();
-        $focusAll    = $em->getRepository("TruckeeMatchBundle:Focus")->findOneBy(['focus' => 'All']);
-        $focusAllId  = $focusAll->getId();
+        $focuses = $em->getRepository('TruckeeMatchBundle:Focus')->getFocusesNoAll();
+        $focusAll = $em->getRepository('TruckeeMatchBundle:Focus')->findOneBy(['focus' => 'All']);
+        $focusAllId = $focusAll->getId();
         $formFocuses = $this->createForm(new FocusesType(),
             array('focuses' => $focuses));
-        $focus       = new Focus();
-        $formFocus   = $this->createForm(new FocusType, $focus);
+        $focus = new Focus();
+        $formFocus = $this->createForm(new FocusType(), $focus);
 
-        $tools         = $this->container->get('truckee_match.toolbox');
+        $tools = $this->container->get('truckee_match.toolbox');
         $criteriaUsage = $tools->usageFocusSkill();
 
         if ($request->getMethod() == 'POST') {
@@ -66,14 +66,14 @@ class CriteriaController extends Controller
             }
             //avoid null new focus
             $newFocus = $request->request->get('focus');
-            if ('' <> $newFocus['focus'] && $formFocus->isValid()) {
+            if ('' != $newFocus['focus'] && $formFocus->isValid()) {
                 $em->persist($focus);
             }
 
             $em->flush();
             $flash->success('Focus criteria updated');
 
-            return $this->redirect($this->generateUrl("focus_edit"));
+            return $this->redirect($this->generateUrl('focus_edit'));
         }
 
         return ['formFocuses' => $formFocuses->createView(),
@@ -90,27 +90,26 @@ class CriteriaController extends Controller
      */
     public function editSkillAction(Request $request)
     {
-        $flash   = $this->get('braincrafted_bootstrap.flash');
+        $flash = $this->get('braincrafted_bootstrap.flash');
         $doSkill = $this->container->getParameter('skill_required');
         if (!$doSkill) {
             $flash->error('Skill criteria not enabled');
 
-            return $this->redirect($this->generateUrl("admin_home"));
+            return $this->redirect($this->generateUrl('admin_home'));
         }
-        $em         = $this->getDoctrine()->getManager();
-        $skills     = $em->getRepository("TruckeeMatchBundle:Skill")->getSkillsNoAll();
-        $skillAll   = $em->getRepository("TruckeeMatchBundle:Skill")->findOneBy(['skill' => 'All']);
+        $em = $this->getDoctrine()->getManager();
+        $skills = $em->getRepository('TruckeeMatchBundle:Skill')->getSkillsNoAll();
+        $skillAll = $em->getRepository('TruckeeMatchBundle:Skill')->findOneBy(['skill' => 'All']);
         $skillAllId = $skillAll->getId();
         $formSkills = $this->createForm(new SkillsType(),
             array('skills' => $skills));
-        $skill      = new Skill();
-        $formSkill  = $this->createForm(new SkillType, $skill);
+        $skill = new Skill();
+        $formSkill = $this->createForm(new SkillType(), $skill);
 
-        $tools         = $this->container->get('truckee_match.toolbox');
+        $tools = $this->container->get('truckee_match.toolbox');
         $criteriaUsage = $tools->usageFocusSkill();
 
         if ($request->getMethod() == 'POST') {
-
             $formSkill->handleRequest($request);
             $formSkills->handleRequest($request);
             foreach ($skills as $existingSkill) {
@@ -118,7 +117,7 @@ class CriteriaController extends Controller
             }
             //avoid null new skill
             $newSkill = $request->request->get('skill');
-            if ('' <> $newSkill['skill'] && $formSkill->isValid()) {
+            if ('' != $newSkill['skill'] && $formSkill->isValid()) {
                 $em->persist($skill);
             }
 
@@ -126,7 +125,7 @@ class CriteriaController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Skill criteria updated');
 
-            return $this->redirect($this->generateUrl("skill_edit"));
+            return $this->redirect($this->generateUrl('skill_edit'));
         }
 
         return [

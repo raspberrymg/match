@@ -10,13 +10,12 @@
 
 //src\Truckee\MatchBundle\Tests\Stub\Volunteer.php
 
+
 namespace Truckee\MatchBundle\Tests\Stub;
 
 /**
- * Volunteer
- *
+ * Volunteer.
  */
 class SomeUser
 {
-    
 }

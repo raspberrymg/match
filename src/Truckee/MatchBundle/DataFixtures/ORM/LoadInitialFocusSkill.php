@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\DataFixtures\ORM\LoadInitialFocusSkill.php
 
+
 namespace Truckee\MatchBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -62,11 +63,11 @@ class LoadInitialFocusSkill implements FixtureInterface, ContainerAwareInterface
 
         $admin = $userManager->createUser();
 
-        $userName  = $this->container->getParameter('admin_username');
-        $email     = $this->container->getParameter('admin_email');
-        $password  = $this->container->getParameter('admin_password');
+        $userName = $this->container->getParameter('admin_username');
+        $email = $this->container->getParameter('admin_email');
+        $password = $this->container->getParameter('admin_password');
         $firstName = $this->container->getParameter('admin_first_name');
-        $lastName  = $this->container->getParameter('admin_last_name');
+        $lastName = $this->container->getParameter('admin_last_name');
 
         $admin->setUsername($userName);
         $admin->setEmail($email);

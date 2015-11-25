@@ -349,7 +349,6 @@ class Opportunity
      *      joinColumns={@ORM\JoinColumn(name="oppId", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="skillId", referencedColumnName="id")}
      *      ))
-     * @Assert\NotNull(message="Please select at least one")
      */
     protected $skills;
 
