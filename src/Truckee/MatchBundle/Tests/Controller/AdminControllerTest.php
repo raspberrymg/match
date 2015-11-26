@@ -182,13 +182,67 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $crawler = $this->client->request('GET', '/admin/addStaff/1');
         $form = $crawler->selectButton('Save')->form();
-        $form['staff_add[personData][email]'] = 'dingus@bogus.info';
-        $form['staff_add[personData][username]'] = 'dingus';
-        $form['staff_add[personData][firstName]'] = 'Dorkus';
-        $form['staff_add[personData][lastName]'] = 'Ingus';
-        $form['staff_add[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['staff_add[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
         $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
+    }
+
+    public function testAddStaffEmail()
+    {
+        $this->client->followRedirects(false);
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/admin/addStaff/1');
+        $form = $crawler->selectButton('Save')->form();
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
+        $crawler = $this->client->submit($form);
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $this->client->followRedirects();
+    }
+
+    public function testAdminAdd()
+    {
+        $this->client->followRedirects(false);
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/admin/addAdmin');
+        $form = $crawler->selectButton('Save')->form();
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
+        $crawler = $this->client->submit($form);
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $this->client->followRedirects();
+    }
+
+    public function testAdminAddEmail()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/admin/addAdmin');
+        $form = $crawler->selectButton('Save')->form();
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
+        $crawler = $this->client->submit($form);
+
         $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
     }
 
@@ -249,27 +303,6 @@ class AdminControllerTest extends WebTestCase
 //        $link = $crawler->filter('a:contains("E-mail volunteers")')->eq(1)->link();
 //        $crawler = $this->client->click($link);
 //        $this->assertGreaterThan(0, $crawler->filter('html:contains("No volunteers match opportunity criteria")')->count());
-//    }
-//    
-//    public function addAdmin()
-//    {
-//        $crawler = $this->login('admin');
-//        $crawler = $this->client->request('GET', '/register/admin');
-//        $form = $crawler->selectButton('Save')->form();
-//        $form['fos_user_registration_form[email]'] = 'bborko@bogus.info';
-//        $form['fos_user_registration_form[username]'] = 'bborko';
-//        $form['fos_user_registration_form[firstName]'] = 'Benny';
-//        $form['fos_user_registration_form[lastName]'] = 'Borko';
-//        $form['fos_user_registration_form[plainPassword][first]'] = '123Abcd';
-//        $form['fos_user_registration_form[plainPassword][second]'] = '123Abcd';
-//        
-//        return $this->client->submit($form);
-//    }
-//
-//    public function testAdminAdd()
-//    {
-//        $crawler = $this->addAdmin();
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("The user has been created successfully")')->count());
 //    }
 //
 //    public function testAdminUserLock()

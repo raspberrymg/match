@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\Form\StaffAddType.php
+//src\Truckee\MatchBundle\Form\PersonAddType.php
 
 
 namespace Truckee\MatchBundle\Form;
@@ -18,18 +18,25 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * StaffAddType.
+ * PersonAddType.
  */
-class StaffAddType extends AbstractType
+class PersonAddType extends AbstractType
 {
+    private $class;
+
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('personData', new PersonDataType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Staff',
+                'data_class' => $this->class,
             ))
             ->add('registerPassword', new RegisterPasswordType(), array(
-                'data_class' => 'Truckee\MatchBundle\Entity\Staff',
+                'data_class' => $this->class,
             ))
             ->add('save', 'submit',
                 array(
@@ -44,12 +51,12 @@ class StaffAddType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Truckee\MatchBundle\Entity\Staff',
+            'data_class' => $this->class,
         ));
     }
 
     public function getName()
     {
-        return 'staff_add';
+        return 'person_add';
     }
 }

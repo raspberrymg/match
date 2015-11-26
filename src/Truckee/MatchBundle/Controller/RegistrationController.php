@@ -51,16 +51,4 @@ class RegistrationController extends Controller
                 ->get('pugx_multi_user.registration_manager')
                 ->register('Truckee\MatchBundle\Entity\Volunteer', $templates);
     }
-
-    /**
-     * @Route("/admin", name="reg_admin")
-     *
-     * @return type
-     */
-    public function registerAdminAction()
-    {
-        return $this->container
-                ->get('pugx_multi_user.registration_manager')
-                ->register('Truckee\MatchBundle\Entity\Admin');
-    }
 }

@@ -3,18 +3,5 @@
 {% block body %}
     <h4>{{ label_info(organization.orgName) }}</h4>
     <h4>Staff Form</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <p>Note that the person being registered here must confirm registration 
-                via e-mail before registration becomes effective.</p>
-            <p>Be sure to advise person of password used and suggest it be changed.</p>
-        </div>
-    </div>
-    <form action="" method="post" class="form-inline">
-        {% include "Person/person_manage.html.twig" %}
-        {% include "Person/registerPassword.html.twig" %}
-        <div>
-            {{ form_widget(form.save) }}
-        </div>    
-    </form>
+    {% include 'Person/person_add.html.twig' %}
 {% endblock %}

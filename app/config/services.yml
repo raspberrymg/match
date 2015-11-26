@@ -18,7 +18,13 @@ services:
         tags:
             - { name: form.type, alias: skills }
         arguments:  ["@truckee_match.skill_repository"]
-            
+
+    form.type.person:
+        class: Truckee\MatchBundle\Form\PersonAddType
+        tags:
+            - {name: form.type, alias: person_add}
+        arguments: [%fos_user.model.user.class%]
+
     truckee_match.focus_repository:
         class: Doctrine\ORM\EntityRepository
         factory_service: doctrine.orm.default_entity_manager

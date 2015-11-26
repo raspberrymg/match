@@ -138,6 +138,8 @@ pugx_multi_user:
         registration:
           form: 
             type: Truckee\MatchBundle\Form\VolunteerFormType
+            name: volunteer_registration
+            validation_groups:  [Registration, Default]
           template: Volunteer/volunteer.form.html.twig
         profile:
           form: 

@@ -38,13 +38,13 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Please enter an email address")')->count());
@@ -54,14 +54,14 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'admin@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'admin@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Address already exists")')->count());
@@ -71,13 +71,13 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Please enter a username")')->count());
@@ -87,14 +87,14 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'admin';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'admin';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Username already exists")')->count());
@@ -104,13 +104,13 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("First name is required")')->count());
@@ -120,13 +120,13 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Last name is required")')->count());
@@ -136,12 +136,12 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("At least one focus")')->count());
@@ -152,14 +152,14 @@ class VolunteerValidationTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
         $form = $crawler->selectButton('Save')->form();
-        $form['fos_user_registration_form[personData][email]'] = 'hvolunteer@bogus.info';
-        $form['fos_user_registration_form[personData][username]'] = 'hvolunteer';
-        $form['fos_user_registration_form[personData][firstName]'] = 'Harry';
-        $form['fos_user_registration_form[personData][lastName]'] = 'Volunteer';
-        $form['fos_user_registration_form[registerPassword][plainPassword][first]'] = '123Abcd';
-        $form['fos_user_registration_form[registerPassword][plainPassword][second]'] = '123Bcd';
-        $form['fos_user_registration_form[focuses]'] = [2];
-        $form['fos_user_registration_form[skills]'] = [15];
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Bcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("entered passwords don\'t match")')->count());

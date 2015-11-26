@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-md-6">
+        <p>Note that the person being registered here must confirm registration 
+            via e-mail before registration becomes effective.</p>
+        <p>Be sure to advise person of password used and suggest it be changed.</p>
+    </div>
+</div>
+<form action="" method="post" class="form-inline">
+    {% include "Person/person_manage.html.twig" %}
+    {% include "Person/registerPassword.html.twig" %}
+    {{ form_widget(form.save) }}
+</form>
