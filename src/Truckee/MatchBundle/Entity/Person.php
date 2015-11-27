@@ -212,4 +212,10 @@ abstract class Person extends BaseUser
     {
         return $this->discr;
     }
+
+    public function changeLockState()
+    {
+        $state = $this->isLocked();
+        $this->locked = !state;
+    }
 }
