@@ -10,6 +10,7 @@
 
 //src\Truckee\MatchBundle\Tests\Controller\AdminControllerTest.php
 
+
 namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -28,7 +29,7 @@ class AdminControllerTest extends WebTestCase
     public function setUp()
     {
         self::bootKernel();
-        $this->em   = static::$kernel->getContainer()
+        $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager()
         ;
@@ -36,7 +37,7 @@ class AdminControllerTest extends WebTestCase
             ->get('truckee_match.toolbox')
         ;
 
-        $classes      = array(
+        $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserGlenshire',
@@ -54,11 +55,11 @@ class AdminControllerTest extends WebTestCase
 
     public function login($user)
     {
-        $crawler           = $this->client->request('GET', '/login');
-        $form              = $crawler->selectButton('Login')->form();
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Login')->form();
         $form['_username'] = $user;
         $form['_password'] = '123Abcd';
-        $crawler           = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         return $crawler;
     }
@@ -75,10 +76,10 @@ class AdminControllerTest extends WebTestCase
 
     public function testExpiringAlertEmail()
     {
-        $crawler       = $this->login('admin');
+        $crawler = $this->login('admin');
         $this->client->followRedirects(false);
-        $link          = $crawler->selectLink('Send alerts to organizations')->link();
-        $crawler       = $this->client->click($link);
+        $link = $crawler->selectLink('Send alerts to organizations')->link();
+        $crawler = $this->client->click($link);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
         $this->assertEquals(2, $mailCollector->getMessageCount());
         $this->client->followRedirects();
@@ -87,7 +88,7 @@ class AdminControllerTest extends WebTestCase
     public function testExpiringAlerts()
     {
         $crawler = $this->login('admin');
-        $link    = $crawler->selectLink('Send alerts to organizations')->link();
+        $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("Expiration alerts sent to")')->count());
@@ -96,7 +97,7 @@ class AdminControllerTest extends WebTestCase
     public function testShowMatchedVolunteers()
     {
         $crawler = $this->login('admin');
-        $link    = $crawler->selectLink('E-mail volunteers')->link();
+        $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
         $this->assertEquals(2,
             $crawler->filter('div:contains("Harry")')->count());
@@ -104,13 +105,13 @@ class AdminControllerTest extends WebTestCase
 
     public function testSendVolunteerEmail()
     {
-        $crawler       = $this->login('admin');
-        $link          = $crawler->selectLink('E-mail volunteers')->link();
-        $crawler       = $this->client->click($link);
-        $form          = $crawler->selectButton('Send')->form();
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('E-mail volunteers')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Send')->form();
         $form['vol_email[send][0]']->setValue(3);
         $this->client->followRedirects(false);
-        $crawler       = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         $this->assertEquals(2, $mailCollector->getMessageCount());
@@ -120,7 +121,7 @@ class AdminControllerTest extends WebTestCase
     public function testActivateOrganization()
     {
         $crawler = $this->login('admin');
-        $link    = $crawler->selectLink('Accept organization')->link();
+        $link = $crawler->selectLink('Accept organization')->link();
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("has been activated")')->count());
@@ -128,10 +129,10 @@ class AdminControllerTest extends WebTestCase
 
     public function testActivateOrganizationEmail()
     {
-        $crawler       = $this->login('admin');
-        $link          = $crawler->selectLink('Accept organization')->link();
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('Accept organization')->link();
         $this->client->followRedirects(false);
-        $crawler       = $this->client->click($link);
+        $crawler = $this->client->click($link);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         $this->assertEquals(1, $mailCollector->getMessageCount());
@@ -148,7 +149,7 @@ class AdminControllerTest extends WebTestCase
     public function testDropOrganization()
     {
         $crawler = $this->login('admin');
-        $link    = $crawler->selectLink('Drop organization')->link();
+        $link = $crawler->selectLink('Drop organization')->link();
         $crawler = $this->client->click($link);
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("has been dropped")')->count());
@@ -156,45 +157,45 @@ class AdminControllerTest extends WebTestCase
 
     public function testOutboxUser()
     {
-        $crawler   = $this->login('admin');
-        $link      = $crawler->selectLink('Send alerts to organizations')->link();
-        $crawler   = $this->client->click($link);
+        $crawler = $this->login('admin');
+        $link = $crawler->selectLink('Send alerts to organizations')->link();
+        $crawler = $this->client->click($link);
         $outboxObj = $this->em->getRepository('TruckeeMatchBundle:AdminOutbox')->findAll();
-        $outbox    = $outboxObj[0];
+        $outbox = $outboxObj[0];
         $recipient = $outbox->getRecipientId();
-        $type      = $this->tool->getTypeFromId($recipient);
+        $type = $this->tool->getTypeFromId($recipient);
 
         $this->assertEquals('staff', $type);
     }
 
     public function testExistingOrganizationEdit()
     {
-        $crawler              = $this->login('admin');
-        $crawler              = $this->client->request('GET', '/org/edit/1');
-        $form                 = $crawler->selectButton('Save organization')->form();
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET', '/org/edit/1');
+        $form = $crawler->selectButton('Save organization')->form();
         $form['org[address]'] = 'PO Box 9999';
-        $form['org[city]']    = 'Reno';
-        $form['org[state]']   = 'NV';
-        $form['org[zip]']     = '88888';
+        $form['org[city]'] = 'Reno';
+        $form['org[state]'] = 'NV';
+        $form['org[zip]'] = '88888';
         $form['org[website]'] = 'www.glenshire.org';
-        $crawler              = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
     }
 
     public function addStaff()
     {
-        $crawler                                                     = $this->login('admin');
-        $crawler                                                     = $this->client->request('GET',
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET',
             '/admin/addStaff/1');
-        $form                                                        = $crawler->selectButton('Save')->form();
-        $form['person_add[personData][email]']                       = 'dingus@bogus.info';
-        $form['person_add[personData][username]']                    = 'dingus';
-        $form['person_add[personData][firstName]']                   = 'Dorkus';
-        $form['person_add[personData][lastName]']                    = 'Ingus';
-        $form['person_add[registerPassword][plainPassword][first]']  = '123Abcd';
+        $form = $crawler->selectButton('Save')->form();
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
         $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
-        $crawler                                                     = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         return $crawler;
     }
@@ -210,7 +211,7 @@ class AdminControllerTest extends WebTestCase
     public function testAddStaffEmail()
     {
         $this->client->followRedirects(false);
-        $crawler       = $this->addStaff();
+        $crawler = $this->addStaff();
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         $this->assertEquals(1, $mailCollector->getMessageCount());
@@ -219,17 +220,17 @@ class AdminControllerTest extends WebTestCase
 
     private function addAdmin()
     {
-        $crawler                                                     = $this->login('admin');
-        $crawler                                                     = $this->client->request('GET',
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET',
             '/admin/addAdmin');
-        $form                                                        = $crawler->selectButton('Save')->form();
-        $form['person_add[personData][email]']                       = 'dingus@bogus.info';
-        $form['person_add[personData][username]']                    = 'dingus';
-        $form['person_add[personData][firstName]']                   = 'Dorkus';
-        $form['person_add[personData][lastName]']                    = 'Ingus';
-        $form['person_add[registerPassword][plainPassword][first]']  = '123Abcd';
+        $form = $crawler->selectButton('Save')->form();
+        $form['person_add[personData][email]'] = 'dingus@bogus.info';
+        $form['person_add[personData][username]'] = 'dingus';
+        $form['person_add[personData][firstName]'] = 'Dorkus';
+        $form['person_add[personData][lastName]'] = 'Ingus';
+        $form['person_add[registerPassword][plainPassword][first]'] = '123Abcd';
         $form['person_add[registerPassword][plainPassword][second]'] = '123Abcd';
-        $crawler                                                     = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         return $crawler;
     }
@@ -245,7 +246,7 @@ class AdminControllerTest extends WebTestCase
     public function testAddAdminEmail()
     {
         $this->client->followRedirects(false);
-        $crawler       = $this->addAdmin();
+        $crawler = $this->addAdmin();
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         $this->assertEquals(1, $mailCollector->getMessageCount());
@@ -255,21 +256,29 @@ class AdminControllerTest extends WebTestCase
     public function testLockStaff()
     {
         //lock second of two staff members
-        $before  = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => 1));
+        $before = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
+            'locked' => 1, ));
         $crawler = $this->addStaff();
         $crawler = $this->client->request('GET',
             '/admin//lock/8');
-        $after  = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => true));
+        $after = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
+            'locked' => true, ));
 
         $this->assertEquals(1, count($after) - count($before));
 
         //cannot lock only staff member
         $crawler = $this->client->request('GET',
             '/admin//lock/2');
-        $later  = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => true));
+        $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
+            'locked' => true, ));
+
+        $this->assertEquals(count($after), count($later));
+
+        //cannot lock super_admin
+        $crawler = $this->client->request('GET',
+            '/admin//lock/1');
+        $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
+            'locked' => true, ));
 
         $this->assertEquals(count($after), count($later));
     }

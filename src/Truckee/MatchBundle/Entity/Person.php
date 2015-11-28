@@ -216,6 +216,6 @@ abstract class Person extends BaseUser
     public function changeLockState()
     {
         $state = $this->isLocked();
-        $this->locked = !state;
+        $this->locked = !$state;
     }
 }

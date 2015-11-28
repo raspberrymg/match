@@ -237,7 +237,6 @@ class AdminController extends Controller
             'templates' => $templates,
         ];
     }
-
     /**
      * @Route("/select/{class}", name="person_select")
      * @Template()
@@ -286,7 +285,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('TruckeeMatchBundle:Person')->find($id);
         $type = $person->getUserType();
-
+        $flash = $this->get('braincrafted_bootstrap.flash');
         if ('staff' === $type) {
             $org = $person->getOrganization();
             $orgId = $person->getOrganization()->getId();
@@ -296,29 +295,29 @@ class AdminController extends Controller
                 $canLock = ($id != $user->getId() && $user->isLocked()) ? true : false;
             }
             if (!$canLock) {
-                $flash = $this->get('braincrafted_bootstrap.flash');
                 $flash->alert('Cannot lock only unlocked staff person');
-
-                return $this->redirect($this->generateUrl('org_edit',
-                            array('id' => $orgId)));
             }
         }
         $firstName = $person->getFirstname();
         $lastName = $person->getLastname();
+        if ('admin' === $type && in_array('ROLE_SUPER_ADMIN',
+                $person->getRoles())) {
+            $flash->alert("Cannot lock admin $firstName $lastName");
+            $canLock = false;
+        }
 
-        $userManager = $this->container->get('pugx_user_manager');
-        $person->changeLockState();
-        $userManager->updateUser($person, true);
-        $flash = $this->get('braincrafted_bootstrap.flash');
-        $flash->success("User $firstName $lastName updated");
-
+        if (true === $canLock) {
+            $userManager = $this->container->get('pugx_user_manager');
+            $person->changeLockState();
+            $userManager->updateUser($person, true);
+            $flash->success("User $firstName $lastName updated");
+        }
         switch ($type) {
             case 'staff':
                 return $this->redirect($this->generateUrl('org_edit',
                             array('id' => $orgId)));
             default:
                 return $this->redirect($this->generateUrl('admin_home'));
-                break;
         }
     }
 
