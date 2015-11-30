@@ -68,6 +68,8 @@ class AdminController extends Controller
         $tools = $this->container->get('truckee_match.toolbox');
 
         $newOrgs = $tools->getIncomingOrgs();
+        $menus[] = 'TruckeeMatchBundle:Builder:mainMenu';
+        $menus[] = 'TruckeeMatchBundle:Builder:adminMenu';
 
         return $this->render('Admin/adminHome.html.twig',
                 array(
@@ -75,6 +77,7 @@ class AdminController extends Controller
                 'options' => $options,
                 'newOrgs' => $newOrgs,
                 'title' => 'Admin home',
+                'menus' => $menus,
         ));
     }
 
@@ -237,45 +240,46 @@ class AdminController extends Controller
             'templates' => $templates,
         ];
     }
+
     /**
      * @Route("/select/{class}", name="person_select")
      * @Template()
      */
-//    public function personSelectAction(Request $request, $class)
-//    {
-//        switch ($class) {
-//            case 'admin':
-//                $form = $this->createForm(new AdminUsersType());
-//                break;
-//            case 'volunteer':
-//                $form = $this->createForm(new VolunteerUsersType());
-//                break;
-//            default:
-//                break;
-//        }
-//        $form->handleRequest($request);
-//        if ($form->isValid()) {
-//            $formName = $form->getName();
-//            $selected = $this->get('request')->request->get($formName);
-//            $id = $selected['user'];
-//            if ('' === $id) {
-//                $flash = $this->get('braincrafted_bootstrap.flash');
-//                $flash->alert('No person selected');
-//            } else {
-//                return $this->redirect($this->generateUrl('account_lock',
-//                            array(
-//                            'id' => $id,
-//                            'class' => $class,
-//                )));
-//            }
-//        }
-//
-//        return array(
-//            'form' => $form->createView(),
-//            'title' => 'Select person',
-//            'class' => $class,
-//        );
-//    }
+    public function personSelectAction(Request $request, $class)
+    {
+        switch ($class) {
+            case 'admin':
+                $form = $this->createForm(new AdminUsersType());
+                break;
+            case 'volunteer':
+                $form = $this->createForm(new VolunteerUsersType());
+                break;
+            default:
+                break;
+        }
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $formName = $form->getName();
+            $selected = $this->get('request')->request->get($formName);
+            $id = $selected['user'];
+            if ('' === $id) {
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->alert('No person selected');
+            } else {
+                return $this->redirect($this->generateUrl('account_lock',
+                            array(
+                            'id' => $id,
+                            'class' => $class,
+                )));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'title' => 'Select person',
+            'class' => $class,
+        );
+    }
 
     /**
      * @Route("/lock/{id}", name="account_lock")
@@ -325,28 +329,28 @@ class AdminController extends Controller
      * @Route("/select", name="org_select")
      * @Template()
      */
-//    public function orgSelectAction(Request $request)
-//    {
-//        $form = $this->createForm(new OrganizationSelectType());
-//        if ($request->isMethod('POST')) {
-//            $org = $this->get('request')->request->get('org_select');
-//            $id = $org['organization'];
-//            if ('' === $id) {
-//                $flash = $this->get('braincrafted_bootstrap.flash');
-//                $flash->alert('No organization selected');
-//            } else {
-//                return $this->redirect($this->generateUrl('org_edit',
-//                            array(
-//                            'id' => $id,
-//                )));
-//            }
-//        }
-//
-//        return array(
-//            'form' => $form->createView(),
-//            'title' => 'Select organization',
-//        );
-//    }
+    public function orgSelectAction(Request $request)
+    {
+        $form = $this->createForm(new OrganizationSelectType());
+        if ($request->isMethod('POST')) {
+            $org = $this->get('request')->request->get('org_select');
+            $id = $org['organization'];
+            if ('' === $id) {
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->alert('No organization selected');
+            } else {
+                return $this->redirect($this->generateUrl('org_edit',
+                            array(
+                            'id' => $id,
+                )));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'title' => 'Select organization',
+        );
+    }
 
     /**
      * Adds staff member for existing organization.

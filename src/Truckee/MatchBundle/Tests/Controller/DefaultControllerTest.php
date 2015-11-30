@@ -2,7 +2,7 @@
 
 namespace Truckee\MatchBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
@@ -12,16 +12,26 @@ class DefaultControllerTest extends WebTestCase
 
     public function setUp()
     {
+        $classes = array(
+            'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserGlenshire',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserMelanzane',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadOpportunity',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadVolunteer',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserBorko',
+            'Truckee\MatchBundle\DataFixtures\Test\LoadTurkeyOpportunity',
+        );
+        $this->loadFixtures($classes);
+
         self::bootKernel();
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager()
         ;
-        self::bootKernel();
         $this->focusRequired = static::$kernel->getContainer()
             ->getParameter('focus_required')
         ;
-        self::bootKernel();
         $this->skillRequired = static::$kernel->getContainer()
             ->getParameter('skill_required')
         ;
@@ -29,14 +39,139 @@ class DefaultControllerTest extends WebTestCase
         $this->client->followRedirects();
     }
 
-    public function testIndex()
+    public function testHome()
     {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony',
-            $crawler->filter('#container h1')->text());
+        $crawler = $this->client->request('GET', '/');
+        $container = $this->client->getContainer();
+        $this->assertGreaterThan(0,
+            $crawler->filter("html:contains('Your org here')")->count());
     }
+
+    public function testAboutUs()
+    {
+        $crawler = $this->client->request('GET', '/about-us');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testContactUs()
+    {
+        $crawler = $this->client->request('GET', '/contact-us');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testNonprofits()
+    {
+        $crawler = $this->client->request('GET', '/non-profits');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testSearchNoCriteria()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund")')->count());
+    }
+
+    public function testSearchFailingFocusCriterion()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $form['match_search[focuses][4]']->tick();
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("No opportunities")')->count());
+    }
+
+    public function testSearchFailingSkillCriterion()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $form['match_search[skills][4]']->tick();
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("No opportunities")')->count());
+    }
+
+    public function testSearchSuccessfulOrgCriterion()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $value = $crawler->filter('#match_search_organization_organization option:contains("Glenshire Marmot Fund")')->attr('value');
+        $form['match_search[organization][organization]'] = $value;
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund")')->count());
+    }
+
+    public function testSearchSuccessfulOrgRecord()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $value = $crawler->filter('#match_search_organization_organization option:contains("Glenshire Marmot Fund")')->attr('value');
+        $form['match_search[organization][organization]'] = $value;
+        $crawler = $this->client->submit($form);
+        $records = $this->em->getRepository('TruckeeMatchBundle:Search')->findAll();
+        $this->assertEquals(1, count($records));
+    }
+
+    public function testSearchSuccessfulFocusCriterion()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $form['match_search[focuses][1]']->tick();
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund")')->count());
+    }
+
+    public function testSearchSuccessfulSkillCriterion()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $form['match_search[skills][1]']->tick();
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund")')->count());
+    }
+
+    public function testSearchSuccessfulSkillRecords()
+    {
+        $crawler = $this->client->request('GET', '/volunteer');
+        $link = $crawler->selectLink('Search for opportunities')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Search')->form();
+        $form['match_search[skills][1]']->tick();
+        $form['match_search[skills][2]']->tick();
+        $crawler = $this->client->submit($form);
+        $records = $this->em->getRepository('TruckeeMatchBundle:Search')->findAll();
+        $this->assertEquals(2, count($records));
+    }
+//
+//    public function testEmailOrganizationForm()
+//    {
+//        $crawler = $this->client->request('GET', '/oppForm/1');
+//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Message")')->count());
+//    }
+//
+//    public function testEmailOrganization()
+//    {
+//        $crawler = $this->client->request('GET', '/oppForm/1');
+//        $form = $crawler->selectButton('submit')->form();
+//        $form['opp_email[to]'] = 'admin@bogus.info';
+//        $form['opp_email[from]'] = 'admin@bogus.info';
+//        $form['opp_email[subject]'] = 'Test message';
+//        $form['opp_email[message]'] = 'Welcome to the zoo';
+//        $crawler = $this->client->submit($form);
+//       $this->assertGreaterThan(0, $crawler->filter('html:contains("Email sent")')->count());
+//    }
 }

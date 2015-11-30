@@ -32,7 +32,7 @@ class CreateUserCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('match:user:create')
+                ->setName('truckee_match:user:create')
                 ->setDescription('Create a user.')
                 ->setDefinition(array(
                     new InputArgument('username', InputArgument::REQUIRED, 'A username'),

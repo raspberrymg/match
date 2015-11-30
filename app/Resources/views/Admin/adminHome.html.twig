@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block body %}        
+{% block body %}
+    <div class="container-fluid">
     <p>{{ title }}</p>
-    <div class="row">
     {% for template in optionalTemplates %}
-        <div class="col-md-6">
         {% include template %}
-        </div>
-        {% endfor %}<br>
-        <div class="col-md-6">
-            {% include "Admin/newOrgs.html.twig" %}
-        </div>
+    {% endfor %}<br>
+    {% include "Admin/newOrgs.html.twig" %}
     </div>
 {% endblock %}

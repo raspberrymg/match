@@ -88,3 +88,10 @@ services:
         class: Truckee\MatchBundle\Tools\Dashboard
         arguments: 
             em: @doctrine.orm.entity_manager
+
+    truckee_match.menu.voter.request:
+        class: Truckee\MatchBundle\Menu\RequestVoter
+        arguments:
+            - @request_stack
+        tags:
+            - { name: knp_menu.voter }

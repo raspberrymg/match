@@ -64,4 +64,48 @@ class DefaultController extends Controller
                 'title' => 'Search for opportunities',
         ));
     }
+    
+    /**
+     * @Route("/volunteer", name="volunteer")
+     * @Template("default/volunteer.html.twig")
+     */
+    public function volunteerAction()
+    {
+        return array(
+            'title' => 'Volunteering',
+        );
+    }
+
+    /**
+     * @Route("/non-profits", name="nonprofits")
+     * @Template("default/nonProfit.html.twig")
+     */
+    public function nonProfitAction()
+    {
+        return array(
+            'title' => 'Non-profits',
+        );
+    }
+
+    /**
+     * @Route("/about-us", name="about_us")
+     * @Template("default/aboutUs.html.twig")
+     */
+    public function aboutUsAction()
+    {
+        return array(
+            'title' => 'About us',
+        );
+    }
+
+    /**
+     * @Route("/contact-us", name="contact_us")
+     * @Template("default/contactUs.html.twig")
+     */
+    public function contactUsAction()
+    {
+        return array(
+            'title' => 'Contact us',
+        );
+    }
 }
