@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1beefb34297adffeaa8206d38aec06e9",
-    "content-hash": "bbad00c874c916e923b211f71d05d14c",
+    "hash": "1453bf73cc06e99e9e319411d822b5ed",
+    "content-hash": "fa307f5eb3b5002928e48fee76a69be9",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -137,16 +137,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.5.1",
+            "version": "v1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "2b9cec5a5e722010cbebc91713d4c11eaa064d5e"
+                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/2b9cec5a5e722010cbebc91713d4c11eaa064d5e",
-                "reference": "2b9cec5a5e722010cbebc91713d4c11eaa064d5e",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/47c7128262da274f590ae6f86eb137a7a64e82af",
+                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-11-02 18:35:48"
+            "time": "2015-12-03 10:50:37"
         },
         {
             "name": "doctrine/collections",
@@ -474,16 +474,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "a5b3ba908ba68f3e14e42762a7b940fde65ed7da"
+                "reference": "c4ffef2b2296e9d0179eb0b5248e5ae25c9bba3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/a5b3ba908ba68f3e14e42762a7b940fde65ed7da",
-                "reference": "a5b3ba908ba68f3e14e42762a7b940fde65ed7da",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/c4ffef2b2296e9d0179eb0b5248e5ae25c9bba3b",
+                "reference": "c4ffef2b2296e9d0179eb0b5248e5ae25c9bba3b",
                 "shasum": ""
             },
             "require": {
@@ -548,7 +548,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-11-04 21:33:02"
+            "time": "2015-11-16 17:11:46"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1500,20 +1500,57 @@
         },
         {
             "name": "pugx/multi-user-bundle",
-            "version": "dev-dev",
+            "version": "dev-master",
             "target-dir": "PUGX/MultiUserBundle",
-            "dist": {
-                "type": "path",
-                "url": "https://github.com/truckee/PUGXMultiUserBundle/.git",
-                "reference": null,
-                "shasum": null
+            "source": {
+                "type": "git",
+                "url": "https://github.com/truckee/PUGXMultiUserBundle.git",
+                "reference": "8b1bd0f40bdb44b7d44f3a6dabed33c04547bb51"
             },
-            "type": "library",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/truckee/PUGXMultiUserBundle/zipball/8b1bd0f40bdb44b7d44f3a6dabed33c04547bb51",
+                "reference": "8b1bd0f40bdb44b7d44f3a6dabed33c04547bb51",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.2",
+                "doctrine/doctrine-bundle": "~1.2",
+                "friendsofsymfony/user-bundle": "2.0.x-dev@dev"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "PUGX\\MultiUserBundle": ""
                 }
-            }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leonardo Proietti",
+                    "email": "leonardo.proietti@gmail.com"
+                },
+                {
+                    "name": "Community",
+                    "homepage": "https://github.com/PUGX/PUGXMultiUserBundle/contributors"
+                }
+            ],
+            "description": "Symfony PUGXMultiUserBundle",
+            "homepage": "https://github.com/PUGX",
+            "keywords": [
+                "user management multi user management"
+            ],
+            "support": {
+                "source": "https://github.com/truckee/PUGXMultiUserBundle/tree/master"
+            },
+            "time": "2015-11-07 16:04:17"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3200,16 +3237,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44"
+                "reference": "6e7133793a8e5a5714a551a8324337374be209df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6324c907ce7a52478eeeaede764f48733ef5ae44",
-                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6e7133793a8e5a5714a551a8324337374be209df",
+                "reference": "6e7133793a8e5a5714a551a8324337374be209df",
                 "shasum": ""
             },
             "require": {
@@ -3246,7 +3283,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-08-03 06:14:51"
+            "time": "2015-12-02 08:37:27"
         },
         {
             "name": "sebastian/exporter",

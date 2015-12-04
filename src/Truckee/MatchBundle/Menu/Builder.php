@@ -13,14 +13,18 @@
 namespace Truckee\MatchBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+//use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-class Builder extends ContainerAware
+class Builder implements ContainerAwareInterface
+//class Builder extends ContainerAware
 {
+
+    use \Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $securityContext = $this->container->get('security.context');
+        $securityContext = $this->container->get('security.token_storage');
         $user            = (is_object($securityContext->getToken())) ? $securityContext->getToken()->getUser()
                 : 'anon.';
 

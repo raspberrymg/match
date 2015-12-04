@@ -70,14 +70,12 @@ class OpportunityController extends Controller
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
-        $errors = $form->getErrorsAsString();
 
         return array(
             'form' => $form->createView(),
             'organization' => $organization,
             'title' => 'New opportunity',
             'opp' => $opportunity,
-            'errors' => $errors,
             'method' => 'New',
         );
     }
@@ -114,13 +112,11 @@ class OpportunityController extends Controller
                 return $this->redirect($this->generateUrl('admin_home'));
             }
         }
-        $errors = $form->getErrorsAsString();
 
         return array(
             'form' => $form->createView(),
             'opp' => $opportunity,
             'organization' => $organization,
-            'error' => $errors,
             'title' => 'Edit opportunity',
             'method' => 'Edit',
         );

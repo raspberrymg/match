@@ -19,23 +19,12 @@
                 }
             }
         },
+        
         {
-            "type": "package",
-            "package": {
-                "name": "pugx/multi-user-bundle",
-                "version": "dev-dev",
-                "dist": {
-                    "url": "https://github.com/truckee/PUGXMultiUserBundle/.git",
-                    "type": "vcs"
-                },
-                "target-dir": "PUGX/MultiUserBundle",
-                "autoload": {
-                    "psr-0": {
-                        "PUGX\\MultiUserBundle": ""
-                    }
-                }
-            }
+            "type": "vcs",
+            "url": "https://github.com/truckee/PUGXMultiUserBundle.git"
         }
+        
     ],
     "require": {
         "php": ">=5.3.9",

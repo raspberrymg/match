@@ -53,7 +53,7 @@ class PersonType extends BaseType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
-            'intention' => 'registration',
+            'csrf_token_id' => 'registration',
         ));
     }
 
