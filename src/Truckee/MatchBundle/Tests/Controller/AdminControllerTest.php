@@ -99,7 +99,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $this->assertEquals(2,
+        $this->assertEquals(3,
             $crawler->filter('div:contains("Harry")')->count());
     }
 

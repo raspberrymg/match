@@ -39,6 +39,17 @@ class DefaultControllerTest extends WebTestCase
         $this->client->followRedirects();
     }
 
+    private function login($user)
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = $user;
+        $form['_password'] = '123Abcd';
+        $crawler = $this->client->submit($form);
+
+        return $crawler;
+    }
+
     public function testHome()
     {
         $crawler = $this->client->request('GET', '/');
@@ -155,6 +166,18 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->submit($form);
         $records = $this->em->getRepository('TruckeeMatchBundle:Search')->findAll();
         $this->assertEquals(2, count($records));
+    }
+
+    public function testVolunteerLogin()
+    {
+        $crawler = $this->login('hvolunteer');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Signed in as hvolunteer")')->count());
+    }
+
+    public function testStaffLogin()
+    {
+        $crawler = $this->login('jglenshire');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Signed in as jglenshire")')->count());
     }
 //
 //    public function testEmailOrganizationForm()

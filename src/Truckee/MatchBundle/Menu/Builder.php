@@ -24,9 +24,7 @@ class Builder implements ContainerAwareInterface
 
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $securityContext = $this->container->get('security.token_storage');
-        $user            = (is_object($securityContext->getToken())) ? $securityContext->getToken()->getUser()
-                : 'anon.';
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         $menu = $factory->createItem('root',
             array(
@@ -78,10 +76,6 @@ class Builder implements ContainerAwareInterface
             ),
         ));
         $securityContext = $this->container->get('security.context');
-
-//        $em = $this->container->get('doctrine.orm.entity_manager');
-//        $templates = $em->getRepository('TruckeeMatchBundle:Template')->getTemplates();
-
         $menu->addChild('Dashboard',
             array(
             'route' => 'dashboard',
@@ -125,16 +119,6 @@ class Builder implements ContainerAwareInterface
             'route' => 'fos_user_change_password',
             ]
         );
-
-//        $menu->addChild('Templates')
-//                ->setAttribute('dropdown', true);
-//        foreach ($templates as $template) {
-//            $menu['Templates']->addChild($template->getDescription(), [
-//                'route' => 'template_edit',
-//                'routeParameters' => array('id' => $template->getId()),
-//            ]);
-//        }
-
         $menu->addChild('Criteria')
             ->setAttribute('dropdown', true);
         $menu['Criteria']->addChild('Focus',
@@ -175,10 +159,10 @@ class Builder implements ContainerAwareInterface
                 'route' => 'opp_new',
             ));
         }
-        $menu->addChild('Add event',
-            array(
-            'route' => 'event_manage',
-        ));
+//        $menu->addChild('Add event',
+//            array(
+//            'route' => 'event_manage',
+//        ));
         $menu->addChild('Edit personal data')
             ->setAttribute('dropdown', true);
         $menu['Edit personal data']->addChild('Edit profile',
@@ -220,35 +204,6 @@ class Builder implements ContainerAwareInterface
             array(
             'route' => 'opp_search',
         ));
-
-        return $menu;
-    }
-
-    public function sandboxMenu(FactoryInterface $factory, array $options)
-    {
-        $menu = $factory->createItem('root',
-            array(
-            'childrenAttributes' => array(
-                'class' => 'nav navbar-nav navbar-right',
-            ),
-        ));
-        $menu->addChild('Sign out',
-            array(
-            'route' => 'fos_user_security_logout',
-        ));
-
-        return $menu;
-    }
-
-    public function vmMenu(FactoryInterface $factory, array $options)
-    {
-        $menu = $factory->createItem('root',
-            array(
-            'childrenAttributes' => array(
-                'class' => 'nav navbar-nav',
-            ),
-        ));
-        $menu->addChild('Volunteer Volunteer Sandbox');
 
         return $menu;
     }

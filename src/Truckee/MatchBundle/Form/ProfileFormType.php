@@ -92,7 +92,7 @@ class ProfileFormType extends BaseType
                                      array $options)
     {
         $builder
-            ->add('username', null,
+            ->add('username', 'text',
                 array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', 'email',
                 array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))

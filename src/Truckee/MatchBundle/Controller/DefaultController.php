@@ -18,6 +18,9 @@ class DefaultController extends Controller
         if (true === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirect($this->generateUrl('admin_home'));
         }
+        if (true === $this->get('security.authorization_checker')->isGranted('ROLE_STAFF')) {
+            return $this->redirect($this->generateUrl('staff_home'));
+        }
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig',
                 array(

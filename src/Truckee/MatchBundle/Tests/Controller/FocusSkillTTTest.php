@@ -4,18 +4,13 @@ namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-class FocusSkill_FF_Test extends WebTestCase
+class FocusSkillTTTest extends WebTestCase
 {
     private $client;
-    private $em;
 
     public function setUp()
     {
         self::bootKernel();
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager()
-        ;
         $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
@@ -26,7 +21,7 @@ class FocusSkill_FF_Test extends WebTestCase
             'Truckee\MatchBundle\DataFixtures\Test\LoadOpportunity',
         );
         $this->loadFixtures($classes);
-        $this->client = $this->createClient(array('environment' => 'test_FF'));
+        $this->client = $this->createClient();
     }
 
     public function adminLogin()
@@ -40,67 +35,70 @@ class FocusSkill_FF_Test extends WebTestCase
         return $crawler;
     }
 
-    public function testSearchFocusSkill_FF()
+    public function testSearchFocusSkill_TT()
     {
-        $kernel = new \AppKernel('test_FF', true);
-        $kernel->boot();
-
         $crawler = $this->client->request('GET', '/search');
-        $this->assertTrue($crawler->filter('html:contains("Focus")')->count() == 0);
-        $this->assertTrue($crawler->filter('html:contains("Skill")')->count() == 0);
+        $this->assertTrue($crawler->filter('html:contains("Focus")')->count() == 1);
+        $this->assertTrue($crawler->filter('html:contains("Skill")')->count() == 1);
     }
 
-    public function testNoFocus()
+    public function testFocus()
     {
         $this->client->followRedirects();
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editFocus');
 
         $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Focus criteria not enabled")')->count());
+            $crawler->filter('html:contains("Animal Welfare")')->count());
         $this->client->followRedirects(false);
     }
 
-    public function testNoSkill()
+    public function testSkill()
     {
         $this->client->followRedirects();
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editSkill');
 
         $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Skill criteria not enabled")')->count());
+            $crawler->filter('html:contains("Driving")')->count());
         $this->client->followRedirects(false);
     }
 
     public function testRegisterVolunteerFocus()
     {
-        $crawler = $this->client->request('GET', '/register/staff');
+        $crawler = $this->client->request('GET', '/register/volunteer');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Focus")')->count());
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("Animal Welfare")')->count());
     }
 
     public function testOrganizationEditFocus()
     {
+        $this->client->followRedirects();
+        $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/org/edit/1');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Focus")')->count());
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("Animal Welfare")')->count());
+        $this->client->followRedirects(false);
     }
 
     public function testRegisterVolunteerSkill()
     {
-        $crawler = $this->client->request('GET', '/register/staff');
+        $crawler = $this->client->request('GET', '/register/volunteer');
 
-        $this->assertEquals(0,
+        $this->assertEquals(1,
             $crawler->filter('html:contains("Skill")')->count());
     }
 
     public function testOpportunityEditSkill()
     {
+        $this->client->followRedirects();
+        $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/opp/edit/1');
 
-        $this->assertEquals(0,
+        $this->assertEquals(1,
             $crawler->filter('html:contains("Skill")')->count());
+        $this->client->followRedirects(false);
     }
 }

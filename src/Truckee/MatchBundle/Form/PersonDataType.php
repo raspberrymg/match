@@ -31,7 +31,7 @@ class PersonDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null,
+            ->add('firstName', 'text',
                 array(
                 'label' => 'First name: ',
                 'attr' => array(
@@ -41,7 +41,7 @@ class PersonDataType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('lastName', null,
+            ->add('lastName', 'text',
                 array(
                 'label' => 'Last name: ',
                 'attr' => array(
@@ -61,7 +61,7 @@ class PersonDataType extends AbstractType
                 'label_attr' => array(
                     'class' => 'sr-only',
             ), ))
-            ->add('username', null,
+            ->add('username', 'text',
                 array(
                 'label' => 'form.username',
                 'translation_domain' => 'FOSUserBundle',

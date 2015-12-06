@@ -64,7 +64,7 @@ class Opportunity
     /**
      * @var int
      *
-     * @ORM\Column(name="minAge", type="integer", nullable=true)
+     * @ORM\Column(name="minAge", type="text", nullable=true)
      */
     private $minage;
 

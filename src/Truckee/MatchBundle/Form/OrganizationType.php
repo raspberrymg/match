@@ -36,10 +36,10 @@ class OrganizationType extends AbstractType
                 ->add('active', 'checkbox', array(
                     'label' => 'Active: ',
                 ))
-                ->add('orgName', null, array(
+                ->add('orgName', 'text', array(
                     'label' => 'Name',
                     'attr' => array(
-                        'size' => 40,
+                        
                         'placeholder' => 'Name',
                         'onchange' => 'orgNameCheck()',
                     ),
@@ -47,10 +47,10 @@ class OrganizationType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('address', null, array(
+                ->add('address', 'text', array(
                     'label' => 'Address',
                     'attr' => array(
-                        'size' => 40,
+                        
                         'placeholder' => 'Address',
                     ),
                     'label_attr' => array(
@@ -60,7 +60,7 @@ class OrganizationType extends AbstractType
                 ->add('background', 'checkbox', [
                     'label' => "Background check req'd",
                 ])
-                ->add('city', null, array(
+                ->add('city', 'text', array(
                     'label' => 'City',
                     'attr' => array(
                         'placeholder' => 'City',
@@ -69,20 +69,18 @@ class OrganizationType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('state', null, array(
+                ->add('state', 'text', array(
                     'label' => 'State',
                     'attr' => array(
-                        'size' => 3,
                         'placeholder' => 'State',
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('zip', null, array(
+                ->add('zip', 'text', array(
                     'label' => 'Zip code',
                     'attr' => array(
-                        'size' => 9,
                         'placeholder' => 'Zip code',
                     ),
                     'label_attr' => array(
@@ -92,7 +90,7 @@ class OrganizationType extends AbstractType
                 ->add('email', 'email', array(
                     'label' => 'E-mail',
                     'attr' => array(
-                        'size' => 40,
+                        
                         'placeholder' => 'E-mail',
                     ),
                     'label_attr' => array(
@@ -102,17 +100,15 @@ class OrganizationType extends AbstractType
                 ->add('areacode', 'number', array(
                     'label' => 'Area code',
                     'attr' => array(
-                        'size' => 7,
                         'placeholder' => 'Area code',
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('phone', null, array(
+                ->add('phone', 'text', array(
                     'label' => 'Phone #',
                     'attr' => array(
-                        'size' => 12,
                         'placeholder' => 'Phone #',
                     ),
                     'label_attr' => array(
@@ -123,7 +119,7 @@ class OrganizationType extends AbstractType
                 ->add('website', 'text', array(
                     'label' => 'Website',
                     'attr' => array(
-                        'size' => 40,
+                        
                         'placeholder' => 'Website',
                     ),
                     'label_attr' => array(

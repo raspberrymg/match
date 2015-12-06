@@ -107,7 +107,7 @@ class OpportunityController extends Controller
             $flash->success('Opportunity updated');
 
             if ('staff' === $type) {
-                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
+                return $this->redirect($this->generateUrl('staff_home'));
             } else {
                 return $this->redirect($this->generateUrl('admin_home'));
             }
