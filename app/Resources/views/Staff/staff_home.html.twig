@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h4>{{ label_info(organization.orgName~' opportunities') }}</h4>
+    {% for opp in opportunities %}
+    <ul class="list-inline">
+        <li><a class="btn btn-primary btn-xs active" href="{{ path("opp_edit", {"id": opp.id}) }}">Edit</a></li>
+        <li><b>Opportunity:</b> {{ opp.oppName }}</li>
+        <li><b>Description:</b> {{ opp.description }}</li>
+        <li><b>Expires:</b> {{ opp.expireDate|date('m/d/Y') }}</li>
+    </ul>    {% endfor %}
+{% endblock %}

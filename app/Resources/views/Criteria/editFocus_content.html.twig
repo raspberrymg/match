@@ -1,7 +1,9 @@
 {% include "Criteria/focusHeader.html.twig" %}
 
 {% for focus in formFocuses.focuses %}
+    <div class="row" {% if loop.index is even %}style="background-color: yellow"{% endif %}>
     {% include "Criteria/focusUsage.html.twig" %}
+</div>
 {% endfor %}
 {% include "Criteria/focusAllUsage.html.twig" %}
 {% include "Criteria/focusAdd.html.twig" %}

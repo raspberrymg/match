@@ -1,8 +1,11 @@
 {% set id = focus.vars.value.id %}{% set name = focus.vars.value.focus %}
-<div class="row">
     <div class="col-md-3">
         {{ name }}
         <input type="hidden" name="focuses[focuses][{{ loop.index0 }}][focus]" value="{{ focus.vars.value.focus }}">
+    </div>
+    <div class="col-md-1 text-center">
+        <input type="checkbox" name="focuses[focuses][{{ loop.index0 }}][enabled]" 
+               {%if focus.vars.value.enabled %}checked="checked"{%endif%}>
     </div>
     <div class="col-md-2 text-right">
         {% if id in fociUsage['volunteer']|keys %}
@@ -14,8 +17,3 @@
             {{ fociUsage['opportunity'][id] }}{% else %}0
         {% endif %}
     </div>
-    <div class="col-md-1 text-center">
-        <input type="checkbox" name="focuses[focuses][{{ loop.index0 }}][enabled]" 
-               {%if focus.vars.value.enabled %}checked="checked"{%endif%}>
-    </div>
-</div>

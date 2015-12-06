@@ -1,6 +1,8 @@
 {% include "Criteria/skillHeader.html.twig" %}
 {% for skill in formSkills.skills %}
-{% include "Criteria/skillUsage.html.twig" %}        
+    <div class="row" {% if loop.index is even %}style="background-color: yellow"{% endif %}>
+        {% include "Criteria/skillUsage.html.twig" %}        
+    </div>
 {% endfor %}
 {% include "Criteria/skillAllUsage.html.twig" %}
 {% include "Criteria/skillAdd.html.twig" %}

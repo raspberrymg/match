@@ -2,23 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome! {% if title is defined %}{{ title }}{% endif %}{% endblock %}</title>
         {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
         {% block stylesheets %}
-            {% stylesheets 
-                '@TruckeeMatchBundle/Resources/public/css/*'
-                'css/bootstrap.css'
-                filter='cssrewrite' output='css/compiled/app.css' 
-            %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
+                <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block nav %}
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container">
+        <div class="container">
+            {% block nav %}
+                <div class="navbar navbar-default" role="navigation">
                     <div class="row">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,30 +25,41 @@
                             <a class="navbar-brand" href="#"><span class="label label-success">Your org here</span></a>
                         </div>
                         <div class="collapse navbar-collapse">
-                                {{ knp_menu_render('TruckeeMatchBundle:Builder:mainMenu') }}
+                            <div class="row">
+                                {% spaceless %}
+                                    {{ knp_menu_render('TruckeeMatchBundle:Builder:mainMenu') }}{% endspaceless %}
+                                </div>
+                                {% if app.user is not null %}
+                                    {% set type = app.user.userType %}
+                                    <div class="row"> 
+                                        <div class="collapse navbar-collapse">
+                                            <span class="navbar-brand">{{ label_info(type|title~' menu') }} </span>
+                                            {% spaceless %}
+                                                {{ knp_menu_render('TruckeeMatchBundle:Builder:'~type~'Menu') }}
+                                                <p class="navbar-text navbar-right"><a href="#" class="navbar-link">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></p>
+                                                {% endspaceless %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endblock nav %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}</h4>
+                    </div>    
+                </div>       
+                {% block body %}
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+                {% endblock %}
+                {% block javascripts %}
+                    <script src="{{ asset('js/jquery.js') }}"></script>
+                    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+                    <script src="{{ asset('js/volunteer.js') }}"></script>
+                    <script src="{{ asset('js/bootstrap.js') }}"></script>
+                {% endblock %}
             </div>
-        {% endblock nav %}
-        <div class="row">
-            <div class="col-md-6">
-                <h4>{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}</h4>
-            </div>    
-        </div>       
-        {% block body %}
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        {% endblock %}
-        {% block javascripts %}
-            {% javascripts 
-                    '@TruckeeMatchBundle/Resources/public/js/jquery.js'
-                    '@TruckeeMatchBundle/Resources/public/js/jquery-ui.min.js'
-                    'js/bootstrap.js'
-                    '@TruckeeMatchBundle/Resources/public/js/volunteer.js'
-            %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-    </body>
-</html>
+        </body>
+    </html>
