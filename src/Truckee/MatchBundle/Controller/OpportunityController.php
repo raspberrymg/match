@@ -16,11 +16,13 @@ namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Entity\Opportunity;
 use Truckee\MatchBundle\Form\OpportunityType;
+use Truckee\MatchBundle\Form\OpportunitySelectType;
 
 /**
  * @Route("/opp")
@@ -120,5 +122,20 @@ class OpportunityController extends Controller
             'title' => 'Edit opportunity',
             'method' => 'Edit',
         );
+    }
+
+    /**
+     * @Route("/select/{id}", name="opp_select")
+     */
+    public function oppSelectAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new OpportunitySelectType($id));
+        $content = $this->renderView("Opportunity/oppSelect.html.twig", array(
+            'form' => $form->createView(),
+            ));
+        $response = new Response($content);
+
+        return $response;
     }
 }

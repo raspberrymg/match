@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Truckee\MatchBundle\Form\OrganizationSelectType;
 use Truckee\MatchBundle\Form\VolunteerEmailType;
 use Truckee\MatchBundle\Form\VolunteerUsersType;
 use Truckee\MatchBundle\Form\PersonAddType;
@@ -327,12 +328,20 @@ class AdminController extends Controller
 
     /**
      * @Route("/select", name="org_select")
-     * @Template()
+     * @Template("Organization/orgSelect.html.twig")
      */
     public function orgSelectAction(Request $request)
     {
         $form = $this->createForm(new OrganizationSelectType());
         if ($request->isMethod('POST')) {
+            if ($request->request->has('opp_select')) {
+                $opp = $this->get('request')->request->get('opp_select');
+                $oppId = $opp['opportunity'];
+                return $this->redirect($this->generateUrl('opp_edit',
+                            array(
+                            'id' => $oppId,
+                )));
+            }
             $org = $this->get('request')->request->get('org_select');
             $id = $org['organization'];
             if ('' === $id) {

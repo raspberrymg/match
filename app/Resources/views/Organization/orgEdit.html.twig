@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
     <h4>{{ label_info('Edit '~ organization.orgName) }}</h4>
     <form name="organization" method="post" action="">
         {{ form_widget(form._token) }}

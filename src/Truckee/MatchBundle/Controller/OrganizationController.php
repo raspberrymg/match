@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\OrganizationType;
+use Truckee\MatchBundle\Form\OpportunitySelectType;
 
 /**
  * Description of Organization.
@@ -47,7 +48,8 @@ class OrganizationController extends Controller
         $focus        = $this->container->getParameter('focus_required');
         $form         = $this->createForm(new OrganizationType($focus),
             $organization);
-
+        $orgId = $organization->getId();
+        $oppForm = $this->createForm(new OpportunitySelectType($orgId));
         //organization templates
         if ($organization->getTemp()) {
             $templates[]  = 'Organization/notEnabledOrganization.html.twig';
@@ -81,6 +83,7 @@ class OrganizationController extends Controller
 
         return array(
             'form' => $form->createView(),
+            'oppForm' => $oppForm->createView(),
             'organization' => $organization,
             'templates' => $templates,
             'title' => 'Edit organization',

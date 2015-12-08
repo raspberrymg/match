@@ -8,7 +8,21 @@
  */
 
 $(document).ready(function () {
-    $('.carousel').carousel({interval: 7000});
+    $("#org_select_organization").change(function () {
+        var oppSelector = $("#oppSelect");
+        $(oppSelector).hide();
+        var orgId = $("select[id=org_select_organization]").val();
+        if ('' !== orgId) {
+            var where = $(location).attr('pathname');
+            var url = where.replace('admin/select', 'opp/select/' + orgId);
+            $.get(url, function (data) {
+                if ([] !== data) {
+                    $(oppSelector).show();
+                    $(oppSelector).html(data);
+                } 
+            });
+        }
+    });
 
     $("#staff_registration_organization_orgName").change(function () {
         var orgNotice = $("#orgNotice");

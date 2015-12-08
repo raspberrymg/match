@@ -52,7 +52,6 @@ class OrganizationSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'cascade_validation' => true,
             'required' => false,
         ));
     }
