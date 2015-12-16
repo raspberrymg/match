@@ -42,8 +42,10 @@ class AdminController extends Controller
     public function adminHomeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $expire = $this->getParameter('truckee_match.expiring_alerts');
-        $oppMail = $this->getParameter('truckee_match.opportunity_email');
+        $expire = $this->getParameter('expiring_alerts');
+        $oppMail = $this->getParameter('opportunity_email');
+        $searchMail = $this->getParameter('search_email');
+//        dump(array($expire, $oppMail, $searchMail));
         $options = [];
         $sent = [];
         $optionalTemplates = [];
@@ -199,9 +201,9 @@ class AdminController extends Controller
     public function dashboardAction()
     {
         $dashboard = $this->container->get('truckee_match.dashboard');
-        $expire = $this->getParameter('truckee_match.expiring_alerts');
-        $oppMail = $this->getParameter('truckee_match.opportunity_email');
-        $searchMail = $this->getParameter('truckee_match.search_email');
+        $expire = $this->getParameter('expiring_alerts');
+        $oppMail = $this->getParameter('opportunity_email');
+        $searchMail = $this->getParameter('search_email');
         $templates[] = 'Admin/Dashboard/websiteEmailHeader.html.twig';
 
         if ($expire || $oppMail || $searchMail) {

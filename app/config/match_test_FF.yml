@@ -1,0 +1,6 @@
+parameters:
+    skill_required: false
+    focus_required: false
+    expiring_alerts: true
+    opportunity_email: true
+    search_email: true

@@ -35,6 +35,9 @@ class RequestVoter implements VoterInterface
 
     public function matchItem(ItemInterface $item)
     {
+        if (NULL === $this->request) {
+            return null;
+        }
         if ($item->getUri() === $this->request->getRequestUri()) {
             // URL's completely match
             return true;
