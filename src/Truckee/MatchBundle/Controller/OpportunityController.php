@@ -61,6 +61,7 @@ class OpportunityController extends Controller
                 $opportunity->setExpireDate($date->add(new \DateInterval('P1Y')));
             }
             $opportunity->setAddDate($date);
+            $opportunity->setLastupdate($date);
             $em->persist($opportunity);
             $em->flush();
             $flash = $this->get('braincrafted_bootstrap.flash');

@@ -98,6 +98,131 @@ class InteractiveCommandTest extends WebTestCase
         $this->assertRegExp('*volunteer*', $commandTester->getDisplay());
     }
 
+    /**
+     * @expectedException  RuntimeException
+     */
+    public function testFirstNameRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream("volunteer\n"
+//                        . "First\n "
+                        . "Last\n "
+                        . "volunteer@bogus.info\n "
+                        . "123Abcd\n "
+                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
+    /**
+     * @expectedException  RuntimeException
+     */
+    public function testLastNameRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream("volunteer\n"
+                        . "First\n "
+//                        . "Last\n "
+                        . "volunteer@bogus.info\n "
+                        . "123Abcd\n "
+                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
+    /**
+     * @expectedException  RuntimeException
+     */
+    public function testEmailRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream("volunteer\n"
+                        . "First\n "
+                        . "Last\n "
+//                        . "volunteer@bogus.info\n "
+                        . "123Abcd\n "
+                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
+    /**
+     * @expectedException  RuntimeException
+     */
+    public function testPasswordRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream("volunteer\n"
+                        . "First\n "
+                        . "Last\n "
+                        . "volunteer@bogus.info\n "
+//                        . "123Abcd\n "
+                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
+    /**
+     * @expectedException  RuntimeException
+     */
+    public function testUsernameRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream("volunteer\n"
+                        . "First\n "
+                        . "Last\n "
+                        . "volunteer@bogus.info\n "
+                        . "123Abcd\n "
+//                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
     protected function getInputStream($input)
     {
         $stream = fopen('php://memory', 'r+', false);

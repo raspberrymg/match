@@ -36,6 +36,9 @@ class AdminControllerTest extends WebTestCase
         $this->tool = static::$kernel->getContainer()
             ->get('truckee_match.toolbox')
         ;
+        $this->mailer = static::$kernel->getContainer()
+            ->get('admin.mailer')
+        ;
 
         $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
@@ -155,17 +158,32 @@ class AdminControllerTest extends WebTestCase
             $crawler->filter('html:contains("has been dropped")')->count());
     }
 
-    public function testOutboxUser()
+    public function testAdminOutbox()
     {
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $outboxObj = $this->em->getRepository('TruckeeMatchBundle:AdminOutbox')->findAll();
         $outbox = $outboxObj[0];
-        $recipient = $outbox->getRecipientId();
-        $type = $this->tool->getTypeFromId($recipient);
 
-        $this->assertEquals('staff', $type);
+        $userType = $outbox->getUserType();
+        $this->assertEquals('staff', $userType);
+
+        $messageType = $outbox->getMessageType();
+        $this->assertEquals('to', $messageType);
+
+        $orgId = $outbox->getOrgId();
+        $this->assertEquals('1', $orgId);
+
+        $oppId = $outbox->getoppId();
+        $this->assertEquals('1', $oppId);
+
+        $function = $outbox->getFunction();
+        $this->assertEquals('expiringAlertsAction', $function);
+
+        $date = $outbox->getDate();
+        $current = new \DateTime();
+        $this->assertEquals(date_format($current, 'Y-m-d'), date_format($date, 'Y-m-d'));
     }
 
     public function testExistingOrganizationEdit()
@@ -178,7 +196,12 @@ class AdminControllerTest extends WebTestCase
         $form['org[state]'] = 'NV';
         $form['org[zip]'] = '88888';
         $form['org[website]'] = 'www.glenshire.org';
+        $form['org[email]'] = 'info@glenshire.org';
+        $form['org[phone]'] = '123-4567';
+        $form['org[areacode]'] = '555';
+        $form['org[focuses][6]']->tick();
         $crawler = $this->client->submit($form);
+
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
     }
@@ -281,6 +304,30 @@ class AdminControllerTest extends WebTestCase
             'locked' => true, ));
 
         $this->assertEquals(count($after), count($later));
+    }
+
+    public function testAddFocus()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET','/editFocus');
+        $form = $crawler->selectButton('Save')->form();
+        $form['focus[focus]'] = 'Baloney';
+        $form['focus[enabled]']->tick();
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Focus criteria updated")')->count());
+    }
+
+    public function testAddSkill()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET','/editSkill');
+        $form = $crawler->selectButton('Save')->form();
+        $form['skill[skill]'] = 'Baloney';
+        $form['skill[enabled]']->tick();
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Skill criteria updated")')->count());
     }
 
 //    public function organizationSelect()

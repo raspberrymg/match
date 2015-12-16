@@ -56,6 +56,8 @@ class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
         $opp->setExpireDate(date_add(new \DateTime(), new \DateInterval('P1M')));
         $opp->setOrganization($org);
         $opp->addSkill($skill);
+        $opp->setAddDate(new \DateTime());
+        $opp->setLastupdate(new \DateTime());
         $manager->persist($opp);
         $manager->flush();
     }

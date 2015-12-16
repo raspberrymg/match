@@ -17,8 +17,6 @@ namespace Truckee\MatchBundle\DataFixtures\Test;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-//use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
 use Truckee\MatchBundle\Entity\Opportunity;
 
 /**
@@ -43,6 +41,8 @@ class LoadTurkeyOpportunity extends AbstractFixture implements OrderedFixtureInt
         $opp->setExpireDate(date_add(new \DateTime(), new \DateInterval('P1M')));
         $opp->setOrganization($org);
         $opp->addSkill($skill);
+        $opp->setAddDate(new \DateTime());
+        $opp->setLastupdate(new \DateTime());
         $manager->persist($opp);
         $manager->flush();
     }

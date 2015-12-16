@@ -216,7 +216,6 @@ class Toolbox
         $organization->setTemp(false);
         $organization->setActive(true);
         $organization->setAddDate(new \DateTime());
-        $orgName = $organization->getOrgName();
         $em->persist($organization);
 
         return $em->flush();

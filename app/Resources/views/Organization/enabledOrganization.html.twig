@@ -1,1 +1,2 @@
-{{ form_row(form.active) }}
+Active: {{ form_widget(form.active) }}; <small>Added: {{ form.vars.value.addDate|date('m/d/Y') }}</small>
+

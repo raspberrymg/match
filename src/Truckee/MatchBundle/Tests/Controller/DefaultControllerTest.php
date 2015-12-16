@@ -179,22 +179,19 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->login('jglenshire');
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Signed in as jglenshire")')->count());
     }
-//
-//    public function testEmailOrganizationForm()
-//    {
-//        $crawler = $this->client->request('GET', '/oppForm/1');
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Message")')->count());
-//    }
-//
-//    public function testEmailOrganization()
-//    {
-//        $crawler = $this->client->request('GET', '/oppForm/1');
-//        $form = $crawler->selectButton('submit')->form();
-//        $form['opp_email[to]'] = 'admin@bogus.info';
-//        $form['opp_email[from]'] = 'admin@bogus.info';
-//        $form['opp_email[subject]'] = 'Test message';
-//        $form['opp_email[message]'] = 'Welcome to the zoo';
-//        $crawler = $this->client->submit($form);
-//       $this->assertGreaterThan(0, $crawler->filter('html:contains("Email sent")')->count());
-//    }
+
+    public function testEmailOrganization()
+    {
+        $this->client->followRedirects(false);
+        $crawler = $this->client->request('GET', '/oppForm/1');
+        $form = $crawler->selectButton('Send')->form();
+        $form['opp_email[to]'] = 'admin@bogus.info';
+        $form['opp_email[from]'] = 'admin@bogus.info';
+        $form['opp_email[subject]'] = 'Test message';
+        $form['opp_email[message]'] = 'Welcome to the zoo';
+        $crawler = $this->client->submit($form);
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+    }
 }

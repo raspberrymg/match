@@ -96,7 +96,7 @@ class DashboardTest extends WebTestCase
     {
         $crawler = $this->login('admin');
         $crawler = $this->client->request('GET', '/admin/dashboard');
-        $this->assertEquals(0, trim($crawler->filter('div#newOpps30Day')->text()));
+        $this->assertEquals(2, trim($crawler->filter('div#newOpps30Day')->text()));
         $this->assertEquals(2, trim($crawler->filter('div#newOpps')->text()));
     }
 

@@ -222,7 +222,7 @@ class AdminMailer
                 ->setContentType('text/html')
                 ->setBody(
                 $this->twig->render(
-                    'TruckeeMatchBundle:Default:onlineOppEmailContent.html.twig',
+                    'default/onlineOppEmailContent.html.twig',
                     array(
                     'content' => $content,
                     'recipient' => $recipient,

@@ -28,11 +28,6 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('expiring_alerts')->defaultTrue()->end()
                 ->booleanNode('opportunity_email')->defaultTrue()->end()
                 ->booleanNode('search_email')->defaultTrue()->end()
-//                    ->children()
-//                        ->integerNode('client_id')->end()
-//                        ->scalarNode('client_secret')->end()
-//                    ->end()
-//                ->end() // twitter
             ->end()
         ;
 
