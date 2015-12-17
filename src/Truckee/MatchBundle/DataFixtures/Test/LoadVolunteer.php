@@ -72,8 +72,8 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
         $volunteerA->setEmail('hvola.info');
         $volunteerA->setPlainPassword('123Abcd');
         $volunteerA->setEnabled(true);
-        $volunteerA->setFirstName('Harry');
-        $volunteerA->setLastName('Volunteer');
+        $volunteerA->setFirstName('Wilbur');
+        $volunteerA->setLastName('Vola');
         $volunteerA->setReceiveEmail(true);
         $volunteerA->addRole('ROLE_USER');
         $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Arts and Culture');
@@ -88,8 +88,8 @@ class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface,
         $volunteerB->setEmail('hvolb@bogus.info');
         $volunteerB->setPlainPassword('123Abcd');
         $volunteerB->setEnabled(true);
-        $volunteerB->setFirstName('Harry');
-        $volunteerB->setLastName('Volunteer');
+        $volunteerB->setFirstName('Orville');
+        $volunteerB->setLastName('Volb');
         $volunteerB->setReceiveEmail(true);
         $volunteerB->addRole('ROLE_USER');
         $foc1 = $manager->getRepository('TruckeeMatchBundle:Focus')->findOneByFocus('Animal Welfare');

@@ -44,8 +44,6 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $expire = $this->getParameter('expiring_alerts');
         $oppMail = $this->getParameter('opportunity_email');
-        $searchMail = $this->getParameter('search_email');
-//        dump(array($expire, $oppMail, $searchMail));
         $options = [];
         $sent = [];
         $optionalTemplates = [];
@@ -246,7 +244,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/select/{class}", name="person_select")
-     * @Template()
+     * @Template("Admin/personSelect.html.twig")
      */
     public function personSelectAction(Request $request, $class)
     {
@@ -293,6 +291,7 @@ class AdminController extends Controller
         $person = $em->getRepository('TruckeeMatchBundle:Person')->find($id);
         $type = $person->getUserType();
         $flash = $this->get('braincrafted_bootstrap.flash');
+        $canLock = TRUE;
         if ('staff' === $type) {
             $org = $person->getOrganization();
             $orgId = $person->getOrganization()->getId();
@@ -314,6 +313,7 @@ class AdminController extends Controller
         }
 
         if (true === $canLock) {
+        var_dump($id);die;
             $userManager = $this->container->get('pugx_user_manager');
             $person->changeLockState();
             $userManager->updateUser($person, true);

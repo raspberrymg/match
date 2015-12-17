@@ -49,16 +49,7 @@ class PersonType extends BaseType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => $this->class,
-            'csrf_token_id' => 'registration',
-        ));
-    }
-
     public function getName()
     {
-        return 'registration';
     }
 }

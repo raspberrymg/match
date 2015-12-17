@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4>{{label_info('Select '~class~' to lock/unlock') }}</h4>
+    <p>*: Account is locked</p>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

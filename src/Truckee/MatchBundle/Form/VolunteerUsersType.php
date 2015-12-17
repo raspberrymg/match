@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -31,25 +30,27 @@ class VolunteerUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('user', 'entity', array(
-                    'label' => 'Volunteer',
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                    'class' => 'TruckeeMatchBundle:Volunteer',
-                    'choice_label' => 'nameLockStatus',
-                    'empty_value' => 'Select volunteer',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('a')
-                        ->orderBy('a.lastName, a.firstName', 'ASC')
+            ->add('user', 'entity',
+                array(
+                'label' => 'Volunteer',
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+                'class' => 'TruckeeMatchBundle:Volunteer',
+                'choice_label' => 'nameLockStatus',
+                'empty_value' => 'Select volunteer',
+                'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('v')
+                    ->orderBy('v.lastName, v.firstName', 'ASC')
                 ;
             },
-                ))
-                ->add('Select', 'submit', array(
-                    'attr' => array(
-                        'class' => 'btn btn-xs active',
-                    )
-                ))
+            ))
+            ->add('Select', 'submit',
+                array(
+                'attr' => array(
+                    'class' => 'btn btn-xs active',
+                )
+            ))
         ;
     }
 
@@ -61,7 +62,6 @@ class VolunteerUsersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'cascade_validation' => true,
             'required' => false,
         ));
     }

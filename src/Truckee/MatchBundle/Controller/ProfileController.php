@@ -22,6 +22,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ProfileController extends Controller
 {
     /**
+     * @Route("/")
+     */
+    public function showAction()
+    {
+        if (true === $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            $user = $this->getUser();
+            return $this->render('FOSUserBundle/views/Profile/show.html.twig', array(
+                'user' => $user,
+            ));
+        } else {
+            return $this->redirect($this->generateUrl('home'));
+        }
+
+    }
+
+    /**
      * @Route("/edit")
      */
     public function editAction()

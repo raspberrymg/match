@@ -24,15 +24,6 @@ class StaffControllerTest extends WebTestCase
 
     public function setUp()
     {
-//        self::bootKernel();
-//        $this->em = static::$kernel->getContainer()
-//            ->get('doctrine')
-//            ->getManager()
-//        ;
-//        $this->tool = static::$kernel->getContainer()
-//            ->get('truckee_match.toolbox')
-//        ;
-
         $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
@@ -46,7 +37,6 @@ class StaffControllerTest extends WebTestCase
         $this->loadFixtures($classes);
         $this->client = $this->createClient();
         $this->client->followRedirects();
-//        file_put_contents("G:\\Documents\\response.html", $this->client->getResponse()->getContent());
     }
 
     public function login($user)
@@ -72,5 +62,20 @@ class StaffControllerTest extends WebTestCase
 
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("Opportunity added")')->count());
+    }
+
+    public function testOrganizationPhoneValidation()
+    {
+        $crawler = $this->login('jglenshire');
+        $crawler = $this->client->request('GET', '/org/edit/1');
+        $form = $crawler->selectButton('Save organization')->form();
+        $form['org[phone]'] = '123';
+        $form['org[areacode]'] = '5';
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("Phone must be")')->count());
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("Area code must be")')->count());
     }
 }

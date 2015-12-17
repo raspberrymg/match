@@ -102,7 +102,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $this->assertEquals(3,
+        $this->assertEquals(2,
             $crawler->filter('div:contains("Harry")')->count());
     }
 
@@ -283,7 +283,7 @@ class AdminControllerTest extends WebTestCase
             'locked' => 1, ));
         $crawler = $this->addStaff();
         $crawler = $this->client->request('GET',
-            '/admin//lock/8');
+            '/admin/lock/8');
         $after = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
             'locked' => true, ));
 
@@ -291,7 +291,7 @@ class AdminControllerTest extends WebTestCase
 
         //cannot lock only staff member
         $crawler = $this->client->request('GET',
-            '/admin//lock/2');
+            '/admin/lock/2');
         $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
             'locked' => true, ));
 
@@ -299,7 +299,7 @@ class AdminControllerTest extends WebTestCase
 
         //cannot lock super_admin
         $crawler = $this->client->request('GET',
-            '/admin//lock/1');
+            '/admin/lock/1');
         $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
             'locked' => true, ));
 
@@ -328,6 +328,14 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Skill criteria updated")')->count());
+    }
+
+    public function testStaffHome()
+    {
+        $crawler = $this->login('admin');
+        $crawler = $this->client->request('GET','/staffhome');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("staff only please")')->count());
     }
 
 //    public function organizationSelect()

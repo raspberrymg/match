@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h4>{{label_info('Admin Profile Form') }}</h4>
+            {% block fos_user_content %}
+                {% include 'Person/person_manage.html.twig' %}
+                {% include 'Person/currentPassword.html.twig' %}
+                {% include 'default/save.html.twig' %}
+            {% endblock fos_user_content %}
+        {% endblock %}

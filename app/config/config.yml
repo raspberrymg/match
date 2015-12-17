@@ -152,3 +152,4 @@ pugx_multi_user:
         profile:
           form: 
             type: %profile.form.type%
+          template: Admin/adminProfile.html.twig

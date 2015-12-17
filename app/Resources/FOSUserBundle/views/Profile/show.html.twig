@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+
+{% block fos_user_content %}
+    <h4>{{ label_info('Profile view') }}</h4>
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock fos_user_content %}

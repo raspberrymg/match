@@ -101,6 +101,32 @@ class InteractiveCommandTest extends WebTestCase
     /**
      * @expectedException  RuntimeException
      */
+    public function testUsernameRequired()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new CreateUserCommand());
+
+        $command = $application->find('truckee:user:create');
+        $commandTester = new CommandTester($command);
+
+        $helper = $command->getHelper('question');
+        $helper->setInputStream($this->getInputStream(
+//                        "volunteer\n"
+                        "First\n "
+                        . "Last\n "
+                        . "volunteer@bogus.info\n "
+                        . "123Abcd\n "
+                        . "volunteer\n"
+        ));
+        $commandTester->execute(array('command' => $command->getName()));
+    }
+
+    /**
+     * @expectedException  RuntimeException
+     */
     public function testFirstNameRequired()
     {
         $kernel = $this->createKernel();
@@ -201,7 +227,7 @@ class InteractiveCommandTest extends WebTestCase
     /**
      * @expectedException  RuntimeException
      */
-    public function testUsernameRequired()
+    public function testTypeRequired()
     {
         $kernel = $this->createKernel();
         $kernel->boot();

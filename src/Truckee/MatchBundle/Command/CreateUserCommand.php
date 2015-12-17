@@ -106,7 +106,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(2);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('username', $helper->ask($input, $output, $question));
         }
@@ -122,7 +122,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(2);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('firstname', $helper->ask($input, $output, $question));
         }
@@ -138,7 +138,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(2);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('lastname', $helper->ask($input, $output, $question));
         }
@@ -154,7 +154,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(2);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('email', $helper->ask($input, $output, $question));
         }
@@ -170,7 +170,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(5);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('password', $helper->ask($input, $output, $question));
         }
@@ -186,7 +186,7 @@ EOT
 
                 return $answer;
             });
-            $question->setMaxAttempts(2);
+            $question->setMaxAttempts(1);
 
             $input->setArgument('type', $helper->ask($input, $output, $question));
         }
