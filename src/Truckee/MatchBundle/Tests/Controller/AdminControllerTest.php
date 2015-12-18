@@ -102,7 +102,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $this->assertEquals(2,
+        $this->assertEquals(4,
             $crawler->filter('div:contains("Harry")')->count());
     }
 
@@ -338,6 +338,17 @@ class AdminControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("staff only please")')->count());
     }
 
+    public function testVolunteerUserLock()
+    {
+        $crawler = $this->addAdmin();
+        $crawler = $this->client->request('GET', '/admin/select/volunteer');
+        $form = $crawler->selectButton('Select')->form();
+        $value = $crawler->filter('#vol_select_user option:contains("Volunteer, Harry")')->attr('value');
+        $form['vol_select[user]'] = $value;
+        $crawler = $this->client->submit($form);
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Harry Volunteer updated")')->count());
+    }
+
 //    public function organizationSelect()
 //    {
 //        $crawler = $this->login('admin');
@@ -406,17 +417,6 @@ class AdminControllerTest extends WebTestCase
 //        $form['admin_select[user]'] = $value;
 //        $crawler = $this->client->submit($form);
 //        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Benny Borko updated")')->count());
-//    }
-//
-//    public function testVolunteerUserLock()
-//    {
-//        $crawler = $this->addAdmin();
-//        $crawler = $this->client->request('GET', '/admin/select/volunteer');
-//        $form = $crawler->selectButton('Select')->form();
-//        $value = $crawler->filter('#vol_select_user option:contains("Volunteer, Harry")')->attr('value');
-//        $form['vol_select[user]'] = $value;
-//        $crawler = $this->client->submit($form);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Harry Volunteer updated")')->count());
 //    }
 //
 //    public function testStaffUserLock()

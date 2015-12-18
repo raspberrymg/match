@@ -13,11 +13,9 @@
 namespace Truckee\MatchBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-//use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 class Builder implements ContainerAwareInterface
-//class Builder extends ContainerAware
 {
 
     use \Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -159,10 +157,10 @@ class Builder implements ContainerAwareInterface
                 'route' => 'opp_new',
             ));
         }
-//        $menu->addChild('Add event',
-//            array(
-//            'route' => 'event_manage',
-//        ));
+        $menu->addChild('Add event',
+            array(
+            'route' => 'event_manage',
+        ));
         $menu->addChild('Edit personal data')
             ->setAttribute('dropdown', true);
         $menu['Edit personal data']->addChild('Edit profile',

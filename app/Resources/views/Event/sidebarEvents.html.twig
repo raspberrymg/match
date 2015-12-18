@@ -1,0 +1,11 @@
+<h4>{{ label_info('Coming events') }}</h4>
+{% for event in events if events is defined%}
+    <div class="row" style="color: #b94a48;">{{ event.eventdate|date('F j, Y') }}</div>
+    <div class="row">What: {{ event.event }}</div>
+    <div class="row">Where: {{ event.location }}</div>
+    <div class="row">When: {{ event.starttime }}</div>
+    {% if is_granted('ROLE_ADMIN') %}<div class="row">Posted by: {{ event.owner.firstName }} {{ event.owner.lastName }}<br>
+        {{ event.owner.organization.orgName }}</div>{% endif %}
+    <div class="row">{% if app.user == event.owner or is_granted('ROLE_ADMIN') %}<a class="btn btn-primary btn-xs active" href="{{ path('event_manage', {'id':event.id}) }}">Edit</a>{% endif %}</div>
+    <hr>
+{% endfor %}

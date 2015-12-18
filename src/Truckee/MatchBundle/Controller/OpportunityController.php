@@ -53,7 +53,8 @@ class OpportunityController extends Controller
             $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         }
         $opportunity->setOrganization($organization);
-        $form = $this->createForm(new OpportunityType(), $opportunity);
+        $skills = $this->container->getParameter('skill_required');
+        $form = $this->createForm(new OpportunityType($skills), $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $date = new \DateTime();

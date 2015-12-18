@@ -313,7 +313,6 @@ class AdminController extends Controller
         }
 
         if (true === $canLock) {
-        var_dump($id);die;
             $userManager = $this->container->get('pugx_user_manager');
             $person->changeLockState();
             $userManager->updateUser($person, true);

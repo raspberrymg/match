@@ -58,6 +58,7 @@ class StaffControllerTest extends WebTestCase
         $form['opportunity[active]']->tick();
         $form['opportunity[oppName]'] = 'Frog';
         $form['opportunity[description]'] = 'Knee deep';
+        $form['opportunity[skills][2]']->tick();
         $crawler = $this->client->submit($form);
 
         $this->assertGreaterThan(0,
@@ -77,5 +78,59 @@ class StaffControllerTest extends WebTestCase
             $crawler->filter('html:contains("Phone must be")')->count());
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("Area code must be")')->count());
+    }
+
+    public function testOrganizationFocusEdit()
+    {
+        $crawler = $this->login('jglenshire');
+        $crawler = $this->client->request('GET', '/org/edit/1');
+        $form = $crawler->selectButton('Save organization')->form();
+        $form['org[focuses][0]']->untick();
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0,  $crawler->filter('html:contains("At least one")')->count());
+
+        $form['org[focuses][3]']->tick();
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("updated")')->count());
+    }
+
+    public function testOpportunityEdit()
+    {
+        $crawler = $this->login('jglenshire');
+        $crawler = $this->client->request('GET', '/opp/edit/1');
+        $form = $crawler->selectButton('Save opportunity')->form();
+        $form['opportunity[skills][1]']->untick();
+        $crawler = $this->client->submit($form);
+        
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("At least one skill is required")')->count());
+
+        $form['opportunity[skills][2]']->tick();
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("updated")')->count());
+    }
+
+    public function testAddNewEvent()
+    {
+        $crawler = $this->login('jglenshire');
+        $link = $crawler->selectLink('Add event')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Submit')->form();
+        $form['event[event]'] = 'Ice fishing';
+        $form['event[location]'] = 'Donner Lake';
+        $form['event[starttime]'] = '3 AM';
+        $now = new \DateTime();
+        $eventDate = date_format($now, 'm/d/Y');
+        $form['event[eventdate]'] = $eventDate;
+        $crawler = $this->client->submit($form);
+        $link = $crawler->selectLink('Sign out')->link();
+        $crawler = $this->client->click($link);
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Ice fishing")')->count());
     }
 }

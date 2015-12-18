@@ -168,4 +168,23 @@ class DefaultController extends Controller
             'id' => $id,
         ];
     }
+
+    /**
+     * @Template("default/navigation.html.twig")
+     */
+    public function navigationAction()
+    {
+        $user = $this->getUser();
+        $menuTemplates[] = 'default/defaultMenu.html.twig';
+        $type = NULL;
+        if (null !== $user) {
+            $menuTemplates[] = 'default/authorizedMenu.html.twig';
+            $type = $user->getUserType();
+        }
+        
+        return array(
+            'menuTemplates' => $menuTemplates,
+            'type' => $type,
+            );
+    }
 }

@@ -172,7 +172,6 @@ class OrganizationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Truckee\MatchBundle\Entity\Organization',
-            'cascade_validation' => true,
             'required' => false,
         ));
     }
