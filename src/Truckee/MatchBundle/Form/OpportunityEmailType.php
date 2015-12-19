@@ -74,13 +74,13 @@ class OpportunityEmailType extends AbstractType
                     new NotBlank(["message" => "Message is required"])
                 ]
             ])
-            ->add('save', ButtonType::class,
-                array(
-                'attr' => array(
-                    'class' => 'save',
-                    ),
-                    'label' => 'Send',
-            ))
+//            ->add('save', ButtonType::class,
+//                array(
+//                'attr' => array(
+//                    'class' => 'save',
+//                    ),
+//                    'label' => 'Send',
+//            ))
         ;
     }
 

@@ -1,17 +1,33 @@
 
 /*
  * This file is part of the Truckee\Match package.
- * 
+ *
  * (c) George W. Brooks
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-/* 
+/*
     Created on : Dec 16, 2015, 1:37:21 PM
     Author     : George Brooks <truckeesolutions@gmail.com>
 */
 
 .navbar {
     border: none;
+}
+
+.ui-widget-content {
+    border: 1px solid #5BC0DE;
+    background: #fff;
+    opacity: 1.0;
+    padding: 4px;
+}
+.ui-dialog-titlebar {
+    text-align: center;
+    width: 100%;
+    background-color: #5BC0DE;
+    color: #fff;
+}
+.ui-dialog-buttonset {
+    text-align: center;
 }

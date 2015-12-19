@@ -24,8 +24,8 @@ class PopulatedTester extends \Codeception\Actor
     {
         $I = $this;
         $I->amOnPage('/login');
-        $I->fillField('Username', $name);
-        $I->fillField('Password', '123Abcd');
+        $I->fillField('#username', $name);
+        $I->fillField('#password', '123Abcd');
         $I->click('#_submit');
         $I->see('Welcome');
     } 
