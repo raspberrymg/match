@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-6">
+        <p>You entered <em>{{ original }}</em>. This name is very similar to names 
+            already registered. The list below shows these registered names. </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Registered organizations</h4>
+        {% for org in orgs %}
+            <p>{{ org }}</p>
+            {% endfor %}
+    </div>
+</div>
+    <div class="row">
+    <div class="col-md-6">
+        <p>If the name of your organization is not in the list above, check
+            this box: <input type="checkbox" id="orgNotListed" onclick="fnOrgNotListed('{{original|e}}')">
+            Otherwise please contact the <a href="mailto:{{ mail_sender }}?Subject=Organization registration" target="_top">administrator</a> regarding this registration</p>
+            {#{{ form(form) }}#}
+    </div>
+</div>

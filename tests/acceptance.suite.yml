@@ -1,0 +1,40 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - Asserts
+        - WebDriver:
+           url: 'http://match/app_test.php'
+           browser: firefox
+           window_size: 1024x768
+#        - Db:
+#            dsn: 'mysql:host=localhost;dbname=volunteer'
+#            user: 'root'
+#            password: 'aardvark'
+#            dump: ~
+#            populate: false
+#            cleanup: true
+#            reconnect: true
+#           window_size: 1024x768
+#           wait: 3
+#           capabilities:
+#               unexpectedAlertBehaviour: 'accept'
+        - Db:
+            dsn: 'sqlite:./app/cache/test/test.sqlite'
+            user: ''
+            password: ''
+            dump: tests/_data/test.sql
+            populate: true
+            cleanup: true
+            reconnect: true
+#        - PhpBrowser:
+#            url: http://vol
+        - \Helper\Acceptance
+#        - Symfony2:
+#            app_path: ./app
+#            environment: test

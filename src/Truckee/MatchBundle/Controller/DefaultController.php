@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Truckee\MatchBundle\Form\MatchSearchType;
 use Truckee\MatchBundle\Form\OpportunityEmailType;
@@ -186,5 +187,28 @@ class DefaultController extends Controller
             'menuTemplates' => $menuTemplates,
             'type' => $type,
             );
+    }
+
+    /**
+     * @Route("/nameCheck/{name}")
+     * @Template("default/nameCheck.html.twig")
+     */
+    public function nameCheckAction($name)
+    {
+        $tool = $this->container->get('truckee_match.toolbox');
+        $orgs = $tool->getOrgNames($name);
+        //avoid name dropdown if no matches
+        if (0 === count($orgs)) {
+            $response = new JsonResponse();
+            $response->setData(0);
+            return $response;
+        }
+        $mail_sender = $this->container->getParameter('admin_email');
+
+        return array(
+            'mail_sender' => $mail_sender,
+            'original' => $name,
+            'orgs' => $orgs,
+        );
     }
 }

@@ -41,7 +41,6 @@ class OrganizationType extends AbstractType
                 'label' => 'Name',
                 'attr' => array(
                     'placeholder' => 'Name',
-                    'onchange' => 'orgNameCheck()',
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
