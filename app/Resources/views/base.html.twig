@@ -30,6 +30,7 @@
                 </div>
                 <div class="col-md-2">
                     {% block events %}
+                        <h4>{{ label_info('Coming events') }}</h4>
                         {{ render(controller('TruckeeMatchBundle:Event:sidebarEvents')) }}
                     {% endblock events %}
                 </div>

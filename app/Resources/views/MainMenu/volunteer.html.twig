@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {# Unless absolutely necessary, please do not change the code between <ul ...> & </ul> #}
+    <ul class="list-unstyled">
+        {% if not is_granted('ROLE_USER') %}
+            <li style="margin: 5px;"><a class="btn btn-primary btn-xs active" href="{{ path("reg_volunteer") }}">Register as a volunteer</a>
+            {% endif %}
+        <li style="margin: 5px;"><a class="btn btn-primary btn-xs active" href="{{ path("opp_search") }}">Search for opportunities</a>
+    </ul>
+{% endblock body %}

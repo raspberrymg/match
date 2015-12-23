@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-            <div class="col-md-4">
-                <form  name="org_select" method="post" action="" role="form">
-                    {{ form_row(form.organization) }}
-                    <input id="orgSelect" type="submit" value="Select organization" class="btn  btn-xs active btn-primary" />
-                </form>
-            </div>
+    <div class="col-md-4">
+        <form  name="org_select" method="post" action="" role="form">
+            {{ form_row(form.organization) }}
+            <input id="orgSelect" type="submit" value="Select organization" class="btn  btn-xs active btn-primary" />
+        </form>
+    </div>
+    <div class="col-md-4">
         <div id="oppSelect"></div>
-   </div>
+    </div>
 {% endblock %}

@@ -74,7 +74,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/volunteer", name="volunteer")
-     * @Template("default/volunteer.html.twig")
+     * @Template("MainMenu/volunteer.html.twig")
      */
     public function volunteerAction()
     {
@@ -85,7 +85,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/non-profits", name="nonprofits")
-     * @Template("default/nonProfit.html.twig")
+     * @Template("MainMenu/nonProfit.html.twig")
      */
     public function nonProfitAction()
     {
@@ -96,7 +96,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/about-us", name="about_us")
-     * @Template("default/aboutUs.html.twig")
+     * @Template("MainMenu/aboutUs.html.twig")
      */
     public function aboutUsAction()
     {
@@ -107,7 +107,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/contact-us", name="contact_us")
-     * @Template("default/contactUs.html.twig")
+     * @Template("MainMenu/contactUs.html.twig")
      */
     public function contactUsAction()
     {

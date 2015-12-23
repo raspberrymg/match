@@ -1,7 +1,7 @@
 parameters:
+    org_name: Org name here
     skill_required: true
     focus_required: true
     expiring_alerts: true
     opportunity_email: true
     search_email: true
-   

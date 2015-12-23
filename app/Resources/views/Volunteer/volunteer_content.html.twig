@@ -1,9 +1,7 @@
-{{ form_start(form) }}
+<form name="volunteer_registration" method="post" action="" class="form-inline">
 {% for template in templates %}
     <div class="row">
-        <div class="col-md-5">
-            {% include template %}
-        </div>
+        {% include template %}
     </div>
 {% endfor %}
 </form>

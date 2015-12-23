@@ -97,12 +97,9 @@ class RegistrationFunctionalTest extends WebTestCase
     public function testRegisterVolunteer()
     {
         $this->submitVolunteerForm();
-        file_put_contents('G:\\Documents\\response.html',
-            $this->client->getResponse()->getContent());
-
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("The user has been created successfully")')->count()
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
             > 0);
     }
 
@@ -119,7 +116,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->activateVolunteer();
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("activated")')->count()
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
             > 0);
     }
 
@@ -149,6 +146,9 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler                                                      = $this->client->followRedirect();
 
         $this->assertTrue($crawler->filter('html:contains("The password has been changed")')->count()
+            > 0);
+
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
             > 0);
     }
 
@@ -196,6 +196,9 @@ class RegistrationFunctionalTest extends WebTestCase
         $filled  = count($values['staff_profile_form']);
 
         $this->assertEquals(4, $filled);
+
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
+            > 0);
     }
 
     public function testProfileAdmin()
@@ -209,7 +212,10 @@ class RegistrationFunctionalTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Admin Profile Form")')->count()
             > 0);
-    }
+
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
+            > 0);
+   }
 
     public function testResetPassword()
     {
@@ -227,6 +233,9 @@ class RegistrationFunctionalTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("..@bogus.info")')->count() > 0);
 
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
+            > 0);
+
         $container   = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
         $user        = $userManager->findUserBy(array('username' => 'jglenshire'));
@@ -241,6 +250,9 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler          = $this->client->submit($form);
 
         $this->assertTrue($crawler->filter('html:contains("Signed in as")')->count() > 0);
+
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
+            > 0);
 
         $this->client->followRedirects(false);
     }

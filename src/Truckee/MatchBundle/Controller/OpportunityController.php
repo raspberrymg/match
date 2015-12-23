@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Volunteer package.
  * 
@@ -11,12 +10,12 @@
 
 //src\Truckee\MatchBundle\Controller\OpportunityController
 
-
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -30,31 +29,38 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  */
 class OpportunityController extends Controller
 {
+
     /**
      * Create a new opportunity for organization
      * If user is staff, then for that org
      * if user is admin, then any org.
-     * 
+     *
      * @Route("/new/{id}", name="opp_new")
-     * @Template("Opportunity/manage.html.twig")
+     * @Template("Opportunity/oppManage.html.twig")
      */
     public function newAction(Request $request, $id = null)
     {
         $user = $this->getUser();
         $type = $user->getUserType();
-        if (false === $this->get('security.context')->isGranted('ROLE_STAFF')) {
-            throw $this->AccessDeniedException('You do not have permission to create an opportunity');
-        }
         $em = $this->getDoctrine()->getManager();
+        $skills = $this->container->getParameter('skill_required');
+
         $opportunity = new Opportunity();
         if (null === $id) {
             $organization = $user->getOrganization();
         } else {
             $organization = $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
         }
+
+        $templates[] = 'Opportunity/newOpportunity.html.twig';
+        $templates[] = 'Opportunity/opportunityData.html.twig';
+        $skillTemplates = $this->skillTemplates($skills);
+        foreach ($skillTemplates as $template) {
+            $templates[] = $template;
+        }
+
         $opportunity->setOrganization($organization);
-        $skills = $this->container->getParameter('skill_required');
-        $form = $this->createForm(new OpportunityType($skills), $opportunity);
+        $form   = $this->createForm(new OpportunityType($skills), $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $date = new \DateTime();
@@ -81,33 +87,40 @@ class OpportunityController extends Controller
             'title' => 'New opportunity',
             'opp' => $opportunity,
             'method' => 'New',
+            'templates' => $templates,
         );
     }
 
     /**
      * @Route("/edit/{id}", name="opp_edit")
-     * @Template("Opportunity/manage.html.twig")
+     * @Template("Opportunity/oppManage.html.twig")
      */
     public function editAction(Request $request, $id)
     {
         $user = $this->getUser();
         $type = $user->getUserType();
-        if ($type != 'admin' && $type != 'staff') {
-            throw $this->createNotFoundException('You do not have permission to edit an opportunity');
-        }
-        $em = $this->getDoctrine()->getManager();
-        $opportunity = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
+        $em           = $this->getDoctrine()->getManager();
+        $opportunity  = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
         $organization = $opportunity->getOrganization();
-        $skills = $this->container->getParameter('skill_required');
-        $form = $this->createForm(new OpportunityType($skills), $opportunity);
+        $skills       = $this->container->getParameter('skill_required');
+        
+        $templates[] = 'Opportunity/existingOpportunity.html.twig';
+        $templates[] = 'Opportunity/opportunityData.html.twig';
+        $skillTemplates = $this->skillTemplates($skills);
+        foreach ($skillTemplates as $template) {
+            $templates[] = $template;
+        }
+
+        $form = $this->createForm(new OpportunityType($skills),
+            $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $opportunity->setLastupdate(new \DateTime());
             $organization = $opportunity->getOrganization();
-            $orgId = $organization->getId();
+            $orgId        = $organization->getId();
             $em->persist($opportunity);
             $em->flush();
-            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash        = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Opportunity updated');
 
             if ('staff' === $type) {
@@ -123,6 +136,7 @@ class OpportunityController extends Controller
             'organization' => $organization,
             'title' => 'Edit opportunity',
             'method' => 'Edit',
+            'templates' => $templates,
         );
     }
 
@@ -131,13 +145,32 @@ class OpportunityController extends Controller
      */
     public function oppSelectAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new OpportunitySelectType($id));
-        $content = $this->renderView("Opportunity/oppSelect.html.twig", array(
+        $em       = $this->getDoctrine()->getManager();
+        $form     = $this->createForm(new OpportunitySelectType($id));
+        $content  = $this->renderView("Opportunity/oppSelect.html.twig",
+            array(
             'form' => $form->createView(),
-            ));
+        ));
         $response = new Response($content);
 
         return $response;
+    }
+
+    private function skillTemplates($skills)
+    {
+        $save = true;
+        $em = $this->getDoctrine()->getManager();
+        if (TRUE === $skills) {
+            $templates[] = 'default/skill.html.twig';
+            $nSkills = $em->getRepository('TruckeeMatchBundle:Skill')->countSkills();
+            if ($nSkills <= 1) {
+                $save = false;
+            }
+        }
+        if (TRUE === $save) {
+            $templates[] = 'default/save.html.twig';
+        }
+
+        return $templates;
     }
 }

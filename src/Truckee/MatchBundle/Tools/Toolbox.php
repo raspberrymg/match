@@ -279,7 +279,7 @@ class Toolbox
             case 'register':
                 $templates[] = 'Person/registerPassword.html.twig';
                 if ('staff' === $userType) {
-                    $templates[] = 'Organization/registerOrgForm.html.twig';
+                    $templates[] = 'Organization/orgForm.html.twig';
                 }
                 break;
             case 'profile':

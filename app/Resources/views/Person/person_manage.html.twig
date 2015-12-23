@@ -1,5 +1,9 @@
 {{ form_widget(form._token) }}
-{{ form_row(form.personData.firstName) }}
-{{ form_row(form.personData.lastName) }}
-{{ form_row(form.personData.username) }}
-{{ form_row(form.personData.email) }}
+<div class="col-md-12">
+    {{ form_row(form.personData.firstName) }}
+    {{ form_row(form.personData.lastName) }}
+</div>
+<div class="col-md-12">
+    {{ form_row(form.personData.username) }}
+    {{ form_row(form.personData.email) }}
+</div>

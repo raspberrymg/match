@@ -5,22 +5,16 @@
     <form name="search" method="post" action="" class="form-inline">
         {{ form_widget(form._token) }}
         {{ bootstrap_set_style('form-inline') }}
-        <div class="row">
-            <div class="col-md-5">
-                {{ form_widget(form.organization) }}
-            </div>
+        <div class="col-md-12">
+            {{ form_widget(form.organization) }}
         </div>
         {% for template in templates %}
-        <div class="row">
-            <div class="col-md-5">
-            {% include template %}
+            <div class="col-md-12">
+                {% include template %}
             </div>
-        </div>
         {% endfor %}
-        <div class="row">
-            <div class="col-md-5">
-                {{ form_widget(form.Search) }}
-            </div>
+        <div class="col-md-12">
+            {{ form_widget(form.Search) }}
         </div>
     </form>
 {% endblock %}

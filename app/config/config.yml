@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        org_name: %org_name%
 
 # Doctrine Configuration
 doctrine:
@@ -73,14 +75,14 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-          
+
 knp_menu:
     twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
         template: TruckeeMatchBundle:Menu:knp_menu.html.twig
 #        template: knp_menu.html.twig
     templating: false # if true, enables the helper for PHP templates
     default_renderer: twig # The renderer to use, list is also available by default
-    
+
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     user_class: Truckee\MatchBundle\Entity\Person
@@ -98,7 +100,7 @@ fos_user:
     from_email:
         address:        %admin_email%
         sender_name:    Match Maker
-            
+
 braincrafted_bootstrap:
     less_filter: lessphp
     customize:
@@ -107,10 +109,10 @@ braincrafted_bootstrap:
 pugx_multi_user:
   users:
     staff:
-        entity: 
+        entity:
           class: Truckee\MatchBundle\Entity\Staff
         registration:
-          form: 
+          form:
             type: Truckee\MatchBundle\Form\StaffFormType
             name: staff_registration
             validation_groups:  [Registration, Default]
@@ -121,35 +123,35 @@ pugx_multi_user:
             name: staff_profile_form
             validation_groups:  [Profile, Default]
           template: Staff/staff.form.html.twig
-        options: 
+        options:
             skill_required: %skill_required%
             focus_required: %focus_required%
     volunteer:
-        entity: 
+        entity:
           class: Truckee\MatchBundle\Entity\Volunteer
         registration:
-          form: 
+          form:
             type: Truckee\MatchBundle\Form\VolunteerFormType
             name: volunteer_registration
             validation_groups:  [Registration, Default]
           template: Volunteer/volunteer.form.html.twig
         profile:
-          form: 
+          form:
             type: %profile.form.type%
             name: fos_user_profile
           template: Volunteer/volunteer.form.html.twig
-        options: 
+        options:
             skill_required: %skill_required%
             focus_required: %focus_required%
     admin:
-        entity: 
+        entity:
           class: Truckee\MatchBundle\Entity\Admin
         registration:
-          form: 
+          form:
             type: Truckee\MatchBundle\Form\PersonType
             validation_groups:  [Registration, Default]
           template: Admin/add.html.twig
         profile:
-          form: 
+          form:
             type: %profile.form.type%
           template: Admin/adminProfile.html.twig

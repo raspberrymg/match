@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Truckee\Match package.
+ *
+ * (c) George W. Brooks
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+//src\Truckee\MatchBundle\Tests\Controller\DefaultControllerTest.php
+
 namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -53,9 +64,8 @@ class DefaultControllerTest extends WebTestCase
     public function testHome()
     {
         $crawler = $this->client->request('GET', '/');
-        $container = $this->client->getContainer();
         $this->assertGreaterThan(0,
-            $crawler->filter("html:contains('Your org here')")->count());
+            $crawler->filter("html:contains('Org name here')")->count());
     }
 
     public function testAboutUs()
@@ -184,7 +194,8 @@ class DefaultControllerTest extends WebTestCase
     {
         $this->client->followRedirects(false);
         $crawler = $this->client->request('GET', '/oppForm/1');
-        $form = $crawler->selectButton('Send')->form();
+        //Note: 'Mail' button is invisible
+        $form = $crawler->selectButton('Mail')->form();
         $form['opp_email[to]'] = 'admin@bogus.info';
         $form['opp_email[from]'] = 'admin@bogus.info';
         $form['opp_email[subject]'] = 'Test message';

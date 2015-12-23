@@ -1,5 +1,6 @@
 imports:
     - { resource: config_dev.yml }
+    - { resource: match.yml }
 
 framework:
     test: ~
@@ -31,6 +32,6 @@ doctrine:
             datetime_functions:
                 month: DoctrineExtensions\Query\Sqlite\Month
                 year: DoctrineExtensions\Query\Sqlite\Year
-                
+
 liip_functional_test:
     cache_sqlite_db: true

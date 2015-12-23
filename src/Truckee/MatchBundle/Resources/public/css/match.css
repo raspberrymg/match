@@ -31,3 +31,31 @@
 .ui-dialog-buttonset {
     text-align: center;
 }
+
+input#org_orgName,
+input#org_address,
+input#org_email,
+input#org_website,
+input#org_phone {
+    width: 250px;
+}
+
+input#org_areacode {
+    width: 100px;
+}
+
+input#staff_registration_organization_orgName,
+input#staff_registration_organization_address,
+input#staff_registration_organization_email,
+input#staff_registration_organization_website,
+input#staff_registration_organization_phone {
+    width: 250px;
+}
+
+input#staff_registration_organization_areacode {
+    width: 100px;
+}
+
+.checkbox {
+    margin-right: 5px;
+}

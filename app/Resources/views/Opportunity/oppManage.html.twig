@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h4> {{ label_info(organization.orgName~': '~method~' opportunity') }}</h4>
+    <form name="opportunity" method="post" action="" class="form-inline">
+        {{ form_widget(form._token) }}
+        {% for template in templates %}
+            {% include template %}
+        {% endfor %}
+    </form>
+{% endblock %}

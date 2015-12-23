@@ -1,4 +1,4 @@
-<form action="{{ path('staff_registration') }}" method="POST">
+<form action="{{ path('staff_registration') }}" method="POST" class="form-inline">
     {{ form_widget(form._token) }}
     {% for template in templates %}
         {% include template %}

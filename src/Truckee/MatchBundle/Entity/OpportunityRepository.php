@@ -71,6 +71,7 @@ class OpportunityRepository extends EntityRepository
                 $oppName[$key] = $row['oppName'];
             }
             array_multisort($orgName, SORT_ASC, $oppName, SORT_ASC, $opportunities);
+
         } else {
             $oppByFocus = array();
             $nFocus = ($focusesExist) ? count($data['focuses']) : 0;
@@ -84,6 +85,7 @@ class OpportunityRepository extends EntityRepository
                 $stmt = $conn->executeQuery($sqlFocus, array($foci), array(\Doctrine\DBAL\Connection::PARAM_INT_ARRAY));
                 $oppByFocus = $stmt->fetchAll();
             }
+            
             $oppBySkill = array();
             $nSkill = ($skillsExist) ? count($data['skills']) : 0;
             if ($skillsExist) {
@@ -102,8 +104,7 @@ class OpportunityRepository extends EntityRepository
             if (empty($opportunities)) {
                 return;
             }
-
-            array_unique($opportunities, SORT_REGULAR);
+            $opportunities = array_intersect_key($opportunities, array_unique(array_map('serialize', $opportunities)));
 
             $max = $nFocus + $nSkill;
             $i = '0';

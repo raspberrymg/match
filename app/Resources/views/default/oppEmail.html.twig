@@ -1,4 +1,6 @@
 <form role="form" action="{{ path('opp_form', {'id': id}) }}" method="post" name="opp_email">
+    <div style="visibility: hidden;">
+        <input type="submit" value="Mail"></div>
 {{ form_widget(form._token) }}
 {{ form_row(form.id) }}
 {{ form_row(form.to) }}

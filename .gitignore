@@ -8,7 +8,7 @@
 /bin/
 /composer.phar
 /nbproject/
-/vendor/
+/vendor/*
 /web/bundles/
 /web/assetic/css/compiled/*
 /web/assetic/js/compiled/*

@@ -22,6 +22,7 @@ use Truckee\MatchBundle\Form\OrganizationSelectType;
 use Truckee\MatchBundle\Form\VolunteerEmailType;
 use Truckee\MatchBundle\Form\VolunteerUsersType;
 use Truckee\MatchBundle\Form\PersonAddType;
+use Truckee\MatchBundle\Form\AdminUsersType;
 use Truckee\MatchBundle\Entity\Staff;
 use Truckee\MatchBundle\Entity\Admin;
 

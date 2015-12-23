@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -42,12 +41,11 @@ class EventController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
+        $em   = $this->getDoctrine()->getManager();
         if (null === $id) {
-            $event = new Event();
+            $event   = new Event();
             $message = "Event added";
-        }
-        else {
+        } else {
             $event = $em->getRepository("TruckeeMatchBundle:Event")->find($id);
             if (!$event) {
                 throw $this->createNotFoundException('Unable to find Event');
@@ -81,16 +79,48 @@ class EventController extends Controller
      */
     public function sidebarEventsAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em              = $this->getDoctrine()->getManager();
         $eventRepository = $em->getRepository("TruckeeMatchBundle:Event");
-
-        $criteria = new Criteria();
+//        $user            = $this->getUser();
+        $criteria        = new Criteria();
         $criteria->where($criteria->expr()->gte('eventdate', new \DateTime()));
         $criteria->orderBy(['eventdate' => 'ASC']);
         $criteria->setMaxResults(5);
+        $templates[]       = 'Event/hr.html.twig';
+
+        if (!empty($eventRepository)) {
+            return array(
+                'templates' => $templates,
+                'events' => $eventRepository->matching($criteria),
+            );
+        } else {
+            return array('templates' => $templates,);
+        }
+    }
+
+    /**
+     * @Template("Event/editor.html.twig")
+     * @param type $id
+     * @return type
+     */
+    public function eventEditorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository("TruckeeMatchBundle:Event")->find($id);
+        $templates = [];
+        $user = $this->getUser();
+        $security = $this->container->get('security.authorization_checker');
+        if (NULL !== $user && $security->isGranted('ROLE_ADMIN')) {
+            $templates[] = 'Event/postedBy.html.twig';
+            $templates[] = 'Event/editLink.html.twig';
+        }
+        if ($event->getOwner() === $user) {
+            $templates[] = 'Event/editLink.html.twig';
+        }
 
         return array(
-            'events' => $eventRepository->matching($criteria),
+            'event' => $event,
+            'templates' => $templates,
         );
     }
 }
