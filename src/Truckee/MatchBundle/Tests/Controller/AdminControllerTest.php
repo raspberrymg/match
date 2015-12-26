@@ -84,7 +84,7 @@ class AdminControllerTest extends WebTestCase
         $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertEquals(2, $mailCollector->getMessageCount());
+        $this->assertEquals(3, $mailCollector->getMessageCount());
         $this->client->followRedirects();
     }
 
@@ -112,7 +112,7 @@ class AdminControllerTest extends WebTestCase
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Send')->form();
-        $form['vol_email[send][0]']->setValue(3);
+        $form['vol_email[send][0]']->setValue(4);
         $this->client->followRedirects(false);
         $crawler = $this->client->submit($form);
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
@@ -264,6 +264,18 @@ class AdminControllerTest extends WebTestCase
 
         $this->assertGreaterThan(0,
             $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
+    }
+
+    public function testAdminLock()
+    {
+        $crawler = $this->addAdmin();
+        $crawler = $this->client->request('GET', '/admin/select/admin');
+        $form = $crawler->selectButton('Select')->form();
+        $form['admin_select[user]'] = 9;
+        $crawler = $this->client->submit($form);
+        
+        $this->assertGreaterThan(0,
+            $crawler->filter('html:contains("User Dorkus Ingus updated")')->count());
     }
 
     public function testAddAdminEmail()

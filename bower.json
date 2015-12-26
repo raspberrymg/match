@@ -1,0 +1,20 @@
+{
+  "name": "match",
+  "version": "1.0.0",
+  "authors": [
+    "George Brooks <truckeetrout@yahoo.com>"
+  ],
+  "description": "volunteer matching",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ]
+}

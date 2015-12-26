@@ -80,6 +80,18 @@ class LoadStaffUserGlenshire extends AbstractFixture implements  ContainerAwareI
         $manager->flush();
 
         $userManager->updateUser($staff, true);
+
+        $staff2 = $userManager->createUser();
+        $staff2->setUsername('another');
+        $staff2->setEmail('another@bogus.info');
+        $staff2->setPlainPassword('123Abcd');
+        $staff2->setEnabled(true);
+        $staff2->setFirstName('An');
+        $staff2->setLastName('Other');
+        $staff2->addRole('ROLE_STAFF');
+        $staff2->setOrganization($org);
+
+        $userManager->updateUser($staff2, true);
     }
 
     public function getOrder()

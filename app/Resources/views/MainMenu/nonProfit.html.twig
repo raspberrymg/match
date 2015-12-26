@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<ul class="list-unstyled">
-    {% if app.user is null %}
-    <li style="margin: 5px;"><a class="btn btn-primary btn-xs active" href="{{ path("reg_staff") }}">Register organization</a>
-        {% endif %}
-</ul>
+    {# Following 3 lines adds non-profit registration link for anonymous users #}
+    {% for template in templates %}
+        {% include template %}
+    {% endfor %}
 {% endblock body %}

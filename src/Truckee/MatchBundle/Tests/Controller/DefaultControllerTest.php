@@ -196,7 +196,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/oppForm/1');
         //Note: 'Mail' button is invisible
         $form = $crawler->selectButton('Mail')->form();
-        $form['opp_email[to]'] = 'admin@bogus.info';
         $form['opp_email[from]'] = 'admin@bogus.info';
         $form['opp_email[subject]'] = 'Test message';
         $form['opp_email[message]'] = 'Welcome to the zoo';
@@ -204,5 +203,10 @@ class DefaultControllerTest extends WebTestCase
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         $this->assertEquals(1, $mailCollector->getMessageCount());
+
+        $collectedMessages = $mailCollector->getMessages();
+        $message = $collectedMessages[0];
+        $this->assertEquals(2, count($message->getTo()));
+        $this->assertEquals(1, count($message->getBcc()));
     }
 }

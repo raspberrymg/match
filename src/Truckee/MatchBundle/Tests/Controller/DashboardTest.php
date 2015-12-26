@@ -50,7 +50,6 @@ class DashboardTest extends WebTestCase
         $this->loadFixtures($classes);
         $this->client = $this->createClient();
         $this->client->followRedirects();
-//        file_put_contents("G:\\Documents\\response.html", $this->client->getResponse()->getContent());
     }
 
     public function login($user)
@@ -132,7 +131,7 @@ class DashboardTest extends WebTestCase
         $link = $crawler->selectLink("E-mail volunteers")->link();
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Send')->form();
-        $form['vol_email[send][0]']->setValue(3);
+        $form['vol_email[send][0]']->setValue(4);
         $crawler = $this->client->submit($form);
         $crawler = $this->client->request('GET', '/admin/dashboard');
         $this->assertEquals(1, trim($crawler->filter('div#newOppEmails30Day')->text()));
@@ -145,8 +144,8 @@ class DashboardTest extends WebTestCase
         $link = $crawler->selectLink("Send alerts to organizations")->link();
         $crawler = $this->client->click($link);
         $crawler = $this->client->request('GET', '/admin/dashboard');
-        $this->assertEquals(2, trim($crawler->filter('div#expiringOppEmails30Day')->text()));
-        $this->assertEquals(2, trim($crawler->filter('div#expiringOppEmails')->text()));
+        $this->assertEquals(3, trim($crawler->filter('div#expiringOppEmails30Day')->text()));
+        $this->assertEquals(3, trim($crawler->filter('div#expiringOppEmails')->text()));
     }
 
     public function submitVolunteerForm()

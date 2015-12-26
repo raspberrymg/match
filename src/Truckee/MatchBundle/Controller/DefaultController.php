@@ -26,7 +26,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('staff_home'));
         }
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig',
+        return $this->render('MainMenu/index.html.twig',
                 array(
                 'title' => '',
                 'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
@@ -78,7 +78,13 @@ class DefaultController extends Controller
      */
     public function volunteerAction()
     {
+        $templates = [];
+        if (NULL === $this->getUser()) {
+            $templates[] = 'MainMenu/volunteerRegisterLink.html.twig';
+        }
+
         return array(
+            'templates' => $templates,
             'title' => 'Volunteering',
         );
     }
@@ -89,7 +95,13 @@ class DefaultController extends Controller
      */
     public function nonProfitAction()
     {
+        $templates = [];
+        if (NULL === $this->getUser()) {
+            $templates[] = 'MainMenu/nonprofitRegisterLink.html.twig';
+        }
+
         return array(
+            'templates' => $templates,
             'title' => 'Non-profits',
         );
     }
@@ -145,18 +157,15 @@ class DefaultController extends Controller
                     $content);
                 //save entry to admin outbox
                 if (0 !== $sent) {
-                    $recipientArray = [];
-                    $oppId          = $opp->getId();
-                    foreach ($to as $recipient) {
-                        $recipientArray['function']    = 'oppFormAction';
-                        $recipientArray['messageType'] = 'bcc';
-                        $recipientArray['oppId']       = $oppId;
-                        $recipientArray['orgId']       = $orgId;
-                        $recipientArray['id']          = $recipient->getId();
-                        $recipientArray['userType']    = 'volunteer';
-                    }
-                    $tool = $this->container->get('truckee_match.toolbox');
-                    $tool->populateAdminOutbox($recipientArray);
+                    $recipientArray                = [];
+                    $oppId                         = $opp->getId();
+                    $recipientArray['function']    = 'oppFormAction';
+                    $recipientArray['messageType'] = 'bcc';
+                    $recipientArray['oppId']       = $oppId;
+                    $recipientArray['orgId']       = $orgId;
+                    $recipientArray['userType']    = 'volunteer';
+                    $tool                          = $this->container->get('truckee_match.toolbox');
+                    $tool->populateAdminOutbox($to, $recipientArray);
                 }
                 $response = new Response("Email sent: ".count($recipient));
 
@@ -175,18 +184,18 @@ class DefaultController extends Controller
      */
     public function navigationAction()
     {
-        $user = $this->getUser();
+        $user            = $this->getUser();
         $menuTemplates[] = 'default/defaultMenu.html.twig';
-        $type = NULL;
+        $type            = NULL;
         if (null !== $user) {
             $menuTemplates[] = 'default/authorizedMenu.html.twig';
-            $type = $user->getUserType();
+            $type            = $user->getUserType();
         }
-        
+
         return array(
             'menuTemplates' => $menuTemplates,
             'type' => $type,
-            );
+        );
     }
 
     /**

@@ -46,16 +46,11 @@ class ProfileController extends Controller
         $userType = $user->getUserType();
         switch ($userType) {
             case 'admin';
-
                 return $this->adminProfileAction();
-                break;
             case 'staff';
-
                 return $this->staffProfileAction();
-                break;
             case 'volunteer':
                 return $this->volunteerProfileAction();
-                break;
             default:
                 break;
         }
