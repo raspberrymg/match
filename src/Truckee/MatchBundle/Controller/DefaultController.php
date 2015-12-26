@@ -1,4 +1,14 @@
 <?php
+/*
+ * This file is part of the Truckee\Match package.
+ *
+ * (c) George W. Brooks
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+//src\Truckee\MatchBundle\Controller\DefaultController.php
 
 namespace Truckee\MatchBundle\Controller;
 
@@ -79,7 +89,7 @@ class DefaultController extends Controller
     public function volunteerAction()
     {
         $templates = [];
-        if (NULL === $this->getUser()) {
+        if (null === $this->getUser()) {
             $templates[] = 'MainMenu/volunteerRegisterLink.html.twig';
         }
 
@@ -96,7 +106,7 @@ class DefaultController extends Controller
     public function nonProfitAction()
     {
         $templates = [];
-        if (NULL === $this->getUser()) {
+        if (null === $this->getUser()) {
             $templates[] = 'MainMenu/nonprofitRegisterLink.html.twig';
         }
 
@@ -186,7 +196,7 @@ class DefaultController extends Controller
     {
         $user            = $this->getUser();
         $menuTemplates[] = 'default/defaultMenu.html.twig';
-        $type            = NULL;
+        $type            = null;
         if (null !== $user) {
             $menuTemplates[] = 'default/authorizedMenu.html.twig';
             $type            = $user->getUserType();

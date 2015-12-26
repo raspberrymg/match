@@ -292,7 +292,7 @@ class AdminController extends Controller
         $person = $em->getRepository('TruckeeMatchBundle:Person')->find($id);
         $type = $person->getUserType();
         $flash = $this->get('braincrafted_bootstrap.flash');
-        $canLock = TRUE;
+        $canLock = true;
         if ('staff' === $type) {
             $org = $person->getOrganization();
             $orgId = $person->getOrganization()->getId();

@@ -37,7 +37,6 @@ class EventController extends Controller
     {
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('ROLE_STAFF')) {
-
             return $this->redirect($this->generateUrl('home'));
         }
         $user = $this->getUser();
@@ -110,7 +109,7 @@ class EventController extends Controller
         $templates = [];
         $user = $this->getUser();
         $security = $this->container->get('security.authorization_checker');
-        if (NULL !== $user && $security->isGranted('ROLE_ADMIN')) {
+        if (null !== $user && $security->isGranted('ROLE_ADMIN')) {
             $templates[] = 'Event/postedBy.html.twig';
             $templates[] = 'Event/editLink.html.twig';
         }
