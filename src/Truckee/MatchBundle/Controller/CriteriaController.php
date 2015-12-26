@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Controller\CriteriaController.php
 
-
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

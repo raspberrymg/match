@@ -26,7 +26,6 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  * @Route("/org")
  * @Security("is_granted('ROLE_STAFF')")
  *
- * @author George
  */
 class OrganizationController extends Controller
 {

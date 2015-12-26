@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Truckee\Volunteer package.
+ * This file is part of the Truckee\Match package.
  * 
  * (c) George W. Brooks
  * 
@@ -15,7 +15,6 @@ namespace Truckee\MatchBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -160,14 +159,14 @@ class OpportunityController extends Controller
     {
         $save = true;
         $em = $this->getDoctrine()->getManager();
-        if (TRUE === $skills) {
+        if (true === $skills) {
             $templates[] = 'default/skill.html.twig';
             $nSkills = $em->getRepository('TruckeeMatchBundle:Skill')->countSkills();
             if ($nSkills <= 1) {
                 $save = false;
             }
         }
-        if (TRUE === $save) {
+        if (true === $save) {
             $templates[] = 'default/save.html.twig';
         }
 

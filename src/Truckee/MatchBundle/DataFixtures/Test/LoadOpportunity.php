@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\DataFixtures\Test
+//src\Truckee\MatchBundle\DataFixtures\Test\LoadOpportunity
 
 
 namespace Truckee\MatchBundle\DataFixtures\Test;
@@ -17,8 +17,6 @@ namespace Truckee\MatchBundle\DataFixtures\Test;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-//use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
 use Truckee\MatchBundle\Entity\Opportunity;
 
 /**
@@ -26,19 +24,6 @@ use Truckee\MatchBundle\Entity\Opportunity;
  */
 class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
 {
-    //    /**
-//     * @var ContainerInterface
-//     */
-//    private $container;
-//
-//    /**
-//     * {@inheritDoc}
-//     */
-//    public function setContainer(ContainerInterface $container = null)
-//    {
-//        $this->container = $container;
-//    }
-
     /**
      * Load fixtures.
      *

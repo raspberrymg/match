@@ -9,8 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\DataFixtures\Test\
-
+//src\Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData
 
 namespace Truckee\MatchBundle\DataFixtures\Test;
 

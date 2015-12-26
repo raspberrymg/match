@@ -28,13 +28,13 @@ class ProfileController extends Controller
     {
         if (true === $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $user = $this->getUser();
+
             return $this->render('FOSUserBundle/views/Profile/show.html.twig', array(
                 'user' => $user,
             ));
         } else {
             return $this->redirect($this->generateUrl('home'));
         }
-
     }
 
     /**
@@ -52,7 +52,7 @@ class ProfileController extends Controller
             case 'volunteer':
                 return $this->volunteerProfileAction();
             default:
-                break;
+                return;
         }
     }
 
@@ -78,9 +78,6 @@ class ProfileController extends Controller
 
     private function adminProfileAction()
     {
-        //        $tools = $this->container->get('truckee_match.toolbox');
-//        $templates = $tools->getStaffTemplates('profile');
-
         return $this->container
                 ->get('pugx_multi_user.profile_manager')
                 ->edit('Truckee\MatchBundle\Entity\Admin');
