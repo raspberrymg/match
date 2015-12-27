@@ -28,7 +28,6 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  */
 class OpportunityController extends Controller
 {
-
     /**
      * Create a new opportunity for organization
      * If user is staff, then for that org
@@ -59,7 +58,7 @@ class OpportunityController extends Controller
         }
 
         $opportunity->setOrganization($organization);
-        $form   = $this->createForm(new OpportunityType($skills), $opportunity);
+        $form = $this->createForm(new OpportunityType($skills), $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $date = new \DateTime();
@@ -89,7 +88,6 @@ class OpportunityController extends Controller
             'templates' => $templates,
         );
     }
-
     /**
      * @Route("/edit/{id}", name="opp_edit")
      * @Template("Opportunity/oppManage.html.twig")
@@ -98,11 +96,11 @@ class OpportunityController extends Controller
     {
         $user = $this->getUser();
         $type = $user->getUserType();
-        $em           = $this->getDoctrine()->getManager();
-        $opportunity  = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $opportunity = $em->getRepository('TruckeeMatchBundle:Opportunity')->find($id);
         $organization = $opportunity->getOrganization();
-        $skills       = $this->container->getParameter('skill_required');
-        
+        $skills = $this->container->getParameter('skill_required');
+
         $templates[] = 'Opportunity/existingOpportunity.html.twig';
         $templates[] = 'Opportunity/opportunityData.html.twig';
         $skillTemplates = $this->skillTemplates($skills);
@@ -110,16 +108,15 @@ class OpportunityController extends Controller
             $templates[] = $template;
         }
 
-        $form = $this->createForm(new OpportunityType($skills),
-            $opportunity);
+        $form = $this->createForm(new OpportunityType($skills), $opportunity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $opportunity->setLastupdate(new \DateTime());
             $organization = $opportunity->getOrganization();
-            $orgId        = $organization->getId();
+            $orgId = $organization->getId();
             $em->persist($opportunity);
             $em->flush();
-            $flash        = $this->get('braincrafted_bootstrap.flash');
+            $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Opportunity updated');
 
             if ('staff' === $type) {
@@ -138,15 +135,14 @@ class OpportunityController extends Controller
             'templates' => $templates,
         );
     }
-
     /**
      * @Route("/select/{id}", name="opp_select")
      */
     public function oppSelectAction($id)
     {
-        $em       = $this->getDoctrine()->getManager();
-        $form     = $this->createForm(new OpportunitySelectType($id));
-        $content  = $this->renderView("Opportunity/oppSelect.html.twig",
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new OpportunitySelectType($id));
+        $content = $this->renderView("Opportunity/oppSelect.html.twig",
             array(
             'form' => $form->createView(),
         ));
@@ -154,7 +150,6 @@ class OpportunityController extends Controller
 
         return $response;
     }
-
     private function skillTemplates($skills)
     {
         $save = true;

@@ -23,8 +23,7 @@ use Truckee\MatchBundle\Entity\Skill;
 
 /**
  * LoadMinimumData: minimum data for application.
- *
- * @author George Brooks <truckeesolutions@gmail.com>
+ * Brooks <truckeesolutions@gmail.com>
  */
 class LoadMinimumData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {

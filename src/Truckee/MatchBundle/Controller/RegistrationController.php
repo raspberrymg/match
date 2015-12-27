@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Controller\RegistrationController
 
-
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,7 +35,6 @@ class RegistrationController extends Controller
                 ->get('pugx_multi_user.registration_manager')
                 ->register('Truckee\MatchBundle\Entity\Staff', $templates);
     }
-
     /**
      * @Route("/volunteer", name="reg_volunteer")
      *

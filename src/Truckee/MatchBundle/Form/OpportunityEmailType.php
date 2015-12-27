@@ -17,12 +17,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 /**
  * Description of Event
  *
- * @author George
  */
 class OpportunityEmailType extends AbstractType
 {

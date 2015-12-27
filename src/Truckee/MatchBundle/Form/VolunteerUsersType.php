@@ -22,7 +22,6 @@ use Doctrine\ORM\EntityRepository;
  * 
  * Form type for admin edit of volunteers
  *
- * @author George
  */
 class VolunteerUsersType extends AbstractType
 {

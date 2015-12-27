@@ -21,7 +21,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Description of FocusType.
  *
- * @author George
  */
 class FocusesType extends AbstractType
 {

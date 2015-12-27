@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Description of RequestVoter.
  *
- * @author George
  */
 class RequestVoter implements VoterInterface
 {

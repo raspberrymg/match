@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\Admin.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

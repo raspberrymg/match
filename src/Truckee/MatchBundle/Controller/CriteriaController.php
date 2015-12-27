@@ -49,8 +49,7 @@ class CriteriaController extends Controller
         $focuses = $em->getRepository('TruckeeMatchBundle:Focus')->getFocusesNoAll();
         $focusAll = $em->getRepository('TruckeeMatchBundle:Focus')->findOneBy(['focus' => 'All']);
         $focusAllId = $focusAll->getId();
-        $formFocuses = $this->createForm(new FocusesType(),
-            array('focuses' => $focuses));
+        $formFocuses = $this->createForm(new FocusesType(), array('focuses' => $focuses));
         $focus = new Focus();
         $formFocus = $this->createForm(new FocusType(), $focus);
 
@@ -82,7 +81,6 @@ class CriteriaController extends Controller
             'title' => 'Edit focuses',
         ];
     }
-
     /**
      * @Route("/editSkill", name="skill_edit")
      * @Template("Criteria/editSkill.html.twig")
@@ -100,8 +98,7 @@ class CriteriaController extends Controller
         $skills = $em->getRepository('TruckeeMatchBundle:Skill')->getSkillsNoAll();
         $skillAll = $em->getRepository('TruckeeMatchBundle:Skill')->findOneBy(['skill' => 'All']);
         $skillAllId = $skillAll->getId();
-        $formSkills = $this->createForm(new SkillsType(),
-            array('skills' => $skills));
+        $formSkills = $this->createForm(new SkillsType(), array('skills' => $skills));
         $skill = new Skill();
         $formSkill = $this->createForm(new SkillType(), $skill);
 

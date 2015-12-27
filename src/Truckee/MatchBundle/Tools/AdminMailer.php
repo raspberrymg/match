@@ -18,7 +18,6 @@ use Doctrine\ORM\EntityManager;
 /**
  * Description of AdminMailer.
  *
- * @author George
  */
 class AdminMailer
 {
@@ -277,12 +276,6 @@ class AdminMailer
             }
             foreach ($org->getStaff() as $user) {
                 $id              = $user->getId();
-//                if (!array_key_exists($id, $expiring)) {
-//                    $expiring[$id][] = $opp;
-//                    $expiring[$id]['user'] = $user;
-//                    $expiring[$id]['orgName'] = $org->getOrgName();
-//                    $expiring[$id]['opportunity'] = $opp;
-//                }
                 $expiring[$id][] = $opp;
             }
         }

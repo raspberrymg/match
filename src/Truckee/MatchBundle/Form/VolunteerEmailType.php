@@ -11,7 +11,6 @@
 
 //src\Truckee\MatchBundle\Form\VolunteerEmailType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -21,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Select volunteers for opportunity eblast.
  *
- * @author George
  */
 class VolunteerEmailType extends AbstractType
 {

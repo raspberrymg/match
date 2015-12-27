@@ -8,8 +8,7 @@
  * file that was distributed with this source code.
  */
 
-//src\Truckee\MatchBundle\Tests\Stub\Volunteer.php
-
+//src\Truckee\MatchBundle\Tests\Stub\SomeUser.php
 
 namespace Truckee\MatchBundle\Tests\Stub;
 

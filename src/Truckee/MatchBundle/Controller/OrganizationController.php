@@ -29,7 +29,6 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  */
 class OrganizationController extends Controller
 {
-
     /**
      * @Route("/edit/{id}", name="org_edit")
      * @Template("Organization/orgEdit.html.twig")
@@ -38,23 +37,22 @@ class OrganizationController extends Controller
     {
         $user = $this->getUser();
         $type = $user->getUserType();
-        $em   = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $tool = $this->container->get('truckee_match.toolbox');
 
         $organization = ('staff' === $type) ? $user->getOrganization() :
             $em->getRepository('TruckeeMatchBundle:Organization')->find($id);
-        $name         = $organization->getOrgName();
-        $focus        = $this->container->getParameter('focus_required');
-        $form         = $this->createForm(new OrganizationType($focus),
-            $organization);
+        $name = $organization->getOrgName();
+        $focus = $this->container->getParameter('focus_required');
+        $form = $this->createForm(new OrganizationType($focus), $organization);
         $orgId = $organization->getId();
         $oppForm = $this->createForm(new OpportunitySelectType($orgId));
         //organization templates
         if ($organization->getTemp()) {
-            $templates[]  = 'Organization/notEnabledOrganization.html.twig';
+            $templates[] = 'Organization/notEnabledOrganization.html.twig';
             $similarNames = $tool->getOrgNames($name);
         } else {
-            $templates[]  = 'Organization/enabledOrganization.html.twig';
+            $templates[] = 'Organization/enabledOrganization.html.twig';
             $similarNames = [];
         }
         $templates[] = 'Organization/orgForm.html.twig';
@@ -71,7 +69,7 @@ class OrganizationController extends Controller
             $em->persist($organization);
             $em->flush();
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success($name.' updated');
+            $flash->success($name . ' updated');
 
             if ('staff' === $type) {
                 return $this->redirect($this->generateUrl('home'));

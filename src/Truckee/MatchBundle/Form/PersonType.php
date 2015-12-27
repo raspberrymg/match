@@ -10,17 +10,14 @@
 
 //src\Truckee\MatchBundle\Form\PersonType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
 
 /**
  * Description of PersonType.
  *
- * @author George
  */
 class PersonType extends BaseType
 {

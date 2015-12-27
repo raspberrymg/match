@@ -18,8 +18,7 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * Description of Dashboard.
- *
- * @author George Brooks <truckeesolutions@gmail.com>
+ * Brooks <truckeesolutions@gmail.com>
  */
 class Dashboard
 {

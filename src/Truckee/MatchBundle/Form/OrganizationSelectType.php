@@ -22,7 +22,6 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Description of OrganizationSelectType.
  *
- * @author George
  */
 class OrganizationSelectType extends AbstractType
 {

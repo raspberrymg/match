@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Tests\Validation\VolunteerValidationTest.php
 
-
 namespace Truckee\MatchBundle\Tests\Validation;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;

@@ -9,15 +9,12 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\StaffRepository.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Description of StaffRepository.
- *
- * @author George
- */
 class StaffRepository extends EntityRepository
 {
     public function getActivePersons($id)

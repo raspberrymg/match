@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Description of Event
  *
- * @author George
  */
 class EventType extends AbstractType
 {

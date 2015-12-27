@@ -21,7 +21,6 @@ use Symfony\Component\Form\FormEvent;
 /**
  * Description of MatchSearch.
  *
- * @author George
  */
 class MatchSearchType extends AbstractType
 {

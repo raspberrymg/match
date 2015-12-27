@@ -11,16 +11,10 @@
 
 //src\Truckee\MatchBundle\Entity\SkillRepository.php
 
-
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Description of SkillRepository.
- *
- * @author George
- */
 class SkillRepository extends EntityRepository
 {
     public function getSkillsNoAll()

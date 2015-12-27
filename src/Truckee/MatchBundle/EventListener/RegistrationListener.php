@@ -19,11 +19,6 @@ use FOS\UserBundle\Event\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityManager;
 
-/**
- * Description of RegistrationListener.
- *
- * @author George
- */
 class RegistrationListener implements EventSubscriberInterface
 {
     private $em;
