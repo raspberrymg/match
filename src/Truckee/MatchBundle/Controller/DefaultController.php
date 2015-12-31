@@ -168,7 +168,7 @@ class DefaultController extends Controller
                     $tool = $this->container->get('truckee_match.toolbox');
                     $tool->populateAdminOutbox($to, $recipientArray);
                 }
-                $response = new Response("Email sent: " . count($recipient));
+                $response = new Response("Email sent: " . count($to));
 
                 return $response;
             }
