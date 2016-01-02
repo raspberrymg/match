@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Form\VolunteerFormType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;

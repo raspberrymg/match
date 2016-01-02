@@ -8,15 +8,12 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\VolunteerRepository.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Description of VolunteerRepository.
- *
- * @author George
- */
 class VolunteerRepository extends EntityRepository
 {
     public function getVolunteersByFocus($focuses)

@@ -11,7 +11,6 @@
 
 //src\Truckee\MatchBundle\Entity\Person.php
 
-
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;

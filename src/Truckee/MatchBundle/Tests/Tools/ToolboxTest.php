@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Tests\Tools\ToolboxTest.php
 
-
 namespace Truckee\MatchBundle\Tests\Tools;
 
 use Truckee\MatchBundle\Tools\Toolbox;

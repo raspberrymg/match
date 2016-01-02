@@ -9,15 +9,12 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\OpportunityRepository.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Description of OpportunityRepository.
- *
- * @author George
- */
 class OpportunityRepository extends EntityRepository
 {
     /**

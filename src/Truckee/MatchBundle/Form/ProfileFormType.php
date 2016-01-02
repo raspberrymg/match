@@ -81,21 +81,4 @@ class ProfileFormType extends BaseType
     {
         return 'fos_user_profile';
     }
-
-    /**
-     * Builds the embedded form representing the user.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-//    protected function buildUserForm(FormBuilderInterface $builder,
-//                                     array $options)
-//    {
-//        $builder
-//            ->add('username', 'text',
-//                array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
-//            ->add('email', 'email',
-//                array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-//        ;
-//    }
 }

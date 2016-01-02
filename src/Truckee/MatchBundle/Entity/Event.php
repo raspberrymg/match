@@ -11,7 +11,6 @@
 
 //src\Truckee\MatchBundle\Entity\Event.php
 
-
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="event")
  * @ORM\Entity
  *
- * @author George
  */
 class Event
 {

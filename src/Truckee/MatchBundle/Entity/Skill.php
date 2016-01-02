@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\Skill.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -111,14 +113,6 @@ class Skill
      */
     protected $opportunities;
 
-//    public function addOpportunity(Opportunity $opportunity) {
-//        $this->opportunities[] = $opportunity;
-//    }
-//
-//    public function getOpportunities() {
-//        return $this->opportunities;
-//    }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -126,48 +120,10 @@ class Skill
      */
     protected $volunteers;
 
-//    public function addVolunteer(Volunteer $volunteer) {
-//        $this->volunteers[] = $volunteer;
-//    }
-//
-//    public function getVolunteers() {
-//        return $this->volunteers;
-//    }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Search", mappedBy="skill", cascade={"persist"})
      */
     protected $searches;
-
-//    /**
-//     * Add searches
-//     *
-//     * @param Search $searches
-//     * @return Household
-//     */
-//    public function addSearch(Search $search) {
-//        $this->searches[] = $search;
-//        $search->Skill($this);
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove searches
-//     *
-//     * @param Search $searches
-//     */
-//    public function removeSearch(Search $search) {
-//        $this->searches->removeElement($search);
-//    }
-//
-//    /**
-//     * Get searches
-//     *
-//     * @return \Doctrine\Common\Collections\Collection 
-//     */
-//    public function getSearches() {
-//        return $this->searches;
-//    }
 }

@@ -10,7 +10,6 @@ use Truckee\MatchBundle\Entity\FocusRepository;
 /**
  * Description of FocusFieldType.
  *
- * @author George
  */
 class FocusFieldType extends AbstractType
 {

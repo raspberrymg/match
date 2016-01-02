@@ -13,7 +13,6 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 /**
  * Description of InteractiveCommandTest.
  *
- * @author George
  */
 class InteractiveCommandTest extends WebTestCase
 {

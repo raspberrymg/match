@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Tests\Controller\AdminControllerTest.php
 
-
 namespace Truckee\MatchBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -18,7 +17,6 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 /**
  * Description of TestAdminController.
  *
- * @author George
  */
 class AdminControllerTest extends WebTestCase
 {

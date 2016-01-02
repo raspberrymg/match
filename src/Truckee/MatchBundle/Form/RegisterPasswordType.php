@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Description of PersonType.
  *
- * @author George
  */
 class RegisterPasswordType extends AbstractType
 {

@@ -27,7 +27,6 @@ use Doctrine\Common\Collections\Criteria;
  */
 class EventController extends Controller
 {
-
     /**
      * @Route("/manage/{id}", name="event_manage")
      * @Security("has_role('ROLE_STAFF')")
@@ -40,9 +39,9 @@ class EventController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
         $user = $this->getUser();
-        $em   = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         if (null === $id) {
-            $event   = new Event();
+            $event = new Event();
             $message = "Event added";
         } else {
             $event = $em->getRepository("TruckeeMatchBundle:Event")->find($id);
@@ -71,21 +70,20 @@ class EventController extends Controller
             'event' => $event,
         );
     }
-
     /**
      * @Template("Event/sidebarEvents.html.twig")
      * @return type
      */
     public function sidebarEventsAction()
     {
-        $em              = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $eventRepository = $em->getRepository("TruckeeMatchBundle:Event");
 //        $user            = $this->getUser();
-        $criteria        = new Criteria();
+        $criteria = new Criteria();
         $criteria->where($criteria->expr()->gte('eventdate', new \DateTime()));
         $criteria->orderBy(['eventdate' => 'ASC']);
         $criteria->setMaxResults(5);
-        $templates[]       = 'Event/hr.html.twig';
+        $templates[] = 'Event/hr.html.twig';
 
         if (!empty($eventRepository)) {
             return array(
@@ -96,7 +94,6 @@ class EventController extends Controller
             return array('templates' => $templates,);
         }
     }
-
     /**
      * @Template("Event/editor.html.twig")
      * @param type $id

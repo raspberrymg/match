@@ -23,7 +23,6 @@ use Truckee\MatchBundle\Form\OpportunityEmailType;
 
 class DefaultController extends Controller
 {
-
     /**
      * @Route("/", name="home")
      */
@@ -39,25 +38,24 @@ class DefaultController extends Controller
         return $this->render('MainMenu/index.html.twig',
                 array(
                 'title' => '',
-                'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
+                'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
         ));
     }
-
     /**
      * @Route("/search", name="opp_search")
      * @Template("default/oppSearch.html.twig")
      */
     public function oppSearchAction(Request $request)
     {
-        $user                          = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $userOptions['focus_required'] = $this->getParameter('focus_required');
         $userOptions['skill_required'] = $this->getParameter('skill_required');
 
         $form = $this->createForm(new MatchSearchType($user, $userOptions));
         if ($request->getMethod() == 'POST') {
-            $em            = $this->getDoctrine()->getManager();
-            $tool          = $this->container->get('truckee_match.toolbox');
-            $data          = $request->get('match_search');
+            $em = $this->getDoctrine()->getManager();
+            $tool = $this->container->get('truckee_match.toolbox');
+            $data = $request->get('match_search');
             $tool->setSearchRecord($data, 'opportunity');
             $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->doFocusSkillSearch($data);
 
@@ -71,7 +69,7 @@ class DefaultController extends Controller
             $flash->alert('No opportunities meet your criteria');
         }
 
-        $tools     = $this->container->get('truckee_match.toolbox');
+        $tools = $this->container->get('truckee_match.toolbox');
         $templates = $tools->templatesFocusSkill();
 
         return $this->render('default/oppSearchForm.html.twig',
@@ -81,7 +79,6 @@ class DefaultController extends Controller
                 'title' => 'Search for opportunities',
         ));
     }
-
     /**
      * @Route("/volunteer", name="volunteer")
      * @Template("MainMenu/volunteer.html.twig")
@@ -98,7 +95,6 @@ class DefaultController extends Controller
             'title' => 'Volunteering',
         );
     }
-
     /**
      * @Route("/non-profits", name="nonprofits")
      * @Template("MainMenu/nonProfit.html.twig")
@@ -115,7 +111,6 @@ class DefaultController extends Controller
             'title' => 'Non-profits',
         );
     }
-
     /**
      * @Route("/about-us", name="about_us")
      * @Template("MainMenu/aboutUs.html.twig")
@@ -126,7 +121,6 @@ class DefaultController extends Controller
             'title' => 'About us',
         );
     }
-
     /**
      * @Route("/contact-us", name="contact_us")
      * @Template("MainMenu/contactUs.html.twig")
@@ -137,47 +131,44 @@ class DefaultController extends Controller
             'title' => 'Contact us',
         );
     }
-
     /**
      * @Route("/oppForm/{id}", name="opp_form")
      * @Template("default/oppEmail.html.twig")
      */
     public function oppFormAction(Request $request, $id)
     {
-        $user    = $this->getUser();
-        $email   = ($user) ? $user->getEmail() : null;
-        $em      = $this->getDoctrine()->getManager();
-        $opp     = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
+        $user = $this->getUser();
+        $email = ($user) ? $user->getEmail() : null;
+        $em = $this->getDoctrine()->getManager();
+        $opp = $em->getRepository("TruckeeMatchBundle:Opportunity")->find($id);
         $oppName = $opp->getOppName();
-        $org     = $opp->getOrganization();
+        $org = $opp->getOrganization();
         $orgName = $org->getOrgName();
-        $form    = $this->createForm(new OpportunityEmailType($oppName,
-            $orgName, $email, $id));
+        $form = $this->createForm(new OpportunityEmailType($oppName, $orgName, $email, $id));
         $form->handleRequest($request);
         if ($request->getMethod() == 'POST') {
             if ($form->isValid()) {
-                $orgId   = $org->getId();
-                $to      = $em->getRepository("TruckeeMatchBundle:Staff")->getActivePersons($orgId);
-                $from    = $form['from']->getData();
+                $orgId = $org->getId();
+                $to = $em->getRepository("TruckeeMatchBundle:Staff")->getActivePersons($orgId);
+                $from = $form['from']->getData();
                 $subject = $form['subject']->getData();
                 $content = $form['message']->getData();
 
                 $mailer = $this->container->get('admin.mailer');
-                $sent   = $mailer->sendOppInterestEmail($to, $from, $subject,
-                    $content);
+                $sent = $mailer->sendOppInterestEmail($to, $from, $subject, $content);
                 //save entry to admin outbox
                 if (0 !== $sent) {
-                    $recipientArray                = [];
-                    $oppId                         = $opp->getId();
-                    $recipientArray['function']    = 'oppFormAction';
+                    $recipientArray = [];
+                    $oppId = $opp->getId();
+                    $recipientArray['function'] = 'oppFormAction';
                     $recipientArray['messageType'] = 'bcc';
-                    $recipientArray['oppId']       = $oppId;
-                    $recipientArray['orgId']       = $orgId;
-                    $recipientArray['userType']    = 'volunteer';
-                    $tool                          = $this->container->get('truckee_match.toolbox');
+                    $recipientArray['oppId'] = $oppId;
+                    $recipientArray['orgId'] = $orgId;
+                    $recipientArray['userType'] = 'volunteer';
+                    $tool = $this->container->get('truckee_match.toolbox');
                     $tool->populateAdminOutbox($to, $recipientArray);
                 }
-                $response = new Response("Email sent: ".count($recipient));
+                $response = new Response("Email sent: " . count($to));
 
                 return $response;
             }
@@ -188,18 +179,17 @@ class DefaultController extends Controller
             'id' => $id,
         ];
     }
-
     /**
      * @Template("default/navigation.html.twig")
      */
     public function navigationAction()
     {
-        $user            = $this->getUser();
+        $user = $this->getUser();
         $menuTemplates[] = 'default/defaultMenu.html.twig';
-        $type            = null;
+        $type = null;
         if (null !== $user) {
             $menuTemplates[] = 'default/authorizedMenu.html.twig';
-            $type            = $user->getUserType();
+            $type = $user->getUserType();
         }
 
         return array(
@@ -207,7 +197,6 @@ class DefaultController extends Controller
             'type' => $type,
         );
     }
-
     /**
      * @Route("/nameCheck/{name}")
      * @Template("default/nameCheck.html.twig")

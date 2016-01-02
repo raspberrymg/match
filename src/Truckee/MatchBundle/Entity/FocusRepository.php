@@ -10,16 +10,10 @@
 
 //src\Truckee\MatchBundle\Entity\FocusRepository.php
 
-
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-/**
- * Description of FocusRepository.
- *
- * @author George
- */
 class FocusRepository extends EntityRepository
 {
     public function getFocusesNoAll()

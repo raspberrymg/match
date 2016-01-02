@@ -37,10 +37,11 @@ class StaffController extends Controller
         }
         $organization = $user->getOrganization();
         $opportunities = $user->getOrganization()->getOpportunities();
-        return $this->render('Staff/staff_home.html.twig', array(
-            'title' => 'Staff home',
-            'organization' => $organization,
-            'opportunities' => $opportunities
+        return $this->render('Staff/staff_home.html.twig',
+                array(
+                'title' => 'Staff home',
+                'organization' => $organization,
+                'opportunities' => $opportunities
         ));
     }
 }

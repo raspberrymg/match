@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Controller\ProfileController.php
 
-
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,7 +35,6 @@ class ProfileController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
     }
-
     /**
      * @Route("/edit")
      */
@@ -55,7 +53,6 @@ class ProfileController extends Controller
                 return;
         }
     }
-
     private function volunteerProfileAction()
     {
         $tools = $this->container->get('truckee_match.toolbox');
@@ -65,7 +62,6 @@ class ProfileController extends Controller
                 ->get('pugx_multi_user.profile_manager')
                 ->edit('Truckee\MatchBundle\Entity\Volunteer', $templates);
     }
-
     private function staffProfileAction()
     {
         $tools = $this->container->get('truckee_match.toolbox');
@@ -75,7 +71,6 @@ class ProfileController extends Controller
                 ->get('pugx_multi_user.profile_manager')
                 ->edit('Truckee\MatchBundle\Entity\Staff', $templates);
     }
-
     private function adminProfileAction()
     {
         return $this->container

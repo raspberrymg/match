@@ -10,7 +10,6 @@ use Truckee\MatchBundle\Entity\SkillRepository;
 /**
  * Description of SkillType.
  *
- * @author George
  */
 class SkillFieldType extends AbstractType
 {

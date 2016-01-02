@@ -11,7 +11,6 @@
 
 //src\Truckee\MatchBundle\Form\StaffFormType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;

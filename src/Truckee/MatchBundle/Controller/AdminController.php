@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Controller\AdminController.php
 
-
 namespace Truckee\MatchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,7 +28,6 @@ use Truckee\MatchBundle\Entity\Admin;
 /**
  * Description of AdminController.
  *
- * @author George
  * 
  * @Route("/admin")
  * @Security("has_role('ROLE_ADMIN')")
@@ -82,7 +80,6 @@ class AdminController extends Controller
                 'menus' => $menus,
         ));
     }
-
     /**
      * @Route("/expiring", name="expiring_alerts")
      * @Template()
@@ -96,15 +93,14 @@ class AdminController extends Controller
 
         $flash = $this->get('braincrafted_bootstrap.flash');
         $flash->success("{$expiredArray['nOrgs']} organizations have been alerted "
-            ."about {$expiredArray['nOpps']} opportunities in "
-            ."{$expiredArray['nRecipients']} e-mails");
+            . "about {$expiredArray['nOpps']} opportunities in "
+            . "{$expiredArray['nRecipients']} e-mails");
 
         return $this->redirect($this->generateUrl('home',
                     array(
                     'opportunities' => $opportunities,
         )));
     }
-
     /**
      * @Route("/matched/{id}", name="vol_matched")
      * @Template("Admin/showMatchedVolunteers.html.twig")
@@ -123,16 +119,14 @@ class AdminController extends Controller
 
             return $this->redirect($this->generateUrl('admin_home'));
         }
-        $form = $this->createForm(new VolunteerEmailType($matched['idArray']),
-            $volunteers);
+        $form = $this->createForm(new VolunteerEmailType($matched['idArray']), $volunteers);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
             $sendTo = $data['send'];
             $bcc = $em->getRepository('TruckeeMatchBundle:Volunteer')->findBy(['id' => $sendTo]);
             $mailer = $this->container->get('admin.mailer');
-            $sent = ($sendTo) ? $mailer->sendNewOppMail($bcc, $opportunity,
-                    $criteria) : 0;
+            $sent = ($sendTo) ? $mailer->sendNewOppMail($bcc, $opportunity, $criteria) : 0;
             $flash = $this->get('braincrafted_bootstrap.flash');
 
             if (0 !== $sent) {
@@ -154,7 +148,6 @@ class AdminController extends Controller
             'title' => 'Matched volunteers',
         );
     }
-
     /**
      * @Route("/activate/{id}", name="activate_org")
      */
@@ -176,7 +169,6 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_home'));
     }
-
     /**
      * @Route("/orgdrop/{id}", name="org_drop")
      */
@@ -192,7 +184,6 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_home'));
     }
-
     /**
      * @Route("/dashboard", name="dashboard")
      * @Template("Admin/Dashboard/dashboard.html.twig")
@@ -242,7 +233,6 @@ class AdminController extends Controller
             'templates' => $templates,
         ];
     }
-
     /**
      * @Route("/select/{class}", name="person_select")
      * @Template("Admin/personSelect.html.twig")
@@ -282,7 +272,6 @@ class AdminController extends Controller
             'class' => $class,
         );
     }
-
     /**
      * @Route("/lock/{id}", name="account_lock")
      */
@@ -307,8 +296,7 @@ class AdminController extends Controller
         }
         $firstName = $person->getFirstname();
         $lastName = $person->getLastname();
-        if ('admin' === $type && in_array('ROLE_SUPER_ADMIN',
-                $person->getRoles())) {
+        if ('admin' === $type && in_array('ROLE_SUPER_ADMIN', $person->getRoles())) {
             $flash->alert("Cannot lock admin $firstName $lastName");
             $canLock = false;
         }
@@ -321,13 +309,11 @@ class AdminController extends Controller
         }
         switch ($type) {
             case 'staff':
-                return $this->redirect($this->generateUrl('org_edit',
-                            array('id' => $orgId)));
+                return $this->redirect($this->generateUrl('org_edit', array('id' => $orgId)));
             default:
                 return $this->redirect($this->generateUrl('admin_home'));
         }
     }
-
     /**
      * @Route("/select", name="org_select")
      * @Template("Organization/orgSelect.html.twig")
@@ -362,7 +348,6 @@ class AdminController extends Controller
             'title' => 'Select organization',
         );
     }
-
     /**
      * Adds staff member for existing organization.
      *
@@ -389,7 +374,6 @@ class AdminController extends Controller
                 'organization' => $organization,
         ));
     }
-
     /**
      * @Route("/addAdmin", name="admin_add")
      *
@@ -408,12 +392,10 @@ class AdminController extends Controller
             return $this->redirect($this->generateUrl('admin_home'));
         }
 
-        return $this->render('Admin/add.html.twig',
-                array(
+        return $this->render('Admin/add.html.twig', array(
                 'form' => $form->createView(),
         ));
     }
-
     private function createUser($data, $class, $organization = null)
     {
         $em = $this->getDoctrine()->getManager();

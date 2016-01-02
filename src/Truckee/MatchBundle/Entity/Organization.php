@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+//src\Truckee\MatchBundle\Entity\Organization.php
+
 namespace Truckee\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -167,9 +169,9 @@ class Organization
     }
 
     /**
-     * Set organization.
+     * Set organization name.
      *
-     * @param string $organization
+     * @param string 
      *
      * @return Organization
      */

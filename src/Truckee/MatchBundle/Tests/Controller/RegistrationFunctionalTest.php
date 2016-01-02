@@ -18,7 +18,6 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
  * Tests registration process through e-mail confirmation notice
  * Gets confirmation token and confirms registration.
  *
- * @author George
  */
 class RegistrationFunctionalTest extends WebTestCase
 {
@@ -36,18 +35,16 @@ class RegistrationFunctionalTest extends WebTestCase
 
     private function submitVolunteerForm()
     {
-        $crawler                                                                 = $this->client->request('GET',
-            '/register/volunteer');
-        $form                                                                    = $crawler->selectButton('Save')->form();
-        $form['volunteer_registration[personData][email]']                       = 'hvolunteer@bogus.info';
-        $form['volunteer_registration[personData][username]']                    = 'hvolunteer';
-        $form['volunteer_registration[personData][firstName]']                   = 'Harry';
-        $form['volunteer_registration[personData][lastName]']                    = 'Volunteer';
-        $form['volunteer_registration[registerPassword][plainPassword][first]']  = '123Abcd';
-        $form['volunteer_registration[registerPassword][plainPassword][second]']
-            = '123Abcd';
-        $form['volunteer_registration[focuses]']                                 = [2];
-        $form['volunteer_registration[skills]']                                  = [15];
+        $crawler = $this->client->request('GET', '/register/volunteer');
+        $form = $crawler->selectButton('Save')->form();
+        $form['volunteer_registration[personData][email]'] = 'hvolunteer@bogus.info';
+        $form['volunteer_registration[personData][username]'] = 'hvolunteer';
+        $form['volunteer_registration[personData][firstName]'] = 'Harry';
+        $form['volunteer_registration[personData][lastName]'] = 'Volunteer';
+        $form['volunteer_registration[registerPassword][plainPassword][first]'] = '123Abcd';
+        $form['volunteer_registration[registerPassword][plainPassword][second]'] = '123Abcd';
+        $form['volunteer_registration[focuses]'] = [2];
+        $form['volunteer_registration[skills]'] = [15];
 
         $crawler = $this->client->submit($form);
     }
@@ -63,17 +60,16 @@ class RegistrationFunctionalTest extends WebTestCase
 
     private function submitStaffForm()
     {
-        $crawler                                                             = $this->client->request('GET',
-            '/register/staff');
-        $form                                                                = $crawler->selectButton('Save')->form();
-        $form['staff_registration[personData][email]']                       = 'jglenshire@bogus.info';
-        $form['staff_registration[personData][username]']                    = 'jglenshire';
-        $form['staff_registration[personData][firstName]']                   = 'Joe';
-        $form['staff_registration[personData][lastName]']                    = 'Glenshire';
-        $form['staff_registration[registerPassword][plainPassword][first]']  = '123Abcd';
+        $crawler = $this->client->request('GET', '/register/staff');
+        $form = $crawler->selectButton('Save')->form();
+        $form['staff_registration[personData][email]'] = 'jglenshire@bogus.info';
+        $form['staff_registration[personData][username]'] = 'jglenshire';
+        $form['staff_registration[personData][firstName]'] = 'Joe';
+        $form['staff_registration[personData][lastName]'] = 'Glenshire';
+        $form['staff_registration[registerPassword][plainPassword][first]'] = '123Abcd';
         $form['staff_registration[registerPassword][plainPassword][second]'] = '123Abcd';
-        $form['staff_registration[organization][orgName]']                   = 'Glenshire Marmot Fund';
-        $form['staff_registration[organization][focuses]']                   = [2];
+        $form['staff_registration[organization][orgName]'] = 'Glenshire Marmot Fund';
+        $form['staff_registration[organization][focuses]'] = [2];
 
         $crawler = $this->client->submit($form);
     }
@@ -136,14 +132,13 @@ class RegistrationFunctionalTest extends WebTestCase
     {
         $this->submitVolunteerForm();
         $this->activateVolunteer();
-        $crawler                                                      = $this->client->request('GET',
-            '/profile/change-password');
-        $form                                                         = $crawler->selectButton('Change password')->form();
-        $form['fos_user_change_password_form[current_password]']      = '123Abcd';
-        $form['fos_user_change_password_form[plainPassword][first]']  = 'Abcd123';
+        $crawler = $this->client->request('GET', '/profile/change-password');
+        $form = $crawler->selectButton('Change password')->form();
+        $form['fos_user_change_password_form[current_password]'] = '123Abcd';
+        $form['fos_user_change_password_form[plainPassword][first]'] = 'Abcd123';
         $form['fos_user_change_password_form[plainPassword][second]'] = 'Abcd123';
-        $crawler                                                      = $this->client->submit($form);
-        $crawler                                                      = $this->client->followRedirect();
+        $crawler = $this->client->submit($form);
+        $crawler = $this->client->followRedirect();
 
         $this->assertTrue($crawler->filter('html:contains("The password has been changed")')->count()
             > 0);
