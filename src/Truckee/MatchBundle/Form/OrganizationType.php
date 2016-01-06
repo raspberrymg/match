@@ -17,6 +17,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\Count;
 
 class OrganizationType extends AbstractType
@@ -31,12 +38,12 @@ class OrganizationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('active', 'checkbox',
+            ->add('active', CheckboxType::class,
                 array(
                 'label' => 'Active: ',
             ))
-            ->add('addDate', 'date')
-            ->add('orgName', 'text',
+            ->add('addDate', DateType::class)
+            ->add('orgName', TextType::class,
                 array(
                 'label' => 'Name',
                 'attr' => array(
@@ -46,7 +53,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('address', 'text',
+            ->add('address', TextType::class,
                 array(
                 'label' => 'Address',
                 'attr' => array(
@@ -56,11 +63,11 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('background', 'checkbox',
+            ->add('background', CheckboxType::class,
                 [
                 'label' => "Background check req'd",
             ])
-            ->add('city', 'text',
+            ->add('city', TextType::class,
                 array(
                 'label' => 'City',
                 'attr' => array(
@@ -70,7 +77,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('state', 'text',
+            ->add('state', TextType::class,
                 array(
                 'label' => 'State',
                 'attr' => array(
@@ -80,7 +87,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('zip', 'text',
+            ->add('zip', TextType::class,
                 array(
                 'label' => 'Zip code',
                 'attr' => array(
@@ -90,7 +97,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('email', 'email',
+            ->add('email', EmailType::class,
                 array(
                 'label' => 'E-mail',
                 'attr' => array(
@@ -100,7 +107,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('areacode', 'number',
+            ->add('areacode', NumberType::class,
                 array(
                 'label' => 'Area code',
                 'attr' => array(
@@ -110,7 +117,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('phone', 'text',
+            ->add('phone', TextType::class,
                 array(
                 'label' => 'Phone #',
                 'attr' => array(
@@ -120,7 +127,7 @@ class OrganizationType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('website', 'text',
+            ->add('website', TextType::class,
                 array(
                 'label' => 'Website',
                 'attr' => array(
@@ -131,7 +138,7 @@ class OrganizationType extends AbstractType
                 ),
                 )
             )
-            ->add('opportunities', 'collection',
+            ->add('opportunities', CollectionType::class,
                 array(
                 'type' => new OpportunityType(),
                 'allow_add' => true,
@@ -139,7 +146,7 @@ class OrganizationType extends AbstractType
                 'by_reference' => false,
                 'prototype' => true,
             ))
-            ->add('save', 'submit',
+            ->add('save',SubmitType::class, 
                 array(
                 'label' => 'Save organization',
                 'attr' => array(

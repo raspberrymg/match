@@ -13,6 +13,7 @@
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
 
 /**
@@ -36,7 +37,7 @@ class PersonType extends BaseType
             ->add('registerPassword', new RegisterPasswordType(), array(
                 'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
-            ->add('save', 'submit',
+            ->add('save',SubmitType::class, 
                 array(
                 'label' => 'Save',
                 'attr' => array(

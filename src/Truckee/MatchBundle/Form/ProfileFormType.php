@@ -14,6 +14,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use PUGX\MultiUserBundle\Form\ProfileFormType as BaseType;
 
@@ -25,7 +28,7 @@ class ProfileFormType extends BaseType
             ->add('personData', new PersonDataType(), array(
                 'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
-            ->add('current_password', 'password',
+            ->add('current_password', PasswordType::class,
                 array(
                 'label' => 'form.current_password',
                 'label_attr' => array(
@@ -37,7 +40,7 @@ class ProfileFormType extends BaseType
                 'attr' => array(
                     'placeholder' => 'Current password',
                 ), ))
-            ->add('save', 'submit',
+            ->add('save',SubmitType::class, 
                 array(
                 'label' => 'Save',
                 'attr' => array(
@@ -53,7 +56,7 @@ class ProfileFormType extends BaseType
             $type = strtolower(substr($class, $l + 1));
             if ('volunteer' === $type) {
                 $form = $event->getForm();
-                $form->add('receiveEmail', 'checkbox',
+                $form->add('receiveEmail', CheckboxType::class,
                     [
                     'label' => 'Check to receive e-mail, uncheck to stop',
                     'required' => '0',

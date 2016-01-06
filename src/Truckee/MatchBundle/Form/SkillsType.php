@@ -17,6 +17,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of SkillType.
@@ -27,9 +29,9 @@ class SkillsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('skills', 'collection', ['type' => new SkillType(),
+                ->add('skills', CollectionType::class, ['type' => new SkillType(),
                     ])
-                ->add('save', 'submit', array(
+                ->add('save',SubmitType::class,  array(
                     'label' => 'Save',
                     'attr' => array(
                         'class' => 'btn-xs',

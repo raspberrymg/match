@@ -16,6 +16,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Select volunteers for opportunity eblast.
@@ -33,11 +35,11 @@ class VolunteerEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('selectAll', 'checkbox', [
+                ->add('selectAll', CheckboxType::class, [
                     'mapped' => '0',
                     'label' => 'Select/unselect all',
                 ])
-                ->add('send', 'choice', array(
+                ->add('send', ChoiceType::class, array(
                     'multiple' => true,
                     'expanded' => true,
                     'choices' => $this->idArray,

@@ -15,6 +15,10 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -40,18 +44,18 @@ class OpportunityEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'hidden',
+            ->add('id', HiddenType::class,
                 [
                 'data' => $this->id
             ])
-            ->add('to', 'text',
+            ->add('to', TextType::class,
                 [
                 'data' => $this->orgName,
                 'attr' => [
                     'readonly' => 'readonly'
                 ]
             ])
-            ->add('from', 'email',
+            ->add('from', EmailType::class,
                 [
                 'data' => $this->email,
                 'constraints' => [
@@ -59,26 +63,19 @@ class OpportunityEmailType extends AbstractType
                     new NotBlank(["message" => "E-mail address is required"])
                 ]
             ])
-            ->add('subject', 'text',
+            ->add('subject', TextType::class,
                 [
                 'data' => $this->oppName.' opportunity',
                 'attr' => [
                     'readonly' => 'readonly'
                 ]
             ])
-            ->add('message', 'textarea',
+            ->add('message', TextareaType::class,
                 [
                 'constraints' => [
                     new NotBlank(["message" => "Message is required"])
                 ]
             ])
-//            ->add('save', ButtonType::class,
-//                array(
-//                'attr' => array(
-//                    'class' => 'save',
-//                    ),
-//                    'label' => 'Send',
-//            ))
         ;
     }
 

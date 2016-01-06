@@ -14,6 +14,7 @@ namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\Count;
@@ -26,7 +27,7 @@ class VolunteerFormType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('receiveEmail', 'checkbox',
+            ->add('receiveEmail', CheckboxType::class,
                 [
                 'label' => 'Check to receive e-mail, uncheck to stop',
             ])

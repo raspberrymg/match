@@ -15,7 +15,9 @@ namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -28,7 +30,7 @@ class AdminUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('user', 'entity', array(
+                ->add('user',EntityType::class, array(
                     'label' => 'Admin user',
                     'class' => 'TruckeeMatchBundle:Person',
                     'choice_label' => 'nameLockStatus',
@@ -41,7 +43,7 @@ class AdminUsersType extends AbstractType
                 ;
             },
                 ))
-                ->add('Select', 'submit', array(
+                ->add('Select',SubmitType::class,  array(
                     'attr' => array(
                         'class' => 'btn btn-xs active',
                     )

@@ -15,6 +15,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -29,7 +31,7 @@ class VolunteerUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', 'entity',
+            ->add('user', EntityType::class,
                 array(
                 'label' => 'Volunteer',
                 'label_attr' => array(
@@ -44,7 +46,7 @@ class VolunteerUsersType extends AbstractType
                 ;
             },
             ))
-            ->add('Select', 'submit',
+            ->add('Select',SubmitType::class, 
                 array(
                 'attr' => array(
                     'class' => 'btn btn-xs active',

@@ -17,6 +17,7 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -28,7 +29,7 @@ class OrganizationSelectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('organization', 'entity', [
+                ->add('organization',EntityType::class, [
                     'class' => 'Truckee\MatchBundle\Entity\Organization',
                     'choice_label' => 'orgName',
                     'label_attr' => array(

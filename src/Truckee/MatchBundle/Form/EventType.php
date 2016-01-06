@@ -16,6 +16,10 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Description of Event
@@ -27,7 +31,7 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('event', 'textarea', array(
+                ->add('event', TextareaType::class, array(
                     'label' => 'Event',
                     'attr' => array(
                         'placeholder' => 'Event',
@@ -38,7 +42,7 @@ class EventType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('location', 'text', array(
+                ->add('location', TextType::class, array(
                     'label' => 'Location',
                     'attr' => array(
                         'placeholder' => 'Location',
@@ -47,7 +51,7 @@ class EventType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('starttime', 'text', array(
+                ->add('starttime', TextType::class, array(
                     'label' => 'Start time: ',
                     'attr' => array(
                         'placeholder' => 'Start time (hh:mm AM/PM)',
@@ -56,7 +60,7 @@ class EventType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('eventdate', 'date', array(
+                ->add('eventdate', DateType::class, array(
                     'widget' => 'single_text',
                     'format' => 'M/d/y',
                     'label' => 'Date',
@@ -68,7 +72,7 @@ class EventType extends AbstractType
                         'class' => 'sr-only',
                     ),
                 ))
-                ->add('submit', 'submit', array(
+                ->add('submit',SubmitType::class,  array(
                     'attr' => array(
                         'class' => 'btn-xs',
                     )

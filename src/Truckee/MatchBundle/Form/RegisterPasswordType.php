@@ -16,6 +16,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
  * Description of PersonType.
@@ -30,9 +32,9 @@ class RegisterPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plainPassword', 'repeated',
+            ->add('plainPassword', RepeatedType::class,
                 array(
-                'type' => 'password',
+                'type' => PasswordType::class,
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password',
                     'attr' => array(

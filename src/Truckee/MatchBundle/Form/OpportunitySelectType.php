@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * OpportunitySelectType
@@ -50,7 +50,7 @@ class OpportunitySelectType extends AbstractType
                 },
                     'empty_value' => 'Select opportunity',)
                 )
-            ->add('save', ButtonType::class, array(
+            ->add('save', SubmitType::class, array(
                 'attr' => array(
                     'class' => "btn  btn-xs active btn-primary",
                     'label' => 'Select opportunity'

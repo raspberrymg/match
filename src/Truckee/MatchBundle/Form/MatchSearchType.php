@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of MatchSearch.
@@ -37,7 +38,7 @@ class MatchSearchType extends AbstractType
     {
         $builder
             ->add('organization', new OrganizationSelectType())
-            ->add('Search', 'submit',
+            ->add('Search',SubmitType::class, 
                 array(
                 'attr' => array(
                     'class' => 'btn-xs',

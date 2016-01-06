@@ -17,6 +17,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of FocusType.
@@ -27,9 +29,9 @@ class FocusesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('focuses', 'collection', ['type' => new FocusType(),
+                ->add('focuses', CollectionType::class, ['type' => new FocusType(),
                     ])
-                ->add('save', 'submit', array(
+                ->add('save',SubmitType::class,  array(
                     'label' => 'Save',
                     'attr' => array(
                         'class' => 'btn-xs',

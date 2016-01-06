@@ -16,6 +16,7 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * PersonAddType.
@@ -38,7 +39,7 @@ class PersonAddType extends AbstractType
             ->add('registerPassword', new RegisterPasswordType(), array(
                 'data_class' => $this->class,
             ))
-            ->add('save', 'submit',
+            ->add('save',SubmitType::class, 
                 array(
                 'label' => 'Save',
                 'attr' => array(

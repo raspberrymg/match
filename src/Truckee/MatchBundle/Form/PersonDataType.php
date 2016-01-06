@@ -16,6 +16,8 @@ namespace Truckee\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Description of PersonType.
@@ -30,7 +32,7 @@ class PersonDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text',
+            ->add('firstName', TextType::class,
                 array(
                 'label' => 'First name: ',
                 'attr' => array(
@@ -40,7 +42,7 @@ class PersonDataType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('lastName', 'text',
+            ->add('lastName', TextType::class,
                 array(
                 'label' => 'Last name: ',
                 'attr' => array(
@@ -50,7 +52,7 @@ class PersonDataType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('email', 'email',
+            ->add('email', EmailType::class,
                 array(
                 'label' => 'form.email',
                 'translation_domain' => 'FOSUserBundle',
@@ -60,7 +62,7 @@ class PersonDataType extends AbstractType
                 'label_attr' => array(
                     'class' => 'sr-only',
             ), ))
-            ->add('username', 'text',
+            ->add('username', TextType::class,
                 array(
                 'label' => 'form.username',
                 'translation_domain' => 'FOSUserBundle',
