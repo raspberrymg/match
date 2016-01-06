@@ -359,95 +359,14 @@ class AdminControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("User Harry Volunteer updated")')->count());
     }
 
-//    public function organizationSelect()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Organizations")->link();
-//        return $this->client->click($link);
-//    }
-//
-//    public function testOrganizationSelect()
-//    {
-//        $crawler = $this->organizationSelect();
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Select organization to edit")')->count());
-//    }
-//
-//    public function organizationEdit()
-//    {
-//        $crawler = $this->organizationSelect();
-//        $form = $crawler->selectButton('Select')->form();
-//        $value = $crawler->filter('#org_select_organization option:contains("Glenshire Marmot Fund")')->attr('value');
-//        $form['org_select[organization]'] = $value;
-//        $crawler = $this->client->submit($form);
-//        return $this->client->submit($form);
-//    }
-//    
-//    public function testOpportunityEdit()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Edit opportunity")->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund: Edit opportunity")')->count());
-//    }
-//    
-//    public function testNewOrganizationEdit()
-//    {
-//        $crawler = $this->login('admin');
-//        $link = $crawler->selectLink("Edit organization")->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Edit Glenshire Marmite Fund")')->count());
-//    }
-//
-//    public function testNoOpportunityMatches()
-//    {
-//        $crawler = $this->login('admin');
-//
-//        $link = $crawler->selectLink('Accept organization')->link();
-//        $crawler = $this->client->click($link);
-//        $crawler = $this->login('jmelanzane');
-//        $link = $crawler->selectLink('Add opportunity')->link();
-//        $crawler = $this->client->click($link);
-//        $form = $crawler->selectButton('Save opportunity')->form();
-//        $form['opportunity[oppName]'] = 'Meals on Wheels driver';
-//        $form['opportunity[description]'] = 'Deliver meals to seniors';
-//        $form['opportunity[skills][7]']->tick();
-//        $crawler = $this->client->submit($form);
-//        $crawler = $this->login('admin');
-//        $link = $crawler->filter('a:contains("E-mail volunteers")')->eq(1)->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("No volunteers match opportunity criteria")')->count());
-//    }
-//
-//    public function testAdminUserLock()
-//    {
-//        $crawler = $this->addAdmin();
-//        $crawler = $this->client->request('GET', '/admin/select/admin');
-//        $form = $crawler->selectButton('Select')->form();
-//        $value = $crawler->filter('#admin_select_user option:contains("Borko, Benny")')->attr('value');
-//        $form['admin_select[user]'] = $value;
-//        $crawler = $this->client->submit($form);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Benny Borko updated")')->count());
-//    }
-//
-//    public function testStaffUserLock()
-//    {
-//        $crawler = $this->organizationEdit();
-//        $link = $crawler->filter('a:contains("Lock account")')->eq(0)->link();
-//        $crawler = $this->client->click($link);
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Cannot")')->count());
-//    }
-//
-//    public function testEditProfile()
-//    {
-//        $crawler = $this->login('admin');
-//        $crawler = $this->client->request('GET', '/profile/edit');
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Current password")')->count());
-//    }
-//
-//    public function testChangePassword()
-//    {
-//        $crawler = $this->login('admin');
-//        $crawler = $this->client->request('GET', '/profile/change-password');
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Password change form")')->count());
-//    }
+    public function testInvalidLogin()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'admin';
+        $form['_password'] = '123d';
+        $crawler = $this->client->submit($form);
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Invalid credentials")')->count());
+    }
 }

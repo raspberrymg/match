@@ -155,3 +155,19 @@ pugx_multi_user:
           form:
             type: %profile.form.type%
           template: Admin/adminProfile.html.twig
+
+monolog:
+    handlers:
+        mail:
+            type:         fingers_crossed
+            action_level: critical
+            handler:      buffered
+        buffered:
+            type:    buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: "%admin_email%"
+            to_email:   "%admin_email%"
+            subject:    Yikes! Error!
+            level:      debug
