@@ -22,8 +22,13 @@ class Builder implements ContainerAwareInterface
 
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-
+        $token = $this->container->get('security.token_storage')->getToken();
+        if (NULL === $token) {
+            $user = 'anon.';
+        } else {
+            $user = $token->getUser();
+        }
+        
         $menu = $factory->createItem('root',
             array(
             'childrenAttributes' => array(
