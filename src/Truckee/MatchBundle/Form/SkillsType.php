@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\Form\SkillsType.php
-
 
 namespace Truckee\MatchBundle\Form;
 
@@ -26,18 +24,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class SkillsType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('skills', CollectionType::class, ['type' => new SkillType(),
-                    ])
-                ->add('save',SubmitType::class,  array(
-                    'label' => 'Save',
-                    'attr' => array(
-                        'class' => 'btn-xs',
-                    ),
-                ))
-            ;
+            ->add('skills', CollectionType::class, ['type' => new SkillType(),
+            ])
+            ->add('save', SubmitType::class,
+                array(
+                'label' => 'Save',
+                'attr' => array(
+                    'class' => 'btn-xs',
+                ),
+            ))
+        ;
     }
 
     public function getName()

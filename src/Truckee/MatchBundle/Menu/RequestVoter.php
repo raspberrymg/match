@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Volunteer package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\VolunteerBundle\Menu\RequestVoter.php
-
 
 namespace Truckee\MatchBundle\Menu;
 
@@ -24,7 +22,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class RequestVoter implements VoterInterface
 {
-
     private $request;
 
     public function __construct(RequestStack $request_stack)
@@ -40,8 +37,8 @@ class RequestVoter implements VoterInterface
         if ($item->getUri() === $this->request->getRequestUri()) {
             // URL's completely match
             return true;
-        }
-        else if ($item->getUri() !== $this->request->getBaseUrl() . '/' && (substr($this->request->getRequestUri(), 0, strlen($item->getUri())) === $item->getUri())) {
+        } else if ($item->getUri() !== $this->request->getBaseUrl() . '/' && (substr($this->request->getRequestUri(), 0,
+                strlen($item->getUri())) === $item->getUri())) {
             // URL isn't just "/" and the first part of the URL match
             return true;
         }

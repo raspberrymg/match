@@ -69,10 +69,8 @@ class AdminControllerTest extends WebTestCase
     {
         $crawler = $this->login('admin');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Expiring opportunities")')->count());
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Incoming opportunities")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Expiring opportunities")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Incoming opportunities")')->count());
     }
 
     public function testExpiringAlertEmail()
@@ -91,8 +89,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('Send alerts to organizations')->link();
         $crawler = $this->client->click($link);
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Expiration alerts sent to")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Expiration alerts sent to")')->count());
     }
 
     public function testShowMatchedVolunteers()
@@ -100,8 +97,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('E-mail volunteers')->link();
         $crawler = $this->client->click($link);
-        $this->assertEquals(4,
-            $crawler->filter('div:contains("Harry")')->count());
+        $this->assertEquals(4, $crawler->filter('div:contains("Harry")')->count());
     }
 
     public function testSendVolunteerEmail()
@@ -124,8 +120,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('Accept organization')->link();
         $crawler = $this->client->click($link);
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("has been activated")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been activated")')->count());
     }
 
     public function testActivateOrganizationEmail()
@@ -143,8 +138,7 @@ class AdminControllerTest extends WebTestCase
     public function testDuplicateReport()
     {
         $crawler = $this->login('admin');
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Possibly same as")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Possibly same as")')->count());
     }
 
     public function testDropOrganization()
@@ -152,8 +146,7 @@ class AdminControllerTest extends WebTestCase
         $crawler = $this->login('admin');
         $link = $crawler->selectLink('Drop organization')->link();
         $crawler = $this->client->click($link);
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("has been dropped")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("has been dropped")')->count());
     }
 
     public function testAdminOutbox()
@@ -200,15 +193,13 @@ class AdminControllerTest extends WebTestCase
         $form['org[focuses][6]']->tick();
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Glenshire Marmot Fund updated")')->count());
     }
 
     public function addStaff()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET',
-            '/admin/addStaff/1');
+        $crawler = $this->client->request('GET', '/admin/addStaff/1');
         $form = $crawler->selectButton('Save')->form();
         $form['person_add[personData][email]'] = 'dingus@bogus.info';
         $form['person_add[personData][username]'] = 'dingus';
@@ -225,8 +216,7 @@ class AdminControllerTest extends WebTestCase
     {
         $crawler = $this->addStaff();
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
     }
 
     public function testAddStaffEmail()
@@ -242,8 +232,7 @@ class AdminControllerTest extends WebTestCase
     private function addAdmin()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET',
-            '/admin/addAdmin');
+        $crawler = $this->client->request('GET', '/admin/addAdmin');
         $form = $crawler->selectButton('Save')->form();
         $form['person_add[personData][email]'] = 'dingus@bogus.info';
         $form['person_add[personData][username]'] = 'dingus';
@@ -260,8 +249,7 @@ class AdminControllerTest extends WebTestCase
     {
         $crawler = $this->addAdmin();
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus created")')->count());
     }
 
     public function testAdminLock()
@@ -271,9 +259,8 @@ class AdminControllerTest extends WebTestCase
         $form = $crawler->selectButton('Select')->form();
         $form['admin_select[user]'] = 9;
         $crawler = $this->client->submit($form);
-        
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("User Dorkus Ingus updated")')->count());
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("User Dorkus Ingus updated")')->count());
     }
 
     public function testAddAdminEmail()
@@ -290,28 +277,25 @@ class AdminControllerTest extends WebTestCase
     {
         //lock second of two staff members
         $before = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => 1, ));
+            'locked' => 1,));
         $crawler = $this->addStaff();
-        $crawler = $this->client->request('GET',
-            '/admin/lock/8');
+        $crawler = $this->client->request('GET', '/admin/lock/8');
         $after = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => true, ));
+            'locked' => true,));
 
         $this->assertEquals(1, count($after) - count($before));
 
         //cannot lock only staff member
-        $crawler = $this->client->request('GET',
-            '/admin/lock/2');
+        $crawler = $this->client->request('GET', '/admin/lock/2');
         $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => true, ));
+            'locked' => true,));
 
         $this->assertEquals(count($after), count($later));
 
         //cannot lock super_admin
-        $crawler = $this->client->request('GET',
-            '/admin/lock/1');
+        $crawler = $this->client->request('GET', '/admin/lock/1');
         $later = $this->em->getRepository('TruckeeMatchBundle:Person')->findAll(array(
-            'locked' => true, ));
+            'locked' => true,));
 
         $this->assertEquals(count($after), count($later));
     }
@@ -319,7 +303,7 @@ class AdminControllerTest extends WebTestCase
     public function testAddFocus()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET','/editFocus');
+        $crawler = $this->client->request('GET', '/editFocus');
         $form = $crawler->selectButton('Save')->form();
         $form['focus[focus]'] = 'Baloney';
         $form['focus[enabled]']->tick();
@@ -331,7 +315,7 @@ class AdminControllerTest extends WebTestCase
     public function testAddSkill()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET','/editSkill');
+        $crawler = $this->client->request('GET', '/editSkill');
         $form = $crawler->selectButton('Save')->form();
         $form['skill[skill]'] = 'Baloney';
         $form['skill[enabled]']->tick();
@@ -343,7 +327,7 @@ class AdminControllerTest extends WebTestCase
     public function testStaffHome()
     {
         $crawler = $this->login('admin');
-        $crawler = $this->client->request('GET','/staffhome');
+        $crawler = $this->client->request('GET', '/staffhome');
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("staff only please")')->count());
     }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -16,6 +15,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class AreaCodeValidator extends ConstraintValidator
 {
+
     public function validate($value, Constraint $constraint)
     {
         if (!(preg_match('/([0-9]{3})/', $value) || empty($value))) {

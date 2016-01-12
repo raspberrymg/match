@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\DataFixtures\ORM\LoadInitialFocusSkill.php
 
-
 namespace Truckee\MatchBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  *
@@ -64,8 +63,7 @@ class DefaultControllerTest extends WebTestCase
     public function testHome()
     {
         $crawler = $this->client->request('GET', '/');
-        $this->assertGreaterThan(0,
-            $crawler->filter("html:contains('Org name here')")->count());
+        $this->assertGreaterThan(0, $crawler->filter("html:contains('Org name here')")->count());
     }
 
     public function testAboutUs()

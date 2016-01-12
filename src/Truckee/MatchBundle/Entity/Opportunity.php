@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -25,13 +24,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Opportunity
 {
+
     public function __construct()
     {
         $this->volunteers = new ArrayCollection();
         $this->email = new ArrayCollection();
         $this->searches = new ArrayCollection();
     }
-
     /**
      * @var int
      *
@@ -342,7 +341,6 @@ class Opportunity
     {
         return $this->organization;
     }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *

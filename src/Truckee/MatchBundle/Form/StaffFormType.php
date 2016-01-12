@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -19,12 +18,13 @@ use Truckee\MatchBundle\Form\PersonType as BaseType;
 
 class StaffFormType extends BaseType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
-                ->add('organization', new OrganizationType($this->options))
+            ->add('organization', new OrganizationType($this->options))
         ;
     }
 

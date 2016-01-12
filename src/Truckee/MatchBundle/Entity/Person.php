@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  *
@@ -27,6 +26,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 abstract class Person extends BaseUser
 {
+
     /**
      * Constructor.
      */
@@ -35,7 +35,6 @@ abstract class Person extends BaseUser
         parent::__construct();
         $this->events = new ArrayCollection();
     }
-
     /**
      * @var int
      *
@@ -135,8 +134,9 @@ abstract class Person extends BaseUser
 
     public function getName()
     {
-        return $this->getLastName().', '.$this->getFirstName();
+        return $this->getLastName() . ', ' . $this->getFirstName();
     }
+
     public function isGranted($role)
     {
         return in_array($role, $this->getRoles());
@@ -180,7 +180,7 @@ abstract class Person extends BaseUser
     {
         $marker = ($this->locked) ? '*' : '';
 
-        return $this->getLastName().', '.$this->getFirstName().$marker;
+        return $this->getLastName() . ', ' . $this->getFirstName() . $marker;
     }
 
     /**

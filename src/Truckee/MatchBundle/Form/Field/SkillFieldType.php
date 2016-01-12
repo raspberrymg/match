@@ -52,6 +52,6 @@ class SkillFieldType extends AbstractType
     {
         $populated = $this->repo->countSkills();
 
-        return (1 >=  $populated) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
+        return (1 >= $populated) ? 'Sign in as Admin; add skill critieria' : 'Skill criteria';
     }
 }

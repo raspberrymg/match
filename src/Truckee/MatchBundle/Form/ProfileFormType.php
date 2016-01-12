@@ -22,10 +22,12 @@ use PUGX\MultiUserBundle\Form\ProfileFormType as BaseType;
 
 class ProfileFormType extends BaseType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('personData', new PersonDataType(), array(
+            ->add('personData', new PersonDataType(),
+                array(
                 'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
             ->add('current_password', PasswordType::class,
@@ -39,8 +41,8 @@ class ProfileFormType extends BaseType
                 'constraints' => new UserPassword(['message' => 'Password incorrrect']),
                 'attr' => array(
                     'placeholder' => 'Current password',
-                ), ))
-            ->add('save',SubmitType::class, 
+                ),))
+            ->add('save', SubmitType::class,
                 array(
                 'label' => 'Save',
                 'attr' => array(
@@ -64,8 +66,7 @@ class ProfileFormType extends BaseType
                 if ($this->options['skill_required']) {
                     $form->add('skills', 'skills');
                 };
-                if (null != $this->options && array_key_exists('focus_required',
-                        $this->options) && $this->options['focus_required']) {
+                if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
                     $form->add('focuses', 'focuses');
                 };
             }

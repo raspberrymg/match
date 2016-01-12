@@ -17,4 +17,5 @@ namespace Truckee\MatchBundle\Tests\Stub;
  */
 class SomeUser
 {
+
 }

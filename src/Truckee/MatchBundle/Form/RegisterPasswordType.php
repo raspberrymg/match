@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Form\PersonType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
  */
 class RegisterPasswordType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -42,14 +42,14 @@ class RegisterPasswordType extends AbstractType
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
-                    ), ),
+                    ),),
                 'second_options' => array('label' => 'form.password_confirmation',
                     'attr' => array(
                         'placeholder' => 'Confirm password',
                     ),
                     'label_attr' => array(
                         'class' => 'sr-only',
-                    ), ),
+                    ),),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
         ;

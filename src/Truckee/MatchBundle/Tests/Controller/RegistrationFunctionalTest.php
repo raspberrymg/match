@@ -25,7 +25,7 @@ class RegistrationFunctionalTest extends WebTestCase
 
     public function setup()
     {
-        $classes      = array(
+        $classes = array(
             'Truckee\MatchBundle\DataFixtures\Test\LoadFocusSkillData',
             'Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData',
         );
@@ -51,11 +51,11 @@ class RegistrationFunctionalTest extends WebTestCase
 
     private function activateVolunteer()
     {
-        $container   = $this->client->getContainer();
+        $container = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
-        $user        = $userManager->findUserBy(array('username' => 'hvolunteer'));
-        $token       = $user->getConfirmationToken();
-        $crawler     = $this->client->request('GET', "/register/confirm/$token");
+        $user = $userManager->findUserBy(array('username' => 'hvolunteer'));
+        $token = $user->getConfirmationToken();
+        $crawler = $this->client->request('GET', "/register/confirm/$token");
     }
 
     private function submitStaffForm()
@@ -76,11 +76,11 @@ class RegistrationFunctionalTest extends WebTestCase
 
     private function activateStaff()
     {
-        $container   = $this->client->getContainer();
+        $container = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
-        $user        = $userManager->findUserBy(array('username' => 'jglenshire'));
-        $token       = $user->getConfirmationToken();
-        $crawler     = $this->client->request('GET', "/register/confirm/$token");
+        $user = $userManager->findUserBy(array('username' => 'jglenshire'));
+        $token = $user->getConfirmationToken();
+        $crawler = $this->client->request('GET', "/register/confirm/$token");
     }
 
     public function testRegisterVolunteerRoute()
@@ -95,8 +95,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitVolunteerForm();
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
     }
 
     public function testRegisterVolunteerEmail()
@@ -112,17 +111,16 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->activateVolunteer();
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
     }
 
     public function testProfileVolunteer()
     {
         $this->submitVolunteerForm();
         $this->activateVolunteer();
-        $crawler      = $this->client->request('GET', '/profile/edit');
-        $form         = $crawler->selectButton('Save')->form();
-        $values       = $form->getPhpValues();
+        $crawler = $this->client->request('GET', '/profile/edit');
+        $form = $crawler->selectButton('Save')->form();
+        $values = $form->getPhpValues();
         $receiveEmail = $values['fos_user_profile']['receiveEmail'];
 
         $this->assertTrue(1 == $receiveEmail);
@@ -140,11 +138,9 @@ class RegistrationFunctionalTest extends WebTestCase
         $crawler = $this->client->submit($form);
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("The password has been changed")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("The password has been changed")')->count() > 0);
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
     }
 
     public function testRegisterStaffRoute()
@@ -159,8 +155,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitStaffForm();
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("The user has been created successfully")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("The user has been created successfully")')->count() > 0);
     }
 
     public function testRegisterStaffEmail()
@@ -177,8 +172,7 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->activateStaff();
         $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("activated")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("activated")')->count() > 0);
     }
 
     public function testProfileStaff()
@@ -186,68 +180,63 @@ class RegistrationFunctionalTest extends WebTestCase
         $this->submitStaffForm();
         $this->activateStaff();
         $crawler = $this->client->request('GET', '/profile/edit');
-        $form    = $crawler->selectButton('Save')->form();
-        $values  = $form->getPhpValues();
-        $filled  = count($values['staff_profile_form']);
+        $form = $crawler->selectButton('Save')->form();
+        $values = $form->getPhpValues();
+        $filled = count($values['staff_profile_form']);
 
         $this->assertEquals(4, $filled);
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
     }
 
     public function testProfileAdmin()
     {
-        $crawler           = $this->client->request('GET', '/login');
-        $form              = $crawler->selectButton('Login')->form();
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Login')->form();
         $form['_username'] = 'admin';
         $form['_password'] = '123Abcd';
-        $crawler           = $this->client->submit($form);
-        $crawler           = $this->client->request('GET', '/profile/edit');
+        $crawler = $this->client->submit($form);
+        $crawler = $this->client->request('GET', '/profile/edit');
 
-        $this->assertTrue($crawler->filter('html:contains("Admin Profile Form")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Admin Profile Form")')->count() > 0);
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
-   }
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
+    }
 
     public function testResetPassword()
     {
         $this->client->followRedirects();
         $this->submitStaffForm();
-        $crawler          = $this->client->request('GET', '/login');
-        $link             = $crawler->selectLink('Forgot password?')->link();
-        $crawler          = $this->client->click($link);
+        $crawler = $this->client->request('GET', '/login');
+        $link = $crawler->selectLink('Forgot password?')->link();
+        $crawler = $this->client->click($link);
 
         $this->assertTrue($crawler->filter('html:contains("Username or email")')->count() > 0);
 
-        $form             = $crawler->selectButton('Reset password')->form();
+        $form = $crawler->selectButton('Reset password')->form();
         $form['username'] = 'jglenshire';
-        $crawler          = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         $this->assertTrue($crawler->filter('html:contains("..@bogus.info")')->count() > 0);
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
 
-        $container   = $this->client->getContainer();
+        $container = $this->client->getContainer();
         $userManager = $container->get('fos_user.user_manager');
-        $user        = $userManager->findUserBy(array('username' => 'jglenshire'));
-        $token       = $user->getConfirmationToken();
-        $crawler     = $this->client->request('GET', "/resetting/reset/$token");
+        $user = $userManager->findUserBy(array('username' => 'jglenshire'));
+        $token = $user->getConfirmationToken();
+        $crawler = $this->client->request('GET', "/resetting/reset/$token");
 
         $this->assertTrue($crawler->filter('html:contains("Reset password")')->count() > 0);
 
-        $form             = $crawler->selectButton('Change password')->form();
+        $form = $crawler->selectButton('Change password')->form();
         $form['fos_user_resetting_form[plainPassword][first]'] = '123Abcd';
         $form['fos_user_resetting_form[plainPassword][second]'] = '123Abcd';
-        $crawler          = $this->client->submit($form);
+        $crawler = $this->client->submit($form);
 
         $this->assertTrue($crawler->filter('html:contains("Signed in as")')->count() > 0);
 
-        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count()
-            > 0);
+        $this->assertTrue($crawler->filter('html:contains("Org name here")')->count() > 0);
 
         $this->client->followRedirects(false);
     }

@@ -29,6 +29,7 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  */
 class OrganizationController extends Controller
 {
+
     /**
      * @Route("/edit/{id}", name="org_edit")
      * @Template("Organization/orgEdit.html.twig")

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -22,7 +21,6 @@ use Truckee\MatchBundle\Entity\Search;
  */
 class OppSearchTest extends WebTestCase
 {
-
     private $em;
 
     public function setUp()
@@ -41,12 +39,13 @@ class OppSearchTest extends WebTestCase
 
         self::bootKernel();
         $this->em = static::$kernel->getContainer()
-                ->get('doctrine')
-                ->getManager()
+            ->get('doctrine')
+            ->getManager()
         ;
     }
 
-    private function addSearch($opportunity) {
+    private function addSearch($opportunity)
+    {
         $organization = $opportunity->getOrganization();
         $skills = $opportunity->getSkills();
         $focuses = $organization->getFocuses();
@@ -73,7 +72,6 @@ class OppSearchTest extends WebTestCase
         $this->em->flush();
     }
 
-
     public function testAddSearch()
     {
         $opportunity = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->findOneBy(['oppName' => 'Feeder']);
@@ -83,15 +81,15 @@ class OppSearchTest extends WebTestCase
 
         $this->assertEquals(2, count($searches));
     }
-    
+
     public function testSearchFocusesSkills()
     {
         $opportunity = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->findOneBy(['oppName' => 'Feeder']);
         $this->addSearch($opportunity);
-        $searches  = $this->em->getRepository('TruckeeMatchBundle:Search')->findAll();
+        $searches = $this->em->getRepository('TruckeeMatchBundle:Search')->findAll();
         $focuses = [];
         $skills = [];
-        foreach($searches as $search) {
+        foreach ($searches as $search) {
             if (!empty($search->getFocus())) {
                 $focuses[] = $search->getFocus();
             }
@@ -102,13 +100,13 @@ class OppSearchTest extends WebTestCase
         $this->assertGreaterThan(0, count($focuses));
         $this->assertGreaterThan(0, count($skills));
     }
-    
+
     public function testSearchTypeDate()
     {
         $opportunity = $this->em->getRepository('TruckeeMatchBundle:Opportunity')->findOneBy(['oppName' => 'Feeder']);
         $this->addSearch($opportunity);
         $search = $this->em->getRepository('TruckeeMatchBundle:Search')->find(1);
-        
+
         $this->assertNotNull($search->getDate());
         $this->assertNotNull($search->getType());
     }

@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Form\PersonAddType.php
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -36,10 +35,11 @@ class PersonAddType extends AbstractType
             ->add('personData', new PersonDataType(), array(
                 'data_class' => $this->class,
             ))
-            ->add('registerPassword', new RegisterPasswordType(), array(
+            ->add('registerPassword', new RegisterPasswordType(),
+                array(
                 'data_class' => $this->class,
             ))
-            ->add('save',SubmitType::class, 
+            ->add('save', SubmitType::class,
                 array(
                 'label' => 'Save',
                 'attr' => array(

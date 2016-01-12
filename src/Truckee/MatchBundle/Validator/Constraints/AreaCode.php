@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -21,4 +20,5 @@ use Symfony\Component\Validator\Constraint;
 class AreaCode extends Constraint
 {
     public $message = 'Area code must be 3 digits';
+
 }

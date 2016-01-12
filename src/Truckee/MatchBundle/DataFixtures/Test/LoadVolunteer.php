@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\Tests\Repository\DataFixtures\Test\LoadVolunteer
-
 
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
@@ -23,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Loads user data.
  */
-class LoadVolunteer extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
+class LoadVolunteer extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface

@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class RegistrationController extends Controller
 {
+
     /**
      * @Route("/staff", name="reg_staff")
      *
@@ -35,6 +36,7 @@ class RegistrationController extends Controller
                 ->get('pugx_multi_user.registration_manager')
                 ->register('Truckee\MatchBundle\Entity\Staff', $templates);
     }
+
     /**
      * @Route("/volunteer", name="reg_volunteer")
      *

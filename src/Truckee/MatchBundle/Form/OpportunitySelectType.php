@@ -47,10 +47,11 @@ class OpportunitySelectType extends AbstractType
                 return $er->createQueryBuilder('o')
                     ->where("o.active = '1'")
                     ->andWhere("o.organization = $this->orgId");
-                },
-                    'empty_value' => 'Select opportunity',)
-                )
-            ->add('save', SubmitType::class, array(
+            },
+                'empty_value' => 'Select opportunity',)
+            )
+            ->add('save', SubmitType::class,
+                array(
                 'attr' => array(
                     'class' => "btn  btn-xs active btn-primary",
                     'label' => 'Select opportunity'

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -105,7 +104,6 @@ class Skill
     {
         return $this->enabled;
     }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -126,4 +124,5 @@ class Skill
      * @ORM\OneToMany(targetEntity="Search", mappedBy="skill", cascade={"persist"})
      */
     protected $searches;
+
 }

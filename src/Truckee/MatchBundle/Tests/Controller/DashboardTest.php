@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -21,7 +20,6 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
  */
 class DashboardTest extends WebTestCase
 {
-
     private $client;
     private $em;
     private $tool;
@@ -30,11 +28,11 @@ class DashboardTest extends WebTestCase
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()
-                ->get('doctrine')
-                ->getManager()
+            ->get('doctrine')
+            ->getManager()
         ;
         $this->tool = static::$kernel->getContainer()
-                ->get('truckee_match.toolbox')
+            ->get('truckee_match.toolbox')
         ;
 
         $classes = array(

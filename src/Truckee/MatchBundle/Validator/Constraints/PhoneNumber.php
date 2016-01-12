@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Validator\Constraints\PhoneNumber.php
 
-
 namespace Truckee\MatchBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
@@ -23,4 +22,5 @@ use Symfony\Component\Validator\Constraint;
 class PhoneNumber extends Constraint
 {
     public $message = 'Phone must be like 123-4567';
+
 }

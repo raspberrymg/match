@@ -31,6 +31,7 @@ use Truckee\MatchBundle\Entity\Skill;
  */
 class CriteriaController extends Controller
 {
+
     /**
      * @Route("/editFocus", name="focus_edit")
      * @Template("Criteria/editFocus.html.twig")
@@ -81,6 +82,7 @@ class CriteriaController extends Controller
             'title' => 'Edit focuses',
         ];
     }
+
     /**
      * @Route("/editSkill", name="skill_edit")
      * @Template("Criteria/editSkill.html.twig")

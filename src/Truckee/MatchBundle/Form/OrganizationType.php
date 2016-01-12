@@ -38,8 +38,7 @@ class OrganizationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('active', CheckboxType::class,
-                array(
+            ->add('active', CheckboxType::class, array(
                 'label' => 'Active: ',
             ))
             ->add('addDate', DateType::class)
@@ -146,7 +145,7 @@ class OrganizationType extends AbstractType
                 'by_reference' => false,
                 'prototype' => true,
             ))
-            ->add('save',SubmitType::class, 
+            ->add('save', SubmitType::class,
                 array(
                 'label' => 'Save organization',
                 'attr' => array(

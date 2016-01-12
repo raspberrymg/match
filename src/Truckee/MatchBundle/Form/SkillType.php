@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\Form\SkillType.php
-
 
 namespace Truckee\MatchBundle\Form;
 
@@ -24,12 +22,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SkillType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('skill')
-                ->add('enabled')
-            ;
+            ->add('skill')
+            ->add('enabled')
+        ;
     }
 
     public function getName()

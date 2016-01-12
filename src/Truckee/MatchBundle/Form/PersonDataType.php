@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Form\PersonType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class PersonDataType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -61,7 +61,7 @@ class PersonDataType extends AbstractType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-            ), ))
+                ),))
             ->add('username', TextType::class,
                 array(
                 'label' => 'form.username',
@@ -71,7 +71,7 @@ class PersonDataType extends AbstractType
                 ),
                 'label_attr' => array(
                     'class' => 'sr-only',
-            ), ))
+                ),))
         ;
     }
 

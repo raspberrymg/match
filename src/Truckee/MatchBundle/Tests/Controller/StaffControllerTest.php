@@ -61,8 +61,7 @@ class StaffControllerTest extends WebTestCase
         $form['opportunity[skills][2]']->tick();
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Opportunity added")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Opportunity added")')->count());
     }
 
     public function testOrganizationPhoneValidation()
@@ -74,10 +73,8 @@ class StaffControllerTest extends WebTestCase
         $form['org[areacode]'] = '5';
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Phone must be")')->count());
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Area code must be")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Phone must be")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Area code must be")')->count());
     }
 
     public function testOrganizationFocusEdit()
@@ -88,13 +85,12 @@ class StaffControllerTest extends WebTestCase
         $form['org[focuses][0]']->untick();
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,  $crawler->filter('html:contains("At least one")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("At least one")')->count());
 
         $form['org[focuses][3]']->tick();
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("updated")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("updated")')->count());
     }
 
     public function testOpportunityEdit()
@@ -104,15 +100,13 @@ class StaffControllerTest extends WebTestCase
         $form = $crawler->selectButton('Save opportunity')->form();
         $form['opportunity[skills][1]']->untick();
         $crawler = $this->client->submit($form);
-        
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("At least one skill is required")')->count());
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("At least one skill is required")')->count());
 
         $form['opportunity[skills][2]']->tick();
         $crawler = $this->client->submit($form);
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("updated")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("updated")')->count());
     }
 
     public function testAddNewEvent()

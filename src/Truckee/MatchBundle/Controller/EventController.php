@@ -27,6 +27,7 @@ use Doctrine\Common\Collections\Criteria;
  */
 class EventController extends Controller
 {
+
     /**
      * @Route("/manage/{id}", name="event_manage")
      * @Security("has_role('ROLE_STAFF')")
@@ -70,6 +71,7 @@ class EventController extends Controller
             'event' => $event,
         );
     }
+
     /**
      * @Template("Event/sidebarEvents.html.twig")
      * @return type
@@ -94,6 +96,7 @@ class EventController extends Controller
             return array('templates' => $templates,);
         }
     }
+
     /**
      * @Template("Event/editor.html.twig")
      * @param type $id

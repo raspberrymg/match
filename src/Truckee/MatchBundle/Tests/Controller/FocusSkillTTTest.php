@@ -58,8 +58,7 @@ class FocusSkillTTTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editFocus');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Animal Welfare")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Animal Welfare")')->count());
         $this->client->followRedirects(false);
     }
 
@@ -69,8 +68,7 @@ class FocusSkillTTTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editSkill');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Driving")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Driving")')->count());
         $this->client->followRedirects(false);
     }
 
@@ -78,8 +76,7 @@ class FocusSkillTTTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Animal Welfare")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Animal Welfare")')->count());
     }
 
     public function testOrganizationEditFocus()
@@ -88,8 +85,7 @@ class FocusSkillTTTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/org/edit/1');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Animal Welfare")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Animal Welfare")')->count());
         $this->client->followRedirects(false);
     }
 
@@ -97,8 +93,7 @@ class FocusSkillTTTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/volunteer');
 
-        $this->assertEquals(1,
-            $crawler->filter('html:contains("Skill")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Skill")')->count());
     }
 
     public function testOpportunityEditSkill()
@@ -107,8 +102,7 @@ class FocusSkillTTTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/opp/edit/1');
 
-        $this->assertEquals(1,
-            $crawler->filter('html:contains("Skill")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Skill")')->count());
         $this->client->followRedirects(false);
     }
 }

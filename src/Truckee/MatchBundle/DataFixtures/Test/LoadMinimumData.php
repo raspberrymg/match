@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\DataFixtures\Test\LoadMinimumData.php
 
-
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;

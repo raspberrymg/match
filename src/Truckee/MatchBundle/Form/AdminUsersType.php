@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -30,24 +29,26 @@ class AdminUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('user',EntityType::class, array(
-                    'label' => 'Admin user',
-                    'class' => 'TruckeeMatchBundle:Person',
-                    'choice_label' => 'nameLockStatus',
-                    'empty_value' => 'Select admin user',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('a')
+            ->add('user', EntityType::class,
+                array(
+                'label' => 'Admin user',
+                'class' => 'TruckeeMatchBundle:Person',
+                'choice_label' => 'nameLockStatus',
+                'empty_value' => 'Select admin user',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('a')
                         ->where('a.roles LIKE :role')
                         ->setParameter('role', '%ROLE_ADMIN%')
                         ->orderBy('a.lastName, a.firstName', 'ASC')
-                ;
-            },
-                ))
-                ->add('Select',SubmitType::class,  array(
-                    'attr' => array(
-                        'class' => 'btn btn-xs active',
-                    )
-                ))
+                    ;
+                },
+            ))
+            ->add('Select', SubmitType::class,
+                array(
+                'attr' => array(
+                    'class' => 'btn btn-xs active',
+                )
+            ))
         ;
     }
 

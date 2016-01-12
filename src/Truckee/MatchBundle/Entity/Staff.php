@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -34,7 +33,6 @@ class Staff extends Person
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
     protected $discr = 'staff';
 
     /**

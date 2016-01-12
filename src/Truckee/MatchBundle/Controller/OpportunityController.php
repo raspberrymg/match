@@ -28,6 +28,7 @@ use Truckee\MatchBundle\Form\OpportunitySelectType;
  */
 class OpportunityController extends Controller
 {
+
     /**
      * Create a new opportunity for organization
      * If user is staff, then for that org
@@ -88,6 +89,7 @@ class OpportunityController extends Controller
             'templates' => $templates,
         );
     }
+
     /**
      * @Route("/edit/{id}", name="opp_edit")
      * @Template("Opportunity/oppManage.html.twig")
@@ -135,6 +137,7 @@ class OpportunityController extends Controller
             'templates' => $templates,
         );
     }
+
     /**
      * @Route("/select/{id}", name="opp_select")
      */
@@ -150,6 +153,7 @@ class OpportunityController extends Controller
 
         return $response;
     }
+
     private function skillTemplates($skills)
     {
         $save = true;

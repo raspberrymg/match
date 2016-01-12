@@ -10,7 +10,6 @@
 
 //src\Truckee\MatchBundle\Form\MatchSearchType
 
-
 namespace Truckee\MatchBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -38,7 +37,7 @@ class MatchSearchType extends AbstractType
     {
         $builder
             ->add('organization', new OrganizationSelectType())
-            ->add('Search',SubmitType::class, 
+            ->add('Search', SubmitType::class,
                 array(
                 'attr' => array(
                     'class' => 'btn-xs',
@@ -55,13 +54,11 @@ class MatchSearchType extends AbstractType
             $userType = ('anon.' != $user) ? $user->getUserType() : array();
 
             if ($this->userOptions['focus_required']) {
-                $focusOptions['data'] = ('volunteer' === $userType) ? $user->getFocuses()
-                        : null;
+                $focusOptions['data'] = ('volunteer' === $userType) ? $user->getFocuses() : null;
                 $form->add('focuses', 'focuses', $focusOptions);
             }
             if ($this->userOptions['skill_required']) {
-                $skillOptions['data'] = ('volunteer' === $userType) ? $user->getSkills()
-                        : null;
+                $skillOptions['data'] = ('volunteer' === $userType) ? $user->getSkills() : null;
                 $form->add('skills', 'skills', $skillOptions);
             }
         });

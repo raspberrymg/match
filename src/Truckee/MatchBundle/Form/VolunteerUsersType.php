@@ -46,7 +46,7 @@ class VolunteerUsersType extends AbstractType
                 ;
             },
             ))
-            ->add('Select',SubmitType::class, 
+            ->add('Select', SubmitType::class,
                 array(
                 'attr' => array(
                     'class' => 'btn btn-xs active',

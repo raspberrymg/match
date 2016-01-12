@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -22,8 +21,9 @@ use Truckee\MatchBundle\Entity\Skill;
 /**
  * Loads forcus & skill data.
  */
-class LoadFocusSkillData extends AbstractFixture implements  OrderedFixtureInterface
+class LoadFocusSkillData extends AbstractFixture implements OrderedFixtureInterface
 {
+
     /**
      * Load fixtures.
      *

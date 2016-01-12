@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\DataFixtures\Test\LoadStaffUserBorko
-
 
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
@@ -24,7 +22,7 @@ use Truckee\MatchBundle\Entity\Organization;
 /**
  * Loads user data.
  */
-class LoadStaffUserBorko extends AbstractFixture implements  ContainerAwareInterface, OrderedFixtureInterface
+class LoadStaffUserBorko extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface

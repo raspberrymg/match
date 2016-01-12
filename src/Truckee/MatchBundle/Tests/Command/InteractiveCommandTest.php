@@ -1,7 +1,5 @@
 <?php
-
 //src\Truckee\MatchBundle\Tests\Command\InteractiveCommandTest.php
-
 
 namespace Truckee\MatchBundle\Tests\Command;
 
@@ -16,6 +14,7 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
  */
 class InteractiveCommandTest extends WebTestCase
 {
+
     public function setUp()
     {
         $classes = array(
@@ -38,11 +37,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("administrator\n"
-                        ."First\n "
-                        ."Last\n "
-                        ."administrator@bogus.info\n "
-                        ."123Abcd\n "
-                        ."admin\n"
+                . "First\n "
+                . "Last\n "
+                . "administrator@bogus.info\n "
+                . "123Abcd\n "
+                . "admin\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
 
@@ -62,11 +61,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("staff\n"
-                        ."First\n "
-                        ."Last\n "
-                        ."staff@bogus.info\n "
-                        ."123Abcd\n "
-                        ."staff\n"
+                . "First\n "
+                . "Last\n "
+                . "staff@bogus.info\n "
+                . "123Abcd\n "
+                . "staff\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
 
@@ -86,11 +85,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
-                        ."First\n "
-                        ."Last\n "
-                        ."volunteer@bogus.info\n "
-                        ."123Abcd\n "
-                        ."volunteer\n"
+                . "First\n "
+                . "Last\n "
+                . "volunteer@bogus.info\n "
+                . "123Abcd\n "
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
 
@@ -114,11 +113,11 @@ class InteractiveCommandTest extends WebTestCase
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream(
 //                        "volunteer\n"
-                        "First\n "
-                        . "Last\n "
-                        . "volunteer@bogus.info\n "
-                        . "123Abcd\n "
-                        . "volunteer\n"
+                "First\n "
+                . "Last\n "
+                . "volunteer@bogus.info\n "
+                . "123Abcd\n "
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
     }
@@ -140,10 +139,10 @@ class InteractiveCommandTest extends WebTestCase
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
 //                        . "First\n "
-                        . "Last\n "
-                        . "volunteer@bogus.info\n "
-                        . "123Abcd\n "
-                        . "volunteer\n"
+                . "Last\n "
+                . "volunteer@bogus.info\n "
+                . "123Abcd\n "
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
     }
@@ -164,11 +163,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
-                        . "First\n "
+                . "First\n "
 //                        . "Last\n "
-                        . "volunteer@bogus.info\n "
-                        . "123Abcd\n "
-                        . "volunteer\n"
+                . "volunteer@bogus.info\n "
+                . "123Abcd\n "
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
     }
@@ -189,11 +188,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
-                        . "First\n "
-                        . "Last\n "
+                . "First\n "
+                . "Last\n "
 //                        . "volunteer@bogus.info\n "
-                        . "123Abcd\n "
-                        . "volunteer\n"
+                . "123Abcd\n "
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
     }
@@ -214,11 +213,11 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
-                        . "First\n "
-                        . "Last\n "
-                        . "volunteer@bogus.info\n "
+                . "First\n "
+                . "Last\n "
+                . "volunteer@bogus.info\n "
 //                        . "123Abcd\n "
-                        . "volunteer\n"
+                . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));
     }
@@ -239,10 +238,10 @@ class InteractiveCommandTest extends WebTestCase
 
         $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream("volunteer\n"
-                        . "First\n "
-                        . "Last\n "
-                        . "volunteer@bogus.info\n "
-                        . "123Abcd\n "
+                . "First\n "
+                . "Last\n "
+                . "volunteer@bogus.info\n "
+                . "123Abcd\n "
 //                        . "volunteer\n"
         ));
         $commandTester->execute(array('command' => $command->getName()));

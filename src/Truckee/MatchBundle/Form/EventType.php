@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -31,52 +30,56 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('event', TextareaType::class, array(
-                    'label' => 'Event',
-                    'attr' => array(
-                        'placeholder' => 'Event',
-                        'cols' => '40',
-                        'rows' => '1',
-                    ),
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                ))
-                ->add('location', TextType::class, array(
-                    'label' => 'Location',
-                    'attr' => array(
-                        'placeholder' => 'Location',
-                    ),
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                ))
-                ->add('starttime', TextType::class, array(
-                    'label' => 'Start time: ',
-                    'attr' => array(
-                        'placeholder' => 'Start time (hh:mm AM/PM)',
-                    ),
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                ))
-                ->add('eventdate', DateType::class, array(
-                    'widget' => 'single_text',
-                    'format' => 'M/d/y',
-                    'label' => 'Date',
-                    'attr' => array(
-                        'placeholder' => 'Event date (m/d/y)',
-                       
-                    ),
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                ))
-                ->add('submit',SubmitType::class,  array(
-                    'attr' => array(
-                        'class' => 'btn-xs',
-                    )
-                ))
+            ->add('event', TextareaType::class,
+                array(
+                'label' => 'Event',
+                'attr' => array(
+                    'placeholder' => 'Event',
+                    'cols' => '40',
+                    'rows' => '1',
+                ),
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+            ))
+            ->add('location', TextType::class,
+                array(
+                'label' => 'Location',
+                'attr' => array(
+                    'placeholder' => 'Location',
+                ),
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+            ))
+            ->add('starttime', TextType::class,
+                array(
+                'label' => 'Start time: ',
+                'attr' => array(
+                    'placeholder' => 'Start time (hh:mm AM/PM)',
+                ),
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+            ))
+            ->add('eventdate', DateType::class,
+                array(
+                'widget' => 'single_text',
+                'format' => 'M/d/y',
+                'label' => 'Date',
+                'attr' => array(
+                    'placeholder' => 'Event date (m/d/y)',
+                ),
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+            ))
+            ->add('submit', SubmitType::class,
+                array(
+                'attr' => array(
+                    'class' => 'btn-xs',
+                )
+            ))
         ;
     }
 

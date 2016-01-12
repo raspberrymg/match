@@ -22,6 +22,7 @@ use PUGX\MultiUserBundle\Form\RegistrationFormType as BaseType;
  */
 class PersonType extends BaseType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -31,13 +32,15 @@ class PersonType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('personData', new PersonDataType(), array(
+            ->add('personData', new PersonDataType(),
+                array(
                 'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
-            ->add('registerPassword', new RegisterPasswordType(), array(
+            ->add('registerPassword', new RegisterPasswordType(),
+                array(
                 'data_class' => 'Truckee\MatchBundle\Entity\Person',
             ))
-            ->add('save',SubmitType::class, 
+            ->add('save', SubmitType::class,
                 array(
                 'label' => 'Save',
                 'attr' => array(
@@ -49,5 +52,6 @@ class PersonType extends BaseType
 
     public function getName()
     {
+
     }
 }

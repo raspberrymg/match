@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -77,7 +76,6 @@ class Search
     {
         return $this->type;
     }
-
     /**
      * @var \Truckee\MatchBundle\Entity\Focus
      *
@@ -109,7 +107,6 @@ class Search
     {
         return $this->focus;
     }
-
     /**
      * @var \Truckee\MatchBundle\Entity\Organization
      *
@@ -141,7 +138,6 @@ class Search
     {
         return $this->organization;
     }
-
     /**
      * @var \Truckee\MatchBundle\Entity\Opportunity
      *
@@ -173,7 +169,6 @@ class Search
     {
         return $this->opportunity;
     }
-
     /**
      * @var \Truckee\MatchBundle\Entity\Skill
      *

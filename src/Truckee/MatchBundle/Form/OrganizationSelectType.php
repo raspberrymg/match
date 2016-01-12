@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\Form\OrganizationSelectType
-
 
 namespace Truckee\MatchBundle\Form;
 
@@ -26,21 +24,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrganizationSelectType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('organization',EntityType::class, [
-                    'class' => 'Truckee\MatchBundle\Entity\Organization',
-                    'choice_label' => 'orgName',
-                    'label_attr' => array(
-                        'class' => 'sr-only',
-                    ),
-                    'query_builder' => function (EntityRepository $er) {
+            ->add('organization', EntityType::class,
+                [
+                'class' => 'Truckee\MatchBundle\Entity\Organization',
+                'choice_label' => 'orgName',
+                'label_attr' => array(
+                    'class' => 'sr-only',
+                ),
+                'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('o')
-                        ->where("o.temp = '0'");
+                    ->where("o.temp = '0'");
             },
-                    'empty_value' => 'Select organization', ]
-                )
+                'empty_value' => 'Select organization',]
+            )
         ;
     }
 

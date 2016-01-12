@@ -22,6 +22,7 @@ use Truckee\MatchBundle\Form\PersonType as BaseType;
 
 class VolunteerFormType extends BaseType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -37,14 +38,16 @@ class VolunteerFormType extends BaseType
             function (FormEvent $event) {
             $form = $event->getForm();
             if (null != $this->options && array_key_exists('skill_required', $this->options) && $this->options['skill_required']) {
-                $form->add('skills', 'skills', array(
+                $form->add('skills', 'skills',
+                    array(
                     'constraints' => array(
                         new Count(array('min' => '1', 'minMessage' => 'At least one skill is required')),
                     ),
                 ));
             }
             if (null != $this->options && array_key_exists('focus_required', $this->options) && $this->options['focus_required']) {
-                $form->add('focuses', 'focuses', array(
+                $form->add('focuses', 'focuses',
+                    array(
                     'constraints' => array(
                         new Count(array('min' => '1', 'minMessage' => 'At least one focus is required')),
                     ),

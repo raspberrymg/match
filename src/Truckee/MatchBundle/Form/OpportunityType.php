@@ -39,8 +39,7 @@ class OpportunityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('active', CheckboxType::class,
-                array(
+            ->add('active', CheckboxType::class, array(
                 'label' => 'Active',
             ))
             ->add('addDate', DateType::class)
@@ -86,8 +85,7 @@ class OpportunityType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('groupOk', CheckboxType::class,
-                array(
+            ->add('groupOk', CheckboxType::class, array(
                 'label' => 'Group OK',
             ))
             ->add('expireDate', DateType::class,
@@ -102,7 +100,7 @@ class OpportunityType extends AbstractType
                     'class' => 'sr-only',
                 ),
             ))
-            ->add('save',SubmitType::class, 
+            ->add('save', SubmitType::class,
                 array(
                 'label' => 'Save opportunity',
                 'attr' => array(

@@ -34,6 +34,7 @@ use Truckee\MatchBundle\Entity\Admin;
  */
 class AdminController extends Controller
 {
+
     /**
      * @Route("/", name="admin_home")
      * @Template()
@@ -80,6 +81,7 @@ class AdminController extends Controller
                 'menus' => $menus,
         ));
     }
+
     /**
      * @Route("/expiring", name="expiring_alerts")
      * @Template()
@@ -101,6 +103,7 @@ class AdminController extends Controller
                     'opportunities' => $opportunities,
         )));
     }
+
     /**
      * @Route("/matched/{id}", name="vol_matched")
      * @Template("Admin/showMatchedVolunteers.html.twig")
@@ -148,6 +151,7 @@ class AdminController extends Controller
             'title' => 'Matched volunteers',
         );
     }
+
     /**
      * @Route("/activate/{id}", name="activate_org")
      */
@@ -169,6 +173,7 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_home'));
     }
+
     /**
      * @Route("/orgdrop/{id}", name="org_drop")
      */
@@ -184,6 +189,7 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_home'));
     }
+
     /**
      * @Route("/dashboard", name="dashboard")
      * @Template("Admin/Dashboard/dashboard.html.twig")
@@ -233,6 +239,7 @@ class AdminController extends Controller
             'templates' => $templates,
         ];
     }
+
     /**
      * @Route("/select/{class}", name="person_select")
      * @Template("Admin/personSelect.html.twig")
@@ -272,6 +279,7 @@ class AdminController extends Controller
             'class' => $class,
         );
     }
+
     /**
      * @Route("/lock/{id}", name="account_lock")
      */
@@ -314,6 +322,7 @@ class AdminController extends Controller
                 return $this->redirect($this->generateUrl('admin_home'));
         }
     }
+
     /**
      * @Route("/select", name="org_select")
      * @Template("Organization/orgSelect.html.twig")
@@ -348,6 +357,7 @@ class AdminController extends Controller
             'title' => 'Select organization',
         );
     }
+
     /**
      * Adds staff member for existing organization.
      *
@@ -374,6 +384,7 @@ class AdminController extends Controller
                 'organization' => $organization,
         ));
     }
+
     /**
      * @Route("/addAdmin", name="admin_add")
      *
@@ -396,6 +407,7 @@ class AdminController extends Controller
                 'form' => $form->createView(),
         ));
     }
+
     private function createUser($data, $class, $organization = null)
     {
         $em = $this->getDoctrine()->getManager();

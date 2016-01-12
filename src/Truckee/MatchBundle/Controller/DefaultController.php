@@ -23,6 +23,7 @@ use Truckee\MatchBundle\Form\OpportunityEmailType;
 
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/", name="home")
      */
@@ -41,6 +42,7 @@ class DefaultController extends Controller
                 'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
         ));
     }
+
     /**
      * @Route("/search", name="opp_search")
      * @Template("default/oppSearch.html.twig")
@@ -79,6 +81,7 @@ class DefaultController extends Controller
                 'title' => 'Search for opportunities',
         ));
     }
+
     /**
      * @Route("/volunteer", name="volunteer")
      * @Template("MainMenu/volunteer.html.twig")
@@ -95,6 +98,7 @@ class DefaultController extends Controller
             'title' => 'Volunteering',
         );
     }
+
     /**
      * @Route("/non-profits", name="nonprofits")
      * @Template("MainMenu/nonProfit.html.twig")
@@ -111,6 +115,7 @@ class DefaultController extends Controller
             'title' => 'Non-profits',
         );
     }
+
     /**
      * @Route("/about-us", name="about_us")
      * @Template("MainMenu/aboutUs.html.twig")
@@ -121,6 +126,7 @@ class DefaultController extends Controller
             'title' => 'About us',
         );
     }
+
     /**
      * @Route("/contact-us", name="contact_us")
      * @Template("MainMenu/contactUs.html.twig")
@@ -131,6 +137,7 @@ class DefaultController extends Controller
             'title' => 'Contact us',
         );
     }
+
     /**
      * @Route("/oppForm/{id}", name="opp_form")
      * @Template("default/oppEmail.html.twig")
@@ -179,6 +186,7 @@ class DefaultController extends Controller
             'id' => $id,
         ];
     }
+
     /**
      * @Template("default/navigation.html.twig")
      */
@@ -197,6 +205,7 @@ class DefaultController extends Controller
             'type' => $type,
         );
     }
+
     /**
      * @Route("/nameCheck/{name}")
      * @Template("default/nameCheck.html.twig")

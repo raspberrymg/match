@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -28,10 +27,11 @@ class Soundex extends FunctionNode
         $this->stringExpression = $parser->StringPrimary();
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
+
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'Soundex('.
-            $this->stringExpression->dispatch($sqlWalker).
-        ')';
+        return 'Soundex(' .
+            $this->stringExpression->dispatch($sqlWalker) .
+            ')';
     }
 }

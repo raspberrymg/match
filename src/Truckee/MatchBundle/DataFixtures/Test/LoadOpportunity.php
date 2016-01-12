@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\DataFixtures\Test\LoadOpportunity
-
 
 namespace Truckee\MatchBundle\DataFixtures\Test;
 
@@ -24,6 +22,7 @@ use Truckee\MatchBundle\Entity\Opportunity;
  */
 class LoadOpportunity extends AbstractFixture implements OrderedFixtureInterface
 {
+
     /**
      * Load fixtures.
      *

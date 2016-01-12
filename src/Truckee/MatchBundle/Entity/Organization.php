@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -512,7 +511,6 @@ class Organization
     {
         return $this->focuses;
     }
-
     /**
      * @var bool
      *
@@ -543,7 +541,6 @@ class Organization
     {
         return $this->email;
     }
-
     /**
      * @var bool
      *

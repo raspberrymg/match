@@ -37,15 +37,14 @@ class OpportunityEmailType extends AbstractType
     {
         $this->oppName = $oppName;
         $this->orgName = $orgName;
-        $this->email   = $email;
-        $this->id      = $id;
+        $this->email = $email;
+        $this->id = $id;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', HiddenType::class,
-                [
+            ->add('id', HiddenType::class, [
                 'data' => $this->id
             ])
             ->add('to', TextType::class,
@@ -65,7 +64,7 @@ class OpportunityEmailType extends AbstractType
             ])
             ->add('subject', TextType::class,
                 [
-                'data' => $this->oppName.' opportunity',
+                'data' => $this->oppName . ' opportunity',
                 'attr' => [
                     'readonly' => 'readonly'
                 ]

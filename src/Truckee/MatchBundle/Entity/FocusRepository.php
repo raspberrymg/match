@@ -16,13 +16,14 @@ use Doctrine\ORM\EntityRepository;
 
 class FocusRepository extends EntityRepository
 {
+
     public function getFocusesNoAll()
     {
         $em = $this->getEntityManager();
 
         return $em->createQuery('select f from TruckeeMatchBundle:Focus f '
-                ."WHERE f.focus <> 'All' "
-                .'order by f.focus asc')->getResult();
+                . "WHERE f.focus <> 'All' "
+                . 'order by f.focus asc')->getResult();
     }
 
     public function countFocuses()
@@ -30,7 +31,7 @@ class FocusRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         return $em->createQuery('select count(f) from TruckeeMatchBundle:Focus f '
-                    ."WHERE f.enabled = '1'")
+                    . "WHERE f.enabled = '1'")
                 ->getSingleScalarResult();
     }
 }

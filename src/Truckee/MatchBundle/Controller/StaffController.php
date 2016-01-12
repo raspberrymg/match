@@ -23,6 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class StaffController extends Controller
 {
+
     /**
      * @Route("home", name="staff_home")
      */

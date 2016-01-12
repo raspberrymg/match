@@ -34,20 +34,20 @@ class FocusFieldType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                    'class' => 'TruckeeMatchBundle:Focus',
-                    'choice_label' => 'focus',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'attr' => array('class' => 'list-inline'),
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('f')
-                                ->orderBy('f.focus', 'ASC')
-                                ->where("f.enabled = '1'")
-                                ->andWhere("f.focus <> 'All'");
-                        },
-                    'label' => $this->isPopulated(),
-                )
-                            )
+                'class' => 'TruckeeMatchBundle:Focus',
+                'choice_label' => 'focus',
+                'expanded' => true,
+                'multiple' => true,
+                'attr' => array('class' => 'list-inline'),
+                'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('f')
+                        ->orderBy('f.focus', 'ASC')
+                        ->where("f.enabled = '1'")
+                        ->andWhere("f.focus <> 'All'");
+            },
+                'label' => $this->isPopulated(),
+            )
+        )
         ;
     }
 

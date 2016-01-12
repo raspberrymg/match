@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -35,7 +34,6 @@ class Volunteer extends Person
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
     protected $discr = 'volunteer';
 
     /**
@@ -78,7 +76,6 @@ class Volunteer extends Person
     {
         return $this->receiveEmail;
     }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
@@ -123,7 +120,6 @@ class Volunteer extends Person
     {
         return $this->focuses;
     }
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *

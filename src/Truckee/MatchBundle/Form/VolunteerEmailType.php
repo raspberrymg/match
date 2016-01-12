@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -35,16 +34,18 @@ class VolunteerEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('selectAll', CheckboxType::class, [
-                    'mapped' => '0',
-                    'label' => 'Select/unselect all',
-                ])
-                ->add('send', ChoiceType::class, array(
-                    'multiple' => true,
-                    'expanded' => true,
-                    'choices' => $this->idArray,
-                ))
-                ->add('volunteers')
+            ->add('selectAll', CheckboxType::class,
+                [
+                'mapped' => '0',
+                'label' => 'Select/unselect all',
+            ])
+            ->add('send', ChoiceType::class,
+                array(
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => $this->idArray,
+            ))
+            ->add('volunteers')
         ;
     }
 

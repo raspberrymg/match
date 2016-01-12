@@ -19,6 +19,7 @@ use Truckee\MatchBundle\Tools\Toolbox;
  */
 class ToolboxTest extends \PHPUnit_Framework_TestCase
 {
+
     public function setup()
     {
         $this->repository = $this
@@ -32,8 +33,7 @@ class ToolboxTest extends \PHPUnit_Framework_TestCase
         $this->em->expects($this->once())
             ->method('getRepository')
             ->willReturn($this->repository);
-        $this->user = $this->getMock('Truckee\MatchBundle\Tests\Stub\SomeUser',
-            array('getUserType'));
+        $this->user = $this->getMock('Truckee\MatchBundle\Tests\Stub\SomeUser', array('getUserType'));
         $this->userOptions = array(
             'focus_required' => true,
             'skill_required' => true,

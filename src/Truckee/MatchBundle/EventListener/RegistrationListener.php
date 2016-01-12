@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -10,7 +9,6 @@
  */
 
 //src\Truckee\MatchBundle\EventListener\RegistrationListener
-
 
 namespace Truckee\MatchBundle\EventListener;
 

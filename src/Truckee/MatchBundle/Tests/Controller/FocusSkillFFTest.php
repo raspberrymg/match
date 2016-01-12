@@ -66,8 +66,7 @@ class FocusSkillFFTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editFocus');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Focus criteria not enabled")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Focus criteria not enabled")')->count());
         $this->client->followRedirects(false);
     }
 
@@ -77,8 +76,7 @@ class FocusSkillFFTest extends WebTestCase
         $crawler = $this->adminLogin();
         $crawler = $this->client->request('GET', '/editSkill');
 
-        $this->assertGreaterThan(0,
-            $crawler->filter('html:contains("Skill criteria not enabled")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Skill criteria not enabled")')->count());
         $this->client->followRedirects(false);
     }
 
@@ -86,31 +84,27 @@ class FocusSkillFFTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register/staff');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Focus")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Focus")')->count());
     }
 
     public function testOrganizationEditFocus()
     {
         $crawler = $this->client->request('GET', '/org/edit/1');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Focus")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Focus")')->count());
     }
 
     public function testRegisterVolunteerSkill()
     {
         $crawler = $this->client->request('GET', '/register/staff');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Skill")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Skill")')->count());
     }
 
     public function testOpportunityEditSkill()
     {
         $crawler = $this->client->request('GET', '/opp/edit/1');
 
-        $this->assertEquals(0,
-            $crawler->filter('html:contains("Skill")')->count());
+        $this->assertEquals(0, $crawler->filter('html:contains("Skill")')->count());
     }
 }

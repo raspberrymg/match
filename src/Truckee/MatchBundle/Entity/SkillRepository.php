@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -17,13 +16,14 @@ use Doctrine\ORM\EntityRepository;
 
 class SkillRepository extends EntityRepository
 {
+
     public function getSkillsNoAll()
     {
         $em = $this->getEntityManager();
 
         return $em->createQuery('select s from TruckeeMatchBundle:Skill s '
-                ."WHERE s.skill <> 'All' "
-                .'order by s.skill asc')->getResult();
+                . "WHERE s.skill <> 'All' "
+                . 'order by s.skill asc')->getResult();
     }
 
     public function countSkills()
@@ -31,7 +31,7 @@ class SkillRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         return $em->createQuery('select count(s) from TruckeeMatchBundle:Skill s '
-            ."WHERE s.enabled = '1'")
-            ->getSingleScalarResult();
+                    . "WHERE s.enabled = '1'")
+                ->getSingleScalarResult();
     }
 }

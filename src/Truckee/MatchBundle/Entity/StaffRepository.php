@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -17,14 +16,15 @@ use Doctrine\ORM\EntityRepository;
 
 class StaffRepository extends EntityRepository
 {
+
     public function getActivePersons($id)
     {
         $qb = $this->createQueryBuilder('s');
 
         return $qb->select('s')
-                        ->join('s.organization', 'o')
-                        ->where("o.id = $id")
-                        ->andWhere('s.locked = false')
-                        ->getQuery()->getResult();
+                ->join('s.organization', 'o')
+                ->where("o.id = $id")
+                ->andWhere('s.locked = false')
+                ->getQuery()->getResult();
     }
 }

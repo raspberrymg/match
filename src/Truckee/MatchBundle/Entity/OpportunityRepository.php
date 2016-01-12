@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Truckee\Match package.
  * 
@@ -17,6 +16,7 @@ use Doctrine\ORM\EntityRepository;
 
 class OpportunityRepository extends EntityRepository
 {
+
     /**
      * Return opportunities matching focus and skill criteria
      * or all opportunities for no selections.
@@ -36,11 +36,11 @@ class OpportunityRepository extends EntityRepository
         $conn = $em->getConnection();
 
         $select = "SELECT o.orgName, o.website, o.background, '' as rank, "
-                .'op.id, op.orgId, op.oppName, op.description, op.minAge, op.expireDate '
-                .'FROM opportunity op '
-                .'JOIN organization o ON o.id = op.orgId '
-                .'LEFT OUTER JOIN staff st ON o.id = st.orgID '
-                .'LEFT OUTER JOIN person p ON st.id = p.id ';
+            . 'op.id, op.orgId, op.oppName, op.description, op.minAge, op.expireDate '
+            . 'FROM opportunity op '
+            . 'JOIN organization o ON o.id = op.orgId '
+            . 'LEFT OUTER JOIN staff st ON o.id = st.orgID '
+            . 'LEFT OUTER JOIN person p ON st.id = p.id ';
 
         $now = date_format(new \DateTime(), 'Y-m-d');
 
@@ -51,13 +51,13 @@ class OpportunityRepository extends EntityRepository
         }
 
         $criteria .= "o.active = '1' AND op.active = '1' "
-                ."AND op.expireDate >= '$now' "
-                ."AND p.locked = '0' "
-                .'ORDER BY o.orgName, op.oppName ';
+            . "AND op.expireDate >= '$now' "
+            . "AND p.locked = '0' "
+            . 'ORDER BY o.orgName, op.oppName ';
 
         $foci = $skills = array();
         if (!$focusesExist && !$skillsExist) {
-            $sqlAll = $select.'WHERE '.$criteria;
+            $sqlAll = $select . 'WHERE ' . $criteria;
             $stmt = $conn->executeQuery($sqlAll);
             $opportunities = $stmt->fetchAll();
             if (empty($opportunities)) {
@@ -68,30 +68,29 @@ class OpportunityRepository extends EntityRepository
                 $oppName[$key] = $row['oppName'];
             }
             array_multisort($orgName, SORT_ASC, $oppName, SORT_ASC, $opportunities);
-
         } else {
             $oppByFocus = array();
             $nFocus = ($focusesExist) ? count($data['focuses']) : 0;
             if ($focusesExist) {
                 $foci = $data['focuses'];
                 $sqlFocus = $select
-                        .'JOIN org_focus of ON o.id = of.orgId '
-                        .'JOIN focus f ON f.id = of.focusId '
-                        .'WHERE f.id IN (?) AND '
-                        .$criteria;
+                    . 'JOIN org_focus of ON o.id = of.orgId '
+                    . 'JOIN focus f ON f.id = of.focusId '
+                    . 'WHERE f.id IN (?) AND '
+                    . $criteria;
                 $stmt = $conn->executeQuery($sqlFocus, array($foci), array(\Doctrine\DBAL\Connection::PARAM_INT_ARRAY));
                 $oppByFocus = $stmt->fetchAll();
             }
-            
+
             $oppBySkill = array();
             $nSkill = ($skillsExist) ? count($data['skills']) : 0;
             if ($skillsExist) {
                 $skills = $data['skills'];
                 $sqlSkill = $select
-                        .'JOIN opp_skill os ON op.id = os.oppId '
-                        .'JOIN skill s ON s.id = os.skillId '
-                        .'WHERE s.id IN (?) AND '
-                        .$criteria;
+                    . 'JOIN opp_skill os ON op.id = os.oppId '
+                    . 'JOIN skill s ON s.id = os.skillId '
+                    . 'WHERE s.id IN (?) AND '
+                    . $criteria;
                 $stmt = $conn->executeQuery($sqlSkill, array($skills), array(\Doctrine\DBAL\Connection::PARAM_INT_ARRAY));
                 $oppBySkill = $stmt->fetchAll();
             }
@@ -142,12 +141,12 @@ class OpportunityRepository extends EntityRepository
     public function noEmails()
     {
         return $this->getEntityManager()
-                        ->createQuery(
-                                'SELECT p FROM TruckeeMatchBundle:Opportunity p '
-                                .'LEFT JOIN TruckeeMatchBundle:AdminOutbox a '
-                                ."with p.id = a.oppId AND a.function = 'showMatchedVolunteersAction' "
-                                .'WHERE a.oppId IS NULL'
-                        )->getResult();
+                ->createQuery(
+                    'SELECT p FROM TruckeeMatchBundle:Opportunity p '
+                    . 'LEFT JOIN TruckeeMatchBundle:AdminOutbox a '
+                    . "with p.id = a.oppId AND a.function = 'showMatchedVolunteersAction' "
+                    . 'WHERE a.oppId IS NULL'
+                )->getResult();
     }
 
     /**
@@ -193,7 +192,7 @@ class OpportunityRepository extends EntityRepository
             ->andWhere('a.id is NULL')
             ->setParameter(':month', $expiryMonth)
             ->setParameter(':year', $expiryYear)
-            ;
+        ;
         $notSent = $qb->getQuery()->getResult();
 
         return $notSent;
