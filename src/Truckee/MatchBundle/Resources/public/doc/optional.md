@@ -4,11 +4,11 @@
 
 You can install the [sample criteria](sample_criteria.md) with the following command:
 
-        $ php app/console doctrine:fixture:load --fixtures=src/Truckee/VolunteerBundle/DataFixtures/Criteria
+        $ php app/console doctrine:fixture:load --fixtures=src\Truckee\MatchBundle\DataFixtures\Criteria -n
         
 ####Sample data
 
-You can also start with a set of sample data.  Installing the sample data includes the [sample criteria](sample_criteria.md). The sample data includes:
+You can also start with a set of sample data.  Installing the sample data includes the [sample criteria](sample_criteria.md). The sample data include:
 
 * Volunteer account
     * Name: Harry Volunteer
@@ -22,7 +22,7 @@ You can also start with a set of sample data.  Installing the sample data includ
 
 The command to install the sample data is
 
-        php app/console doctrine:fixtures:load --fixtures=src/Truckee/VolunteerBundle/DataFixtures/SampleData
+        php app/console doctrine:fixtures:load --fixtures=src/Truckee/MatchBundle/DataFixtures/Test -n
         
 ####PostgreSQL configuration
 
@@ -44,7 +44,7 @@ Download the [zip file](https://github.com/truckee/volunteer/archive/master.zip)
         database_driver:    pdo_pgsql
         database_host:      localhost
         database_port:      5432
-        database_name:      volunteer
+        database_name:      match
         database_user:      postgre
 
     Change the parameters as necessary to match your installation.
