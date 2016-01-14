@@ -60,10 +60,13 @@ class DefaultController extends Controller
             $data = $request->get('match_search');
             $tool->setSearchRecord($data, 'opportunity');
             $opportunities = $em->getRepository('TruckeeMatchBundle:Opportunity')->doFocusSkillSearch($data);
+            $emailAllowed = $this->container->getParameter('search_email');
+            $linkTemplate = ($emailAllowed) ? array('default/oppEmailLink.html.twig') : array();
 
             if ($opportunities) {
                 return array(
                     'opportunities' => $opportunities,
+                    'linkTemplate' => $linkTemplate,
                     'title' => 'Search results',
                 );
             }

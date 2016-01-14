@@ -15,7 +15,7 @@
                             {% if opp.website is not empty %}
                             <li><strong>Website: </strong><a href="http://{{ opp.website }}">{{ opp.website }}</a></li>
                             {% endif %}
-                        <li><a href="#" value="{{ opp.id }}" id="emailOrganization" class="btn btn-xs btn-info" >E-mail {{ opp.orgName }}</a>
+                        {% for template in linkTemplate %} {% include template %} {% endfor %}
                     </ul>
                 </div>
             </div>
